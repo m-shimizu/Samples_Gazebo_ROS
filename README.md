@@ -1,6 +1,6 @@
 # Samples_Gazebo_ROS
 This repository has sample codes for Gazebo and/or ROS , sample models and worlds for Gazebo.
-Please find descriptions of each codes and models in [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki).  
+Please find more information in [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki).  
 
 ## Preparing for using this repository
 Just do the next commands.  
