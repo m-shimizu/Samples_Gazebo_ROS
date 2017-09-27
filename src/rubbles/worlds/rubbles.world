@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <world name="default">
+    <gui>
+      <camera name='user_default'>
+        <pose>16 0 12 0 0.6 -3.141</pose>
+      </camera>
+    </gui>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://pioneer3at</uri>
+      <name>pioneer3at_A</name>
+      <pose>-2 -0 0.17 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://pioneer3at</uri>
+      <name>pioneer3at_B</name>
+      <pose>-3 -4 0.17 0 0 0</pose>
+    </include>
+
+    <plugin name="spawn_rubbles" filename="libspawn_rubbles.so"/>
+  </world>
+</sdf>
