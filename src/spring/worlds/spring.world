@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <world name="default">
+    <gui fullscreen='0'>
+      <camera name='user_default'>
+        <pose frame=''>0.137954 -0.002611 0.125655 -0 0.6 -3.141</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://spring</uri>
+      <name>spring</name>
+      <pose>0 0 1 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>
