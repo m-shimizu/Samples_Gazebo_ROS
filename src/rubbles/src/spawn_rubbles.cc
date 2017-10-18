@@ -55,7 +55,7 @@ class Factory : public WorldPlugin
 //    sdf::SDF modelSDF;
     modelSDF[modelnumber].SetFromString(stringcmd);
     sdf::ElementPtr model = modelSDF[modelnumber].root->GetElement("model");
-    model->GetAttribute("name")->SetFromString(modelname);
+    model->GetAttribute("name")->SetFromString(modelfullname);
     _parent->InsertModelSDF(modelSDF[modelnumber]);
   }
 
