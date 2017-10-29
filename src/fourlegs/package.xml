@@ -1,0 +1,27 @@
+<package>
+  <version>2.5.8</version>
+  <name>fourlegs</name>
+  <description>
+    A model can be used as a spring.
+  </description>
+
+  <maintainer email="shimizu@sist.chukyo-u.ac.jp">Masaru Shimizu</maintainer>
+
+  <license>MIT</license>
+
+  <url type="repository">https://github.com/m-shimizu/Samples_Gazebo_ROS</url>
+
+  <author>Masaru Shimizu</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>gazebo_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>libgazebo7-dev</build_depend>
+
+  <run_depend>gazebo_msgs</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>libgazebo7-dev</run_depend>
+
+</package>
