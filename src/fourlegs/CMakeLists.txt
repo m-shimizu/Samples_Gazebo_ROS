@@ -4,9 +4,7 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 ## Following line is required for Gazebo7 and over
 add_compile_options(-std=gnu++11)
-
 set (CMAKE_CXX_FLAGS "-g -Wall")
-
 
 #### CMakeLists for other plugin tutorial
 

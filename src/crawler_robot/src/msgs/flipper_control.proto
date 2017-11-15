@@ -1,0 +1,9 @@
+package flipper_control_msgs.msgs;
+
+message FlipperControl
+{
+  required double                 FR     = 1;
+  required double                 FL     = 2;
+  required double                 RR     = 3;
+  required double                 RL     = 4;
+}
