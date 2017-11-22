@@ -44,7 +44,7 @@ namespace gazebo
     private: physics::JointPtr Joint[MAX_MOTORS];
     private: event::ConnectionPtr updateConnection;
     private: double torque[MAX_MOTORS];
-		private: ATI_PACK* mdblp;
+    private: ATI_PACK* mdblp;
     private: common::Time prevUpdateTime;
 
     private: physics::LinkPtr link, leftWheelLink, rightWheelLink;

@@ -20,40 +20,40 @@
 #include "Motion.hh"
 #include "QuadrupedMotion.hh"
 
-int	doslike_kbhit(void)
+int  doslike_kbhit(void)
 {
-	struct termios	oldt, newt;
-	int	ch;
-	int	oldf;
-	tcgetattr(STDIN_FILENO, &oldt);
-	newt = oldt;
-	newt.c_lflag &= ~(BRKINT | ISTRIP | IXON);
-	newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-	oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-	fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-	ch = getchar();
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-	fcntl(STDIN_FILENO, F_SETFL, oldf);
-	if(ch != EOF)
-	{
-		ungetc(ch, stdin);
-		return 1;
-	}
-	return 0;
+  struct termios  oldt, newt;
+  int  ch;
+  int  oldf;
+  tcgetattr(STDIN_FILENO, &oldt);
+  newt = oldt;
+  newt.c_lflag &= ~(BRKINT | ISTRIP | IXON);
+  newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL);
+  tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+  oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+  fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+  ch = getchar();
+  tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+  fcntl(STDIN_FILENO, F_SETFL, oldf);
+  if(ch != EOF)
+  {
+    ungetc(ch, stdin);
+    return 1;
+  }
+  return 0;
 }
 
-int	doslike_getch(void)
+int  doslike_getch(void)
 {
-	static struct termios	oldt, newt;
-	tcgetattr(STDIN_FILENO, &oldt);
-	newt = oldt;
-	newt.c_lflag &= ~(BRKINT | ISTRIP | IXON);
-	newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-	int c = getchar();
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-	return c;
+  static struct termios  oldt, newt;
+  tcgetattr(STDIN_FILENO, &oldt);
+  newt = oldt;
+  newt.c_lflag &= ~(BRKINT | ISTRIP | IXON);
+  newt.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL);
+  tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+  int c = getchar();
+  tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+  return c;
 }
 
 using namespace gazebo;
@@ -70,7 +70,7 @@ float current_joint_target_angle[JOINTS];
 void set_angle(int _motor, float _angle) // _angle's unit is degree
 {
   if(-1 < _motor && JOINTS > _motor)
-	{
+  {
     current_joint_target_angle[_motor] = _angle / 180.0 * 3.14;
   }
 }
@@ -96,7 +96,7 @@ ATI_CELL  STAND_M[] = {{0, 0} // Motion Data by Each Motor
 ATI_CELL  STAND_M[] = {{0, 50}, {-30, 50} // Motion Data by Each Motor
             ,{  0, 50}, {0, 50}
             ,{0, 50}, {30, 50} };
-						*/
+            */
 ATI*    STAND_ATI[]= {&STDFR,&STDFL,&STDRR,&STDRL};
 float   STAND_MS[] = {1, 1, 1, 1};
 int     STAND_SS[] = {0, 0, 0, 0};
@@ -202,21 +202,21 @@ QuadrupedMotion::QuadrupedMotion()
 void get_joint_info_from_sdf(physics::JointPtr& _joint
                            , const char* joint_name_in_sdf
                            , physics::ModelPtr _model
-								           , sdf::ElementPtr _sdf)
+                           , sdf::ElementPtr _sdf)
 {
   if(_sdf->HasElement(joint_name_in_sdf))
-	{
+  {
     _joint = _model->GetJoint(
         _sdf->GetElement(joint_name_in_sdf)->Get<std::string>());
     if(!_joint)
       gzerr << "Unable to find " << joint_name_in_sdf << "["
             << _sdf->GetElement(joint_name_in_sdf)->Get<std::string>()
-						<< "]" << std::endl;
-	}
+            << "]" << std::endl;
+  }
   else
-	{
+  {
     gzerr << "Quadruped plugin missing <" << joint_name_in_sdf 
-		      << "> element" << std::endl;
+          << "> element" << std::endl;
   }
 }
 
@@ -230,8 +230,8 @@ void QuadrupedMotion::Load(physics::ModelPtr _model,
   this->velSub = this->node->Subscribe(std::string("~/") +
       this->model->GetName()+"/vel_cmd", &QuadrupedMotion::OnVelMsg, this);
   for(int J=0; J < JOINTS; J++)
-	  get_joint_info_from_sdf(this->Joint[J], joint_name[J], _model, _sdf);
-	Init();
+    get_joint_info_from_sdf(this->Joint[J], joint_name[J], _model, _sdf);
+  Init();
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
           boost::bind(&QuadrupedMotion::OnUpdate, this));
 }
@@ -239,15 +239,15 @@ void QuadrupedMotion::Load(physics::ModelPtr _model,
 void Disp_Usage(void)
 {
   static int dec = -1;
-	if(dec < 0)
-	{
-	  dec = 10;
+  if(dec < 0)
+  {
+    dec = 10;
   }
-	else
-	{
-	  dec--;
-	  return;
-	}
+  else
+  {
+    dec--;
+    return;
+  }
   printf("\n");
   printf("Key commands:\n");
   printf(" e:    Go forward\n");
@@ -281,7 +281,7 @@ void QuadrupedMotion::Init()
   Init_Motion(16);
   Init_ML();
   Set_FitSteps(25);
-	for(int J=0; J < JOINTS; J++)
+  for(int J=0; J < JOINTS; J++)
     current_joint_target_angle[J] = 0;
   Disp_Usage();
 }
@@ -289,13 +289,13 @@ void QuadrupedMotion::Init()
 /////////////////////////////////////////////////
 void QuadrupedMotion::OnVelMsg(ConstPosePtr &_msg)
 {
-	/*
+  /*
   double vr, va;
   vr = _msg->position().x();
   va =  msgs::Convert(_msg->orientation()).GetAsEuler().z;
   this->wheelSpeed[LEFT] = vr + va * this->wheelSeparation / 2.0;
   this->wheelSpeed[RIGHT] = vr - va * this->wheelSeparation / 2.0;
-	*/
+  */
 }
 
 #include "Motion.hh"
@@ -317,14 +317,14 @@ void set_walk_motion(ATI_PACK ** mdblp, int kind_of_motion, float motion_speed)
   }
 }
 
-void	check_key_command(ATI_PACK ** mdblp)
+void  check_key_command(ATI_PACK ** mdblp)
 {
   static int   motion_flag  = 0;
   static float motion_speed = 1;
-	if(doslike_kbhit())
-	{
-		int cmd = doslike_getch();
-		switch(cmd)
+  if(doslike_kbhit())
+  {
+    int cmd = doslike_getch();
+    switch(cmd)
     {
       case ' ': StopAllMotions(*mdblp);
             break;
@@ -375,20 +375,20 @@ void QuadrupedMotion::OnUpdate()
   common::Time stepTime = currTime - this->prevUpdateTime;
   */
   static int dec = 10;
-	if(dec < 0)
-	{
-	  dec = 10;
+  if(dec < 0)
+  {
+    dec = 10;
     check_key_command(&mdblp);
   }
-	else
-	  dec--;
+  else
+    dec--;
   for(int _motor = 0; _motor < JOINTS; _motor++)
-	{
-	  float P = current_joint_target_angle[_motor] - this->Joint[_motor]->GetAngle(0).Radian();
-	  P *= 10;
-	  //[JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
-	  // Set torque fitting power and direction calculated by each angle.
-	  // Seting calculated P as torque is very effective to stop shaking legs!!
+  {
+    float P = current_joint_target_angle[_motor] - this->Joint[_motor]->GetAngle(0).Radian();
+    P *= 10;
+    //[JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
+    // Set torque fitting power and direction calculated by each angle.
+    // Seting calculated P as torque is very effective to stop shaking legs!!
     this->Joint[_motor]->SetForce(0, P);
     // Set PID parameters
     this->model->GetJointController()->SetPositionPID(
@@ -396,6 +396,6 @@ void QuadrupedMotion::OnUpdate()
     // Set distination angle
     this->model->GetJointController()->SetPositionTarget(
       this->Joint[_motor]->GetScopedName(), current_joint_target_angle[_motor]); 
-	}
+  }
   this->model->GetJointController()->Update();
 }
