@@ -378,7 +378,7 @@ void QuadrupedMotion::OnUpdate()
   {
     dec = 10;
     check_key_command(&mdblp);
-    MotionPlayer(*mdblp);
+    MotionPlayer(mdblp);
   }
   else
     dec--;
