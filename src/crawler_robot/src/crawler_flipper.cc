@@ -256,6 +256,7 @@ class MobileBasePlugin : public ModelPlugin
     double flp_rr = hinge10->GetAngle(0).Radian();   
     double flp_rl = hinge12->GetAngle(0).Radian();
 //printf("right_front=%6.3f right_rear=%6.3f left_front=%6.3f left_rear=%6.3f \r ", flp_fr, flp_fl, flp_rr, flp_rl);
+    // Following codes are manual flipper PI controls by velocity.
     // Calc anguler velocity of Front Right flipper
     dev_FLP_FR = flp_fr - (-FLP_FR);
     THETA[9] = dev_FLP_FR*(-1)*Gp + dev_FLP_FR_sum*(-1)*Gi;

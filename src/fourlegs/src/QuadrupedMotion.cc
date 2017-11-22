@@ -364,7 +364,6 @@ void  check_key_command(ATI_PACK ** mdblp)
             break;
     }   
   }
-  MotionPlayer(*mdblp);
 }
 
 /////////////////////////////////////////////////
@@ -379,6 +378,7 @@ void QuadrupedMotion::OnUpdate()
   {
     dec = 10;
     check_key_command(&mdblp);
+    MotionPlayer(*mdblp);
   }
   else
     dec--;
@@ -386,9 +386,9 @@ void QuadrupedMotion::OnUpdate()
   {
     float P = current_joint_target_angle[_motor] - this->Joint[_motor]->GetAngle(0).Radian();
     P *= 10;
-    //[JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
-    // Set torque fitting power and direction calculated by each angle.
-    // Seting calculated P as torque is very effective to stop shaking legs!!
+    // See also [JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
+    //  Set torque fitting power and direction calculated by each angle.
+    //  Seting calculated P as torque is very effective to stop shaking legs!!
     this->Joint[_motor]->SetForce(0, P);
     // Set PID parameters
     this->model->GetJointController()->SetPositionPID(
