@@ -16,6 +16,8 @@
 #define Gp 3.0  //0.05
 #define Gi 0.00 //0.00005
 
+#define D_GET_JOINT(J,N) if(!(J = this->model->GetJoint(N))) gzerr << "Unable to find " << N << std::endl
+
 namespace gazebo
 {
 class MobileBasePlugin : public ModelPlugin
@@ -92,7 +94,7 @@ class MobileBasePlugin : public ModelPlugin
     dev_FLP_FR_sum = dev_FLP_FL_sum = dev_FLP_RR_sum = dev_FLP_RL_sum = 0;
     wheelRadius     = 0.2;
     wheelSeparation = 1;
-    for(int i = 0; i < 30; i++)
+    for(unsigned int i = 0; i < sizeof(THETA)/sizeof(THETA[0]); i++)
       THETA[i] = 0;
   }
 
@@ -125,42 +127,41 @@ class MobileBasePlugin : public ModelPlugin
     }
     else
         this->gain = _sdf->Get<double>("gain");
-    hinge1 = this->model->GetJoint("right_front");
-    hinge2 = this->model->GetJoint("right_center1");
-    hinge3 = this->model->GetJoint("right_center2");
-    hinge4 = this->model->GetJoint("right_rear");
+    D_GET_JOINT(hinge1,"right_front");
+    D_GET_JOINT(hinge2,"right_center1");
+    D_GET_JOINT(hinge3,"right_center2");
+    D_GET_JOINT(hinge4,"right_rear");
 
-    hinge5 = this->model->GetJoint("left_front");
-    hinge6 = this->model->GetJoint("left_center1");
-    hinge7 = this->model->GetJoint("left_center2");
-    hinge8 = this->model->GetJoint("left_rear");
+    D_GET_JOINT(hinge5,"left_front");
+    D_GET_JOINT(hinge6,"left_center1");
+    D_GET_JOINT(hinge7,"left_center2");
+    D_GET_JOINT(hinge8,"left_rear");
 
-    hinge9 = this->model->GetJoint("right_front_arm");
-    hinge10 = this->model->GetJoint("right_rear_arm");
-    hinge11 = this->model->GetJoint("left_front_arm");
-    hinge12 = this->model->GetJoint("left_rear_arm");
+    D_GET_JOINT(hinge9,"right_front_arm");
+    D_GET_JOINT(hinge10,"right_rear_arm");
+    D_GET_JOINT(hinge11,"left_front_arm");
+    D_GET_JOINT(hinge12,"left_rear_arm");
 
-    hinge13 = this->model->GetJoint("right_front_arm_wheel_1");
-    hinge14 = this->model->GetJoint("right_front_arm_wheel_2");
-    hinge15 = this->model->GetJoint("right_front_arm_wheel_3");
+    D_GET_JOINT(hinge13,"right_front_arm_wheel_1");
+    D_GET_JOINT(hinge14,"right_front_arm_wheel_2");
+    D_GET_JOINT(hinge15,"right_front_arm_wheel_3");
 
-    hinge16 = this->model->GetJoint("left_front_arm_wheel_1");
-    hinge17 = this->model->GetJoint("left_front_arm_wheel_2");
-    hinge18 = this->model->GetJoint("left_front_arm_wheel_3");
+    D_GET_JOINT(hinge16,"left_front_arm_wheel_1");
+    D_GET_JOINT(hinge17,"left_front_arm_wheel_2");
+    D_GET_JOINT(hinge18,"left_front_arm_wheel_3");
 
-    hinge19 = this->model->GetJoint("right_rear_arm_wheel_1");
-    hinge20 = this->model->GetJoint("right_rear_arm_wheel_2");
-    hinge21 = this->model->GetJoint("right_rear_arm_wheel_3");
+    D_GET_JOINT(hinge19,"right_rear_arm_wheel_1");
+    D_GET_JOINT(hinge20,"right_rear_arm_wheel_2");
+    D_GET_JOINT(hinge21,"right_rear_arm_wheel_3");
 
-    hinge22 = this->model->GetJoint("left_rear_arm_wheel_1");
-    hinge23 = this->model->GetJoint("left_rear_arm_wheel_2");
-    hinge24 = this->model->GetJoint("left_rear_arm_wheel_3");
+    D_GET_JOINT(hinge22,"left_rear_arm_wheel_1");
+    D_GET_JOINT(hinge23,"left_rear_arm_wheel_2");
+    D_GET_JOINT(hinge24,"left_rear_arm_wheel_3");
 
-    hinge25 = this->model->GetJoint("right_sub2");
-    hinge26 = this->model->GetJoint("right_sub3");
-
-    hinge27 = this->model->GetJoint("left_sub2");
-    hinge28 = this->model->GetJoint("left_sub3");
+    D_GET_JOINT(hinge25,"right_sub2");
+    D_GET_JOINT(hinge26,"right_sub3");
+    D_GET_JOINT(hinge27,"left_sub2");
+    D_GET_JOINT(hinge28,"left_sub3");
     return true;
   }
 
@@ -242,10 +243,10 @@ class MobileBasePlugin : public ModelPlugin
     hinge22->SetVelocity(0, THETA[22]);
     hinge23->SetVelocity(0, THETA[23]);
     hinge24->SetVelocity(0, THETA[24]);
-    hinge21->SetVelocity(0, THETA[25]);
-    hinge22->SetVelocity(0, THETA[26]);
-    hinge23->SetVelocity(0, THETA[27]);
-    hinge24->SetVelocity(0, THETA[28]);
+    hinge25->SetVelocity(0, THETA[25]);
+    hinge26->SetVelocity(0, THETA[26]);
+    hinge27->SetVelocity(0, THETA[27]);
+    hinge28->SetVelocity(0, THETA[28]);
   }
 
   void MoveFlipper(void)

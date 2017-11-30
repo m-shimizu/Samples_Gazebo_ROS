@@ -11,7 +11,7 @@ You can run this sample by using a following command instead of using roslaunch.
 
 And you can control the robot with a teleop software by following command:  
 
-    $ rosrun crawler_robot teleope_crawler_robot crawler_robot 2  
+    $ rosrun crawler_robot teleop_crawler_robot crawler_robot 2  
     
 At the end of command, where "crawler_robot" is the robot name on Gazebo, where "2" is the direction of z axis of twist message.  
 You can find more details in crawler_flipper.cc and teleop_crawler_robot.cc.  
