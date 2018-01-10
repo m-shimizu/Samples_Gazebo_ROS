@@ -34,6 +34,7 @@ namespace gazebo
     public: virtual void Init();
 
     private: void OnUpdate();
+    private: void Move_A_Joint(int _motor);
 
     private: void OnVelMsg(ConstPosePtr &_msg);
 

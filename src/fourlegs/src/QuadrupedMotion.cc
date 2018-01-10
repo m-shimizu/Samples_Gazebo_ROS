@@ -59,17 +59,17 @@ int  doslike_getch(void)
 using namespace gazebo;
 GZ_REGISTER_MODEL_PLUGIN(QuadrupedMotion)
 
-#define JOINTS 12
-
-const char*joint_name[JOINTS]={"J_FL_B20","J_FR_B20","J_RR_B20","J_RL_B20"
+const char*joint_name[]={"J_FL_B20","J_FR_B20","J_RR_B20","J_RL_B20"
                            ,"J_FL_021", "J_FR_021", "J_RR_021", "J_RL_021"
                            ,"J_FL_122", "J_FR_122", "J_RR_122", "J_RL_122"};
 
-float current_joint_target_angle[JOINTS];
+#define G_JOINTS (int)(sizeof(joint_name)/sizeof(char*))
+
+float current_joint_target_angle[G_JOINTS];
 
 void set_angle(int _motor, float _angle) // _angle's unit is degree
 {
-  if(-1 < _motor && JOINTS > _motor)
+  if(-1 < _motor && G_JOINTS > _motor)
   {
     current_joint_target_angle[_motor] = _angle / 180.0 * 3.14;
   }
@@ -229,7 +229,7 @@ void QuadrupedMotion::Load(physics::ModelPtr _model,
   this->node->Init(this->model->GetWorld()->GetName());
   this->velSub = this->node->Subscribe(std::string("~/") +
       this->model->GetName()+"/vel_cmd", &QuadrupedMotion::OnVelMsg, this);
-  for(int J=0; J < JOINTS; J++)
+  for(int J=0; J < G_JOINTS; J++)
     get_joint_info_from_sdf(this->Joint[J], joint_name[J], _model, _sdf);
   Init();
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
@@ -281,7 +281,7 @@ void QuadrupedMotion::Init()
   Init_Motion(16);
   Init_ML();
   Set_FitSteps(25);
-  for(int J=0; J < JOINTS; J++)
+  for(int J=0; J < G_JOINTS; J++)
     current_joint_target_angle[J] = 0;
   Disp_Usage();
 }
@@ -367,6 +367,23 @@ void  check_key_command(ATI_PACK ** mdblp)
 }
 
 /////////////////////////////////////////////////
+void QuadrupedMotion::Move_A_Joint(int _motor)
+{
+  float P = current_joint_target_angle[_motor] - this->Joint[_motor]->GetAngle(0).Radian();
+  P *= 10;
+  // See also [JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
+  //  Set torque fitting power and direction calculated by each angle.
+  //  Seting calculated P as torque is very effective to stop shaking legs!!
+  this->Joint[_motor]->SetForce(0, P);
+  // Set PID parameters
+  this->model->GetJointController()->SetPositionPID(
+    this->Joint[_motor]->GetScopedName(), common::PID(0.4, 1, 0.005));
+  // Set distination angle
+  this->model->GetJointController()->SetPositionTarget(
+    this->Joint[_motor]->GetScopedName(), current_joint_target_angle[_motor]); 
+}
+
+/////////////////////////////////////////////////
 void QuadrupedMotion::OnUpdate()
 {
   /* double d1, d2;
@@ -382,20 +399,7 @@ void QuadrupedMotion::OnUpdate()
   }
   else
     dec--;
-  for(int _motor = 0; _motor < JOINTS; _motor++)
-  {
-    float P = current_joint_target_angle[_motor] - this->Joint[_motor]->GetAngle(0).Radian();
-    P *= 10;
-    // See also [JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
-    //  Set torque fitting power and direction calculated by each angle.
-    //  Seting calculated P as torque is very effective to stop shaking legs!!
-    this->Joint[_motor]->SetForce(0, P);
-    // Set PID parameters
-    this->model->GetJointController()->SetPositionPID(
-      this->Joint[_motor]->GetScopedName(), common::PID(1, 0, 0));
-    // Set distination angle
-    this->model->GetJointController()->SetPositionTarget(
-      this->Joint[_motor]->GetScopedName(), current_joint_target_angle[_motor]); 
-  }
+  for(int _motor = 0; _motor < G_JOINTS; _motor++)
+    Move_A_Joint(_motor);
   this->model->GetJointController()->Update();
 }
