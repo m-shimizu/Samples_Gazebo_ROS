@@ -1,4 +1,4 @@
-# fourlegs  
+# crawler_robot  
 
 This sample shows a crawler robot model with a teleoperation software.  
 The robot and the teleope software can talk in Gazebo topic.  
@@ -16,4 +16,4 @@ And you can control the robot with a teleop software by following command:
 At the end of command, where "crawler_robot" is the robot name on Gazebo, where "2" is the direction of z axis of twist message.  
 You can find more details in crawler_flipper.cc and teleop_crawler_robot.cc.  
     
-Date : 15 Nov. 2017
+Date : 30 Nov. 2017
