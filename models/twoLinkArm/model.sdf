@@ -1,0 +1,204 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+
+    <model name="twoLinkArm">
+      <pose>0 0 0  0 0 0</pose>
+      <static>false</static>
+
+      <link name="endeffector">
+       <pose>-0.4 0 0.02 0 0 0</pose>
+       <inertial>
+         <pose>0 0 0 0 0 0</pose>
+         <mass>0.063912</mass>
+         <inertia>
+           <ixx>16510.540E-9</ixx>
+           <ixy>0</ixy>
+           <ixz>0</ixz>
+           <iyy>16510.543E-9</iyy>
+           <iyz>0</iyz>
+           <izz>19972.429E-9</izz>
+         </inertia>
+       </inertial>
+
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://twoLinkArm/EndEffector.stl</uri>
+              <scale> 0.001 0.001 0.001 </scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://twoLinkArm/EndEffector.stl</uri>
+              <scale> 0.001 0.001 0.001 </scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+
+      <link name="arm1">
+       <pose>-0.3 0 0.0425 0 0 0</pose>
+       <inertial>
+         <pose>0 0 0 0 0 0</pose>
+         <mass>0.478160</mass>
+         <inertia>
+           <ixx>105725.981E-9</ixx>
+           <ixy>0</ixy>
+           <ixz>0</ixz>
+           <iyy>2271699.370E-9</iyy>
+           <iyz>0</iyz>
+           <izz>2359494.356E-9</izz>
+         </inertia>
+       </inertial>
+
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://twoLinkArm/Arm1.stl</uri>
+              <scale> 0.001 0.001 0.001 </scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://twoLinkArm/Arm1.stl</uri>
+              <scale> 0.001 0.001 0.001 </scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+
+      <link name="arm2">
+       <pose>-0.1 0 0.0275 0 0 0</pose>
+       <inertial>
+         <pose>0 0 0 0 0 0</pose>
+         <mass>0.478160</mass>
+         <inertia>
+           <ixx>105725.981E-9</ixx>
+           <ixy>0</ixy>
+           <ixz>0</ixz>
+           <iyy>2271699.370E-9</iyy>
+           <iyz>0</iyz>
+           <izz>2359494.356E-9</izz>
+         </inertia>
+       </inertial>
+
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://twoLinkArm/Arm1.stl</uri>
+              <scale> 0.001 0.001 0.001 </scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://twoLinkArm/Arm1.stl</uri>
+              <scale> 0.001 0.001 0.001 </scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+
+      <link name="base">
+       <pose>0 0 0.01 0 0 0</pose>
+       <inertial>
+         <pose>0.042786 0 0 0 0 0</pose>
+         <mass>1.756215</mass>
+         <inertia>
+           <ixx>288470.771E-9</ixx>
+           <ixy>0</ixy>
+           <ixz>0</ixz>
+           <iyy>5229270.771E-9</iyy>
+           <iyz>0</iyz>
+           <izz>5400660.569E-9</izz>
+         </inertia>
+       </inertial>
+
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://twoLinkArm/Base.stl</uri>
+              <scale> 0.001 0.001 0.001 </scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://twoLinkArm/Base.stl</uri>
+              <scale> 0.001 0.001 0.001 </scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+
+    <joint type="revolute" name="fix_base">
+      <pose>0 0 0 0 0 0</pose>
+      <child>base</child>
+      <parent>world</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="base_arm2">
+      <pose>0.1 0 0 0 0 0</pose>
+      <child>arm2</child>
+      <parent>base</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.76</lower>
+          <upper>0.76</upper>
+        </limit>
+        <dynamics>
+          <friction>0.01</friction>
+        </dynamics>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="arm2_arm1">
+      <pose>0.1 0 0 0 0 0</pose>
+      <child>arm1</child>
+      <parent>arm2</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.57</lower>
+          <upper>0</upper>
+        </limit>
+        <dynamics>
+          <friction>0.01</friction>
+        </dynamics>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="arm1_endeffector">
+      <pose>0 0 0 0 0 0</pose>
+      <child>endeffector</child>
+      <parent>arm1</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+
+    <plugin name="twoLinkArmPlugin" filename="libtwoLinkArmPlugin.so">
+      <shoulder>base_arm2</shoulder>
+      <elbow>arm2_arm1</elbow>
+    </plugin>
+
+    </model>
+</sdf>

@@ -1,8 +1,8 @@
 <package>
   <version>2.5.8</version>
-  <name>fourlegs</name>
+  <name>twolinkarm</name>
   <description>
-    A four leg robot.
+    two link arm robot model.
   </description>
 
   <maintainer email="shimizu@sist.chukyo-u.ac.jp">Masaru Shimizu</maintainer>

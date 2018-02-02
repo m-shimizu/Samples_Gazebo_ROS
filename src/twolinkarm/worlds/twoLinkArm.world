@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <world name="default">
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <pose>0 0 0 0 0 3.14159265</pose>
+      <uri>model://twoLinkArm</uri>
+    </include>
+
+    <model name="pack">
+      <link name="pack">
+        <pose>1 0 0.005 0 0 0</pose>
+        <visual name="visual">
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+          <geometry>
+            <cylinder><radius>0.05</radius><length>0.01</length></cylinder>
+          </geometry>
+        </visual>
+        <collision name="collision">
+          <surface>
+            <friction>
+              <ode>
+                <mu>0</mu>
+                <mu2>0</mu2>
+              </ode>
+            </friction>
+          </surface>
+          <geometry>
+            <cylinder><radius>0.05</radius><length>0.01</length></cylinder>
+          </geometry>
+        </collision>
+      </link>
+      <plugin name="push_pack" filename="libpush_pack.so"/>
+    </model>
+
+    <model name="wall">
+      <static>1</static>
+
+      <link name="wall1">
+        <pose>1 1 0.025 0 0 0</pose>
+        <visual name="visual">
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+          <geometry>
+            <box><size>2 0.05 0.05</size></box>
+          </geometry>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box><size>2 0.05 0.05</size></box>
+          </geometry>
+        </collision>
+      </link>
+
+      <link name="wall2">
+        <pose>1 -1 0.025 0 0 0</pose>
+        <visual name="visual">
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+          <geometry>
+            <box><size>2 0.05 0.05</size></box>
+          </geometry>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box><size>2 0.05 0.05</size></box>
+          </geometry>
+        </collision>
+      </link>
+
+      <link name="wall3">
+        <pose>2 0 0.025 0 0 1.57</pose>
+        <visual name="visual">
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+          <geometry>
+            <box><size>2 0.05 0.05</size></box>
+          </geometry>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box><size>2 0.05 0.05</size></box>
+          </geometry>
+        </collision>
+      </link>
+
+      <link name="wall4">
+        <pose>-0.05 -0.55 0.025 0 0 1.57</pose>
+        <visual name="visual">
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+          <geometry>
+            <box><size>1 0.05 0.05</size></box>
+          </geometry>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box><size>1 0.05 0.05</size></box>
+          </geometry>
+        </collision>
+      </link>
+
+      <link name="wall5">
+        <pose>-0.05 0.55 0.025 0 0 1.57</pose>
+        <visual name="visual">
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+          <geometry>
+            <box><size>1 0.05 0.05</size></box>
+          </geometry>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box><size>1 0.05 0.05</size></box>
+          </geometry>
+        </collision>
+      </link>
+
+    </model>
+    
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>0.961893 -0.002183 1.97459 2.4e-05 1.5698 1.56827</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+  </world>
+</sdf>
