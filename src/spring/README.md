@@ -2,9 +2,15 @@
 
 This sample shows a functionable spring model.  
 In this sample, you can find a spring model with a plugin "libSpring.so" and a source file as "src/Spring.cc".  
+You can find how to get the location of a link consist of a liner joint.  
 There is a world file as "worlds/spring.world" to show a spring model.  
 
-You can run this sample by using a following command instead of using roslaunch.
+## How to run.  
+You can run this sample by using a following command.  
+
+    $ roslaunch spring spawn_spring.launch  
+
+Or you can run this sample by using a following command instead of using roslaunch.
 
     $ gazebo ~/Samples_Gazebo_ROS/src/spring/worlds/spring.world  
     
