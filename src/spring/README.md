@@ -21,6 +21,10 @@ This package uses following model.
 
 |Model Name|Plugin(Program) Filename(s)|
 |---|---|
-|[spring](https://github.com/m-shimizu/Samples_Gazebo_ROS/tree/master/models/spring)|Spring.cc<br>Spring.hh|
+|[spring](https://github.com/m-shimizu/Samples_Gazebo_ROS/tree/master/models/spring)|Spring.cc|
+
+|Program file|Description|
+|---|---|
+|Spring.cc|The plugin program.|
 
 Date : 2 Feb. 2018

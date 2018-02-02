@@ -20,4 +20,8 @@ This package uses following model.
 |---|---|
 |None|spawn_rubbles.cc|
 
+|Program file|Description|
+|---|---|
+|spawn_rubbles.cc|The plugin program.|
+
 Date : 2 Feb. 2018

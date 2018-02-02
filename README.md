@@ -12,13 +12,13 @@ Just do the next commands.
     $ source setup.bash  
 
 ## How to run each package.  
-In the next table of [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki), you can find a link for each package.  
+In the table of [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki), you can find a link for each package.  
 And please visit each package directory to find how to run the package and more details.  
 Please click a package name which you want.  
 
 ## Each package direcotry.  
-Each packages are under "~/Sample_Gazebo_ROS/src" directory.  
-You can find source files, world files, launch files and etc under a sub-directory of a package.  
+You can find each package under "~/Sample_Gazebo_ROS/src" directory.  
+And you can find source files, world files, launch files and other resources under sub-directories of a package.  
 
 ## Location of models.
 But all models are under "~/Sample_Gazebo_ROS/models" directory.  

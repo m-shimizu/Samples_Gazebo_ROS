@@ -35,7 +35,7 @@ This package uses following model.
 |Program file|Description|
 |---|---|
 |crawler_flipper.cc|The plugin program.<br>This program can hear only gazebo topic.|
-|flipper_control.proto|A original message type definition for the crawler_robot.|
+|flipper_control.proto|An original message type definition for the crawler_robot.|
 |teleop_crawler_robot.cc|An executable crawler_robot tele-operation program.<br>This program can tell only gazebo topic.|
 
 Date : 2 Feb. 2018
