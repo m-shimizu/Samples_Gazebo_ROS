@@ -1,5 +1,5 @@
 # Samples_Gazebo_ROS
-This repository has sample codes for Gazebo and/or ROS , sample models and worlds for Gazebo.
+This repository has several packages to show sample codes for Gazebo and/or ROS, sample models and worlds for Gazebo.  
 Please find more information in [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki).  
 
 ## Preparing for using this repository.  
@@ -11,7 +11,12 @@ Just do the next commands.
     $ catkin_make  
     $ source setup.bash  
 
-## Locations of each packages.  
+## How to run each package.  
+In the next table of [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki), you can find a link for each package.  
+And please visit each package directory to find how to run the package and more details.  
+Please click a package name which you want.  
+
+## Each package direcotry.  
 Each packages are under "~/Sample_Gazebo_ROS/src" directory.  
 You can find source files, world files, launch files and etc under a sub-directory of a package.  
 

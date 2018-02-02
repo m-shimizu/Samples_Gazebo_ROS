@@ -13,4 +13,11 @@ Or you can run this sample by using a following command instead of using roslaun
 
     $ gazebo ~/Samples_Gazebo_ROS/src/rubbles/worlds/rubbles.world  
 
-Date : 27 Sep. 2017
+## Plugin.  
+This package uses following model.  
+
+|Model Name|Plugin(Program) Filename(s)|
+|---|---|
+|None|spawn_rubbles.cc|
+
+Date : 2 Feb. 2018

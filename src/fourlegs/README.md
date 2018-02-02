@@ -15,4 +15,16 @@ Or you can run this sample by using a following command instead of using roslaun
     
 You can see an usage for operating the fourlegs robot on the terminal you started this repository.  
 
-Date : 29 Oct. 2017
+## Model and plugin.  
+This package uses following model.  
+
+|Model Name|Plugin(Program) Filename(s)|
+|---|---|
+|[fourlegs](https://github.com/m-shimizu/Samples_Gazebo_ROS/tree/master/models/fourlegs)|QuadrupedMotion.cc<br>Motion.cc|
+
+|Program file|Description|
+|---|---|
+|QuadrupedMotion.cc|The plugin program.|
+|Motion.cc|A program for generating leg motion.|
+
+Date : 2 Feb. 2018

@@ -24,5 +24,18 @@ You can control the robot with a teleop software by following command:
     
 At the end of command, where "crawler_robot" is the robot name on Gazebo, where "2" is the direction of z axis of twist message.  
 You can find more details in crawler_flipper.cc and teleop_crawler_robot.cc.  
-    
-Date : 30 Nov. 2017
+
+## Model and plugin.  
+This package uses following model.  
+
+|Model Name|Plugin(Program) Filename(s)|
+|---|---|
+|[crawler_robot](https://github.com/m-shimizu/Samples_Gazebo_ROS/tree/master/models/crawler_robot)|crawler_flipper.cc<br>msgs/flipper_control.proto<br>teleop_crawler_robot.cc|
+
+|Program file|Description|
+|---|---|
+|crawler_flipper.cc|The plugin program.<br>This program can hear only gazebo topic.|
+|flipper_control.proto|A original message type definition for the crawler_robot.|
+|teleop_crawler_robot.cc|An executable crawler_robot tele-operation program.<br>This program can tell only gazebo topic.|
+
+Date : 2 Feb. 2018
