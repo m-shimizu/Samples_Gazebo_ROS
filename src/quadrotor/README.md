@@ -13,7 +13,6 @@ quadrotor\_ros was imported from ![tu-darmstad](https://github.com/tu-darmstadt-
 * hector_quadrotor_actions
 * hector_quadrotor_controller_gazebo
 * hector_quadrotor_controllers
-* hector_quadrotor_description
 * hector_quadrotor_gazebo
 * hector_quadrotor_gazebo_plugins
 * hector_quadrotor_interface

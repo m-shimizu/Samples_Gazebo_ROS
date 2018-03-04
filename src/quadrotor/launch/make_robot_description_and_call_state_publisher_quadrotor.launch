@@ -4,7 +4,9 @@
   <arg name="robot_name" default="robot"/>
 
   <group ns="$(arg robot_name)">
+  <!--
   <arg name="model" default="$(find hector_quadrotor_description)/urdf/quadrotor.gazebo.xacro"/>
+  -->
   <arg name="controllers" default="
     controller/position
     controller/velocity
