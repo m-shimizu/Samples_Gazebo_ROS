@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+
+  <param name="use_sim_time" value="true"/>
+  
+  <arg name="paused" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="verbose" default="false"/>
+  <arg name="world" default="quadrotor.world"/>
+
+  <!-- Launch robot state publishers -->
+
+  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
+    <arg name="robot_name" value="robot"/>
+  </include>
+
+
+  <!-- Launch gazebo -->
+
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(find quadrotor)/worlds/$(arg world)"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+
+  <!-- Transfer sound to ROS -->
+
+  <include file="$(find audio_capture)/launch/capture.launch">
+    <arg name="ns" value="gazebo"/>
+    <arg name="device" value="pulse"/>
+  </include>
+
+</launch>
+
+

@@ -1,0 +1,7 @@
+ - name: /thor_mang/right_hand_traj_controller
+   action_ns: follow_joint_trajectory
+   type: FollowJointTrajectory
+   default: true
+   joints:
+      - r_f0_j0
+      - r_f1_j0

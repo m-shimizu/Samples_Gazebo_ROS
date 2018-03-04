@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ $# -eq 2 ] || [ $# -eq 4 ] ; then
+  ORG=`echo $1 | sed 's/\///g'`
+  CLN=`echo $2 | sed 's/\///g'`
+  if [ ! -d $ORG ] ; then
+    echo There is NOT $ORG
+    exit 1
+  fi
+  backupTimeStamp="`ls -AltR --time-style="+_%Y%m%d_%H%M%S" $CLN 2> /dev/null | awk '{print $6}' | egrep _'[0-9]{8}'_'[0-9]{6}' | sort -nr | head -n 1 `"
+  mv $CLN $CLN$backupTimeStamp 2> /dev/null
+  cp -r $ORG $CLN 2> /dev/null
+  sed -i -e "s/$ORG/$CLN/g" $CLN/model.config
+  sed -i -e "s/model:\/\/$ORG\//model:\/\/$CLN\//g" $CLN/*.sdf
+  sed -i -e "s/>$ORG/>$CLN/g" $CLN/*.sdf
+  sed -i -e "s/>\/$ORG/>\/$CLN/g" $CLN/*.sdf
+  if [ $# -eq 4 ] ; then
+    sed -i -e "s/\"$3\"/\"$4\"/g" $CLN/*.sdf
+    sed -i -e "s/robotNamespace>$3/robotNamespace>$4/g" $CLN/*.sdf
+  else
+    sed -i -e "s/\"$ORG\"/\"$CLN\"/g" $CLN/*.sdf
+  fi
+else
+  echo Usage : $0 ORIGINAL_SDF_DIRECOTRY_NAME CLONED_SDF_DIRECTORY_NAME [ORIGINAL_robotoNamespace CLONED_robotNamespace]
+  echo   If SDF_DIRECOTRY_NAME is not same that robotNamespace, you should use arg3 and arg4.
+fi
+

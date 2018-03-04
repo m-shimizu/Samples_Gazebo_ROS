@@ -1,0 +1,216 @@
+#thor:
+# trajectory controllers ---------------------------------------
+
+#thor:
+# Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 125
+
+# Publish all sensor data -----------------------------------
+  imu_sensor_controller:
+    type: imu_sensor_controller/ImuSensorController
+    publish_rate: 125
+    
+  head_lidar_controller:
+    type: effort_controllers/JointVelocityController
+    joint: head_lidar_spinning_joint
+    pid: {p: 0.4, i: 0.0, d: 0.0}
+    
+  flipper_traj_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - front_flipper_joint
+      - rear_flipper_joint
+
+    gains: # Required because we're controlling an effort interface
+      front_flipper_joint: {p: 4000,  d: 0, i: 0, i_clamp: 0}
+      rear_flipper_joint:  {p: 4000,  d: 0, i: 0, i_clamp: 0}
+
+    constraints:
+      goal_time: 4.0
+      stopped_velocity_tolerance: 1.0
+      front_flipper_joint:
+        goal: 1.0
+        trajectory: 1.0
+      rear_flipper_joint:
+        goal: 1.0
+        trajectory: 1.0
+
+    stop_trajectory_duration: 1.0
+    
+  left_arm_traj_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - l_shoulder_pitch
+      - l_shoulder_roll
+      - l_shoulder_yaw
+      - l_elbow
+      - l_wrist_yaw1
+      - l_wrist_roll
+      - l_wrist_yaw2
+      
+    gains: # Required because we're controlling an effort interface
+      l_shoulder_pitch: {p: &kp_shoulder_pitch 300,  d: &kd_shoulder_pitch 0.01, i: &ki_default 100, i_clamp_min: &ki__clamp_default 0, i_clamp_max: *ki__clamp_default}
+      l_shoulder_roll: {p: &kp_shoulder_roll 300,  d: &kd_shoulder_roll 1, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      l_shoulder_yaw: {p: &kp_shoulder_yaw 200,  d: &kd_shoulder_yaw 0.01, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      l_elbow: {p: &kp_elbow 300,  d: &kd_elbow 0.01, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      l_wrist_yaw1: {p: &kp_default_arms 50,  d: &kd_default_arms 0.01, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      l_wrist_roll: {p: *kp_default_arms,  d: *kd_default_arms, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      l_wrist_yaw2: {p: *kp_default_arms,  d: *kd_default_arms, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      
+    constraints:
+      goal_time: &goal_time_constraint 4.0
+      stopped_velocity_tolerance: 1.0
+      l_shoulder_pitch:
+        goal: &goal_pos_constraint 0.5
+        trajectory: &trajectory_pos_constraint 1.0
+      l_shoulder_roll:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      l_shoulder_yaw:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      l_elbow:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      l_wrist_yaw1:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      l_wrist_roll:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      l_wrist_yaw2:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+        
+    stop_trajectory_duration: 1.0
+
+  right_arm_traj_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - r_shoulder_pitch
+      - r_shoulder_roll
+      - r_shoulder_yaw
+      - r_elbow
+      - r_wrist_yaw1
+      - r_wrist_roll
+      - r_wrist_yaw2
+      
+    gains: # Required because we're controlling an effort interface
+      r_shoulder_pitch: {p: *kp_shoulder_pitch,  d: *kd_shoulder_pitch, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      r_shoulder_roll: {p: *kp_shoulder_roll,  d: *kd_shoulder_roll, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      r_shoulder_yaw: {p: *kp_shoulder_yaw,  d: *kd_shoulder_yaw, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      r_elbow: {p: *kp_elbow,  d: *kd_elbow, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      r_wrist_yaw1: {p: *kp_default_arms,  d: *kd_default_arms, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      r_wrist_roll: {p: *kp_default_arms,  d: *kd_default_arms, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      r_wrist_yaw2: {p: *kp_default_arms,  d: *kd_default_arms, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      
+    constraints:
+      goal_time: *goal_time_constraint
+      stopped_velocity_tolerance: 1.0
+      r_shoulder_pitch:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      r_shoulder_roll:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      r_shoulder_yaw:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      r_elbow:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      r_wrist_yaw1:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      r_wrist_roll:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+      r_wrist_yaw2:
+        goal: *goal_pos_constraint
+        trajectory: *trajectory_pos_constraint
+        
+    stop_trajectory_duration: 1.0
+    
+  torso_traj_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - waist_pan
+      - waist_tilt
+      
+    gains: # Required because we're controlling an effort interface
+      waist_pan: {p: &kp_default 2000, d: &kd_default 0.5, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      waist_tilt: {p: 2000,  d: 10, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}     
+
+    constraints:
+      goal_time: *goal_time_constraint
+      waist_pan:
+        goal: *goal_pos_constraint
+      waist_tilt:
+        goal: *goal_pos_constraint
+    
+    stop_trajectory_duration: 1.0
+    
+  head_traj_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - head_pan
+      - head_tilt
+      
+    gains: # Required because we're controlling an effort interface
+      head_pan: {p: *kp_default_arms,  d: 0, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+      head_tilt: {p: *kp_default_arms,  d: 0, i: *ki_default, i_clamp_min: *ki__clamp_default, i_clamp_max: *ki__clamp_default}
+
+    constraints:
+      goal_time: *goal_time_constraint
+      head_pan:
+        goal: *goal_pos_constraint
+      head_tilt:
+        goal: *goal_pos_constraint
+    
+    stop_trajectory_duration: 1.0 
+    
+    
+# Hands --------------------------------------------------
+# VT Sim Hands --------------------------------------------------
+  left_hand_traj_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - l_f0_j0
+      - l_f1_j0
+
+    gains: # Required because we're controlling an effort interface
+      l_f0_j0: {p: &kp_default_hands 100,  d: &kd_default_hands 0.0, i: &ki_default_hands 0, i_clamp: &ki__clamp_default_hands 0}
+      l_f1_j0: {p: *kp_default_hands,  d: *kd_default_hands, i: *ki_default_hands, i_clamp: *ki__clamp_default_hands}
+
+
+    constraints:
+      goal_time: &goal_time_constraint_hands 4.0
+      l_f0_j0:
+        goal: &goal_pos_constraint_hands 0.5
+      l_f1_j0:
+        goal: *goal_pos_constraint_hands
+
+    stop_trajectory_duration: 0.0
+
+# VT Sim Hands --------------------------------------------------
+  right_hand_traj_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - r_f0_j0
+      - r_f1_j0
+
+    gains: # Required because we're controlling an effort interface
+      r_f0_j0: {p: *kp_default_hands,  d: *kd_default_hands, i: *ki_default_hands, i_clamp: *ki__clamp_default_hands}
+      r_f1_j0: {p: *kp_default_hands,  d: *kd_default_hands, i: *ki_default_hands, i_clamp: *ki__clamp_default_hands}
+
+
+    constraints:
+      goal_time: *goal_time_constraint_hands
+      r_f0_j0:
+        goal: *goal_pos_constraint_hands
+      r_f1_j0:
+        goal: *goal_pos_constraint_hands
+
+    stop_trajectory_duration: 0.0

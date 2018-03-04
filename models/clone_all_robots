@@ -1,0 +1,12 @@
+#!/bin/bash
+
+./clone_sdf centaur centaur0 robot robot0
+./clone_sdf centaur centaur1 robot robot1
+./clone_sdf centaur centaur2 robot robot2
+./clone_sdf centaur centaur3 robot robot3
+
+./clone_sdf quadrotor quadrotor0 robot robot0
+./clone_sdf quadrotor quadrotor1 robot robot1
+./clone_sdf quadrotor quadrotor2 robot robot2
+./clone_sdf quadrotor quadrotor3 robot robot3
+

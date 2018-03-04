@@ -1,0 +1,315 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="robot3">
+    <static>0</static>
+    <link name="base_link">
+      <audio_sink/>
+      <pose>0.0 0.0 0.0 0.0 -0.0 0.0</pose>
+      <inertial>
+        <mass>1.748</mass>
+        <pose>-9.2e-05 0.0 -0.01499 0 -0 0</pose>
+        <inertia>
+          <ixx>0.013931</ixx>
+          <ixy>0.0</ixy>
+          <ixz>4.78352e-07</ixz>
+          <iyy>0.0139566</iyy>
+          <iyz>2.09103e-17</iyz>
+          <izz>0.0219876</izz>
+        </inertia>
+      </inertial>
+      <visual name="quadrotor-base_link_visual">
+        <pose>0.0 0.0 0.0 0.0 -0.0 0.0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://quadrotor3/meshes/quadrotor-base.dae</uri>
+            <scale>1.0 1.0 1.0</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="quadrotor-base_link_visual">
+        <pose>0.0 0.0 0.0 0.0 -0.0 0.0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://quadrotor3/meshes/quadrotor-base.stl</uri>
+            <scale>1.0 1.0 1.0</scale>
+          </mesh>
+        </geometry>
+      </collision>
+
+<!-- HOKUYO --> 
+      <visual name="quadrotor-base_link_fixed_joint_lump__laser0_frame_visual_1">
+        <pose>0.0 0.0 -0.097 3.14158186032 -0.0 0.0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://quadrotor3/meshes/hokuyo_utm_30lx.dae</uri>
+            <scale>1.0 1.0 1.0</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="quadrotor-base_link_fixed_joint_lump__laser0_frame_visual_1">
+        <pose>0.0 0.0 -0.097 3.14158186032 -0.0 0.0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://quadrotor3/meshes/hokuyo_utm_30lx.stl</uri>
+            <scale>1.0 1.0 1.0</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <sensor type="ray" name="lms200">
+        <pose>0.0 0.0 -0.097 3.14158186032 -0.0 0.0</pose>
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+            <samples>181</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.08</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <plugin name="gazebo_ros_hokuyo_controller" filename="libgazebo_ros_laser.so">
+          <robotNamespace>robot3</robotNamespace>
+          <gaussianNoise>0.005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30</updateRate>
+          <topicName>scan</topicName>
+          <frameName>hokuyo_frame</frameName>
+        </plugin>
+      </sensor>
+
+<!-- THERMAL CAMERA --> 
+      <sensor type="camera" name="thermal_camera_sensor">
+        <pose>0.0 0.0 -0.05 0.0 0.0 0.0</pose>
+        <update_rate>10</update_rate>
+        <camera name="camera_ros_thermal">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>160</width>
+            <height>120</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.01</near>
+            <far>100</far>
+          </clip>
+<!--
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+-->
+        </camera>
+        <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera_pink.so">
+          <robotNamespace>robot3</robotNamespace>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10</updateRate>
+          <imageTopicName>thermal_camera/image_raw</imageTopicName>
+          <cameraInfoTopicName>thermal_camera/camera_info</cameraInfoTopicName>
+          <frameName>thermal_optical_frame</frameName>
+          <interface:camera name="thermal_camera_iface" />
+        </plugin>
+      </sensor> -->
+
+<!-- CAMERA -->
+      <sensor type="camera" name="camera_ros">
+        <pose>0.0 0.0 -0.05 0.0 0.0 0.0</pose>
+        <update_rate>20</update_rate>
+        <visualize>false</visualize>
+        <camera name="camera_ros">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+     <!-- Noise is sampled independently per pixel on each frame.
+          That pixel's noise value is added to each of its color
+          channels, which at that point lie in the range [0,1]. -->
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <robotNamespace>robot3</robotNamespace>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>camera_ros</cameraName>
+          <imageTopicName>image</imageTopicName>
+          <cameraInfoTopicName>camera_ros_info</cameraInfoTopicName>
+          <frameName>camera_ros_link</frameName>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+
+<!-- SONAR -->
+      <visual name="quadrotor-base_link_fixed_joint_lump__sonar_link_visual_2">
+        <pose>-0.16 0.0 -0.012 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://quadrotor3/meshes/max_sonar_ez4.dae</uri>
+            <scale>1.0 1.0 1.0</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="quadrotor-base_link_fixed_joint_lump__sonar_link_visual_2">
+        <pose>-0.16 0.0 -0.012 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <mesh>
+            <uri>model://quadrotor3/meshes/max_sonar_ez4.dae</uri>
+            <scale>1.0 1.0 1.0</scale>
+          </mesh>
+        </geometry>
+      </collision>
+        <sensor name='sonar' type='ray'>
+          <always_on>1</always_on>
+          <update_rate>10</update_rate>
+          <visualize>0</visualize>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>3</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.349066</min_angle>
+                <max_angle>0.349066</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>3</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.349066</min_angle>
+                <max_angle>0.349066</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.03</min>
+              <max>3</max>
+              <resolution>0.01</resolution>
+            </range>
+          </ray>
+          <plugin name='gazebo_ros_sonar_controller' filename='libhector_gazebo_ros_sonar.so'>
+            <gaussianNoise>0.005</gaussianNoise>
+            <topicName>sonar_height</topicName>
+            <frameId>sonar_link</frameId>
+            <robotNamespace>robot3</robotNamespace>
+          </plugin>
+          <pose>-0.16 0 -0.012 3.14159 1.57079 3.14159</pose>
+        </sensor>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <velocity_decay/>
+    </link>
+      <plugin name='quadrotor_imu_sim' filename='libhector_gazebo_ros_imu.so'>
+        <updateRate>100.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <frameId>/base_link</frameId>
+        <topicName>raw_imu</topicName>
+        <rpyOffset>0 0 0</rpyOffset>
+        <gaussianNoise>0</gaussianNoise>
+        <accelDrift>0.1 0.1 0.1</accelDrift>
+        <accelGaussianNoise>0.35 0.35 0.3</accelGaussianNoise>
+        <rateDrift>0.1 0.1 0.1</rateDrift>
+        <rateGaussianNoise>0.05 0.05 0.015</rateGaussianNoise>
+        <robotNamespace>robot3</robotNamespace>
+      </plugin>
+      <plugin name='quadrotor_baro_sim' filename='libhector_gazebo_ros_baro.so'>
+        <updateRate>10.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <frameId>/base_link</frameId>
+        <topicName>pressure_height</topicName>
+        <altimeterTopicName>altimeter</altimeterTopicName>
+        <offset>0</offset>
+        <drift>10.0</drift>
+        <gaussianNoise>0.1</gaussianNoise>
+        <robotNamespace>robot3</robotNamespace>
+      </plugin>
+      <plugin name='quadrotor_magnetic_sim' filename='libhector_gazebo_ros_magnetic.so'>
+        <updateRate>10.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <frameId>/base_link</frameId>
+        <topicName>magnetic</topicName>
+        <offset>0 0 0</offset>
+        <drift>0.0 0.0 0.0</drift>
+        <gaussianNoise>1.3e-2 1.3e-2 1.3e-2</gaussianNoise>
+        <robotNamespace>robot3</robotNamespace>
+      </plugin>
+      <plugin name='quadrotor_gps_sim' filename='libhector_gazebo_ros_gps.so'>
+        <updateRate>4.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <frameId>/base_link</frameId>
+        <topicName>fix</topicName>
+        <velocityTopicName>fix_velocity</velocityTopicName>
+        <referenceLatitude>49.860246</referenceLatitude>
+        <referenceLongitude>8.687077</referenceLongitude>
+        <drift>5.0 5.0 5.0</drift>
+        <gaussianNoise>0.01 0.01 0.01</gaussianNoise>
+        <velocityDrift>0 0 0</velocityDrift>
+        <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
+        <robotNamespace>robot3</robotNamespace>
+      </plugin>
+      <plugin name='quadrotor_groundtruth_sim' filename='libgazebo_ros_p3d.so'>
+        <updateRate>100.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <topicName>ground_truth/state</topicName>
+        <gaussianNoise>0.0</gaussianNoise>
+        <frameName>world</frameName>
+        <robotNamespace>robot3</robotNamespace>
+      </plugin>
+      <plugin name='quadrotor_controller' filename='libgazebo_ros_control.so'>
+        <controlPeriod>0.01</controlPeriod>
+        <robotSimType>hector_quadrotor_controller_gazebo/QuadrotorHardwareSim</robotSimType>
+        <robotNamespace>robot3</robotNamespace>
+      </plugin>
+      <plugin name='quadrotor_propulsion' filename='libhector_gazebo_quadrotor_propulsion.so'>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <frameId>/base_link</frameId>
+        <controlRate>100.0</controlRate>
+        <controlTolerance>0.01</controlTolerance>
+        <controlDelay>0.01</controlDelay>
+        <motorStatusRate>0.0</motorStatusRate>
+        <triggerTopic/>
+        <topicName/>
+        <pwmTopicName/>
+        <supplyTopic/>
+        <wrenchTopic/>
+        <statusTopic/>
+        <robotNamespace>robot3</robotNamespace>
+      </plugin>
+      <static>0</static>
+      <plugin name='quadrotor_aerodynamics' filename='libhector_gazebo_quadrotor_aerodynamics.so'>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <frameId>/base_link</frameId>
+        <robotNamespace>robot3</robotNamespace>
+      </plugin>
+
+<!--
+    <plugin name='joint_trajectory_plugin' filename='libgazebo_ros_joint_pose_trajectory.so'>
+      <topicName>joint_trajectory</topicName>
+      <updateRate>1000.0</updateRate>
+    </plugin>
+-->
+  </model>
+</sdf>
