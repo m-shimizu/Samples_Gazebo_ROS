@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-  <arg name="robot_name" default="quadrotor_ros"/>
+  <arg name="robot_name" default="robot"/>
   <arg name="world_frame" default="world"/> <!-- This should actually be "/world". See https://github.com/ros-simulation/gazebo_ros_pkgs/pull/324 -->
   <group ns="$(arg robot_name)">
 		<arg name="controllers" default="
@@ -16,7 +16,7 @@
 		<arg name="use_ground_truth_for_control" default="true" />
 		<arg name="use_pose_estimation" if="$(arg use_ground_truth_for_control)" default="false"/>
 		<arg name="use_pose_estimation" unless="$(arg use_ground_truth_for_control)" default="true"/>
-		<param name="robot_description" command="cat $(find quadrotor)/urdf/quadrotor_ros.urdf"/>
+		<param name="robot_description" command="cat $(find quadrotor)/urdf/quadrotor.urdf"/>
 		<param name="tf_prefix" type="string" value="$(arg tf_prefix)"/> <!-- required for hector_pose_estimation and message_to_tf -->
 		<param name="base_link_frame" type="string" value="$(arg base_link_frame)" />
 		<param name="base_stabilized_frame" type="string" value="$(arg tf_prefix)/base_stabilized" />
@@ -75,8 +75,8 @@
 
 		<!-- load aerodynamic and motor parameters -->
 		<arg name="motors" default="robbe_2827-34_epp1045" />
-		<rosparam command="load" file="$(find rc2018rvrl)/config/quadrotor_aerodynamics.yaml" />
-		<rosparam command="load" file="$(find rc2018rvrl)/config/$(arg motors).yaml" />
+		<rosparam command="load" file="$(find quadrotor)/config/quadrotor/quadrotor_aerodynamics.yaml" />
+		<rosparam command="load" file="$(find quadrotor)/config/quadrotor/$(arg motors).yaml" />
     <node name="tf_static_hokuyo_link_frame" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 $(arg robot_name)/hokuyo_link $(arg robot_name)/hokuyo_frame 100"/>
   </group>
 </launch>

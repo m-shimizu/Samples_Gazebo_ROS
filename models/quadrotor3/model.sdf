@@ -180,7 +180,7 @@
           </mesh>
         </geometry>
       </collision>
-        <sensor name='sonar' type='ray'>
+        <sensor name="sonar" type="ray">
           <always_on>1</always_on>
           <update_rate>10</update_rate>
           <visualize>0</visualize>
@@ -205,7 +205,7 @@
               <resolution>0.01</resolution>
             </range>
           </ray>
-          <plugin name='gazebo_ros_sonar_controller' filename='libhector_gazebo_ros_sonar.so'>
+          <plugin name="gazebo_ros_sonar_controller" filename="libhector_gazebo_ros_sonar.so">
             <gaussianNoise>0.005</gaussianNoise>
             <topicName>sonar_height</topicName>
             <frameId>sonar_link</frameId>
@@ -218,7 +218,7 @@
         <gravity>1</gravity>
         <velocity_decay/>
     </link>
-      <plugin name='quadrotor_imu_sim' filename='libhector_gazebo_ros_imu.so'>
+      <plugin name="quadrotor_imu_sim" filename="libhector_gazebo_ros_imu.so">
         <updateRate>100.0</updateRate>
         <bodyName>base_link</bodyName>
         <frameId>base_link</frameId>
@@ -231,7 +231,7 @@
         <rateGaussianNoise>0.05 0.05 0.015</rateGaussianNoise>
         <robotNamespace>robot3</robotNamespace>
       </plugin>
-      <plugin name='quadrotor_baro_sim' filename='libhector_gazebo_ros_baro.so'>
+      <plugin name="quadrotor_baro_sim" filename="libhector_gazebo_ros_baro.so">
         <updateRate>10.0</updateRate>
         <bodyName>base_link</bodyName>
         <frameId>base_link</frameId>
@@ -242,7 +242,7 @@
         <gaussianNoise>0.1</gaussianNoise>
         <robotNamespace>robot3</robotNamespace>
       </plugin>
-      <plugin name='quadrotor_magnetic_sim' filename='libhector_gazebo_ros_magnetic.so'>
+      <plugin name="quadrotor_magnetic_sim" filename="libhector_gazebo_ros_magnetic.so">
         <updateRate>10.0</updateRate>
         <bodyName>base_link</bodyName>
         <frameId>base_link</frameId>
@@ -252,7 +252,7 @@
         <gaussianNoise>1.3e-2 1.3e-2 1.3e-2</gaussianNoise>
         <robotNamespace>robot3</robotNamespace>
       </plugin>
-      <plugin name='quadrotor_gps_sim' filename='libhector_gazebo_ros_gps.so'>
+      <plugin name="quadrotor_gps_sim" filename="libhector_gazebo_ros_gps.so">
         <updateRate>4.0</updateRate>
         <bodyName>base_link</bodyName>
         <frameId>base_link</frameId>
@@ -266,7 +266,7 @@
         <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
         <robotNamespace>robot3</robotNamespace>
       </plugin>
-      <plugin name='quadrotor_groundtruth_sim' filename='libgazebo_ros_p3d.so'>
+      <plugin name="quadrotor_groundtruth_sim" filename="libgazebo_ros_p3d.so">
         <updateRate>100.0</updateRate>
         <bodyName>base_link</bodyName>
         <topicName>ground_truth/state</topicName>
@@ -274,12 +274,12 @@
         <frameName>world</frameName>
         <robotNamespace>robot3</robotNamespace>
       </plugin>
-      <plugin name='quadrotor_controller' filename='libgazebo_ros_control.so'>
+      <plugin name="quadrotor_controller" filename="libgazebo_ros_control.so">
         <controlPeriod>0.01</controlPeriod>
         <robotSimType>hector_quadrotor_controller_gazebo/QuadrotorHardwareSim</robotSimType>
         <robotNamespace>robot3</robotNamespace>
       </plugin>
-      <plugin name='quadrotor_propulsion' filename='libhector_gazebo_quadrotor_propulsion.so'>
+      <plugin name="quadrotor_propulsion" filename="libhector_gazebo_quadrotor_propulsion.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <bodyName>base_link</bodyName>
@@ -297,7 +297,7 @@
         <robotNamespace>robot3</robotNamespace>
       </plugin>
       <static>0</static>
-      <plugin name='quadrotor_aerodynamics' filename='libhector_gazebo_quadrotor_aerodynamics.so'>
+      <plugin name="quadrotor_aerodynamics" filename="libhector_gazebo_quadrotor_aerodynamics.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <bodyName>base_link</bodyName>
@@ -306,7 +306,7 @@
       </plugin>
 
 <!--
-    <plugin name='joint_trajectory_plugin' filename='libgazebo_ros_joint_pose_trajectory.so'>
+    <plugin name="joint_trajectory_plugin" filename="libgazebo_ros_joint_pose_trajectory.so">
       <topicName>joint_trajectory</topicName>
       <updateRate>1000.0</updateRate>
     </plugin>
