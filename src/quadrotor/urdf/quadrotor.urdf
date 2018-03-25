@@ -13,13 +13,13 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://quadrotor/meshes/quadrotor_base.dae"/>
+        <mesh filename="package://quadrotor/meshes/quadrotor/quadrotor_base.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://quadrotor/meshes/quadrotor_base.stl"/>
+        <mesh filename="package://quadrotor/meshes/quadrotor/quadrotor_base.stl"/>
       </geometry>
     </collision>
   </link>
@@ -38,7 +38,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <!--<box size="0.01 0.01 0.01" /> -->
-        <mesh filename="package://quadrotor/meshes/max_sonar_ez4.dae"/>
+        <mesh filename="package://quadrotor/meshes/quadrotor/max_sonar_ez4.dae"/>
       </geometry>
     </visual>
     <collision>
