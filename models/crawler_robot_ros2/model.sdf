@@ -1,0 +1,1978 @@
+<?xml version='1.0'?>
+<sdf version='1.5'>
+  <model name="robot2">
+    <static>false</static>
+    <self_collide>0</self_collide>
+<!--__________________body_____________________-->
+    <link name='chassis'>
+      <pose>0 0 .05 0 0 0</pose>
+      <inertial>
+        <mass>20</mass>
+        <inertia>
+          <ixx>1.696e-01</ixx>
+          <iyy>2.176e-02</iyy>
+          <izz>1.7984e-01</izz>
+        </inertia>
+      </inertial>
+
+      <collision name='collision'>
+        <geometry>
+          <box>
+            <size>.1 .32 .06</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <box>
+            <size>.1 .32 .06</size>
+          </box>
+        </geometry>
+      </visual>
+<!--__________________crawler_____________________-->
+      <visual name="crawler_visual_R">
+        <pose>-0.08 -0.00075 0 0 0 1.570796327</pose>
+        <geometry>
+          <mesh>
+            <uri>model://crawler_robot_ros2/dae/crawler.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="crawler_visual_L">
+        <pose>0.08 -0.00075 0 0 0 1.570796327</pose>
+        <geometry>
+          <mesh>
+            <uri>model://crawler_robot_ros2/dae/crawler.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+<!-- IMU Sensor -->
+      <sensor name="imu_sensor" type="imu">
+        <pose>0 0 0 0 0 0</pose>
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+<!--  NOW update rate is set 10 tempolarity
+        <update_rate>10</update_rate>
+-->
+        <imu>
+<!--  NOW comment noise parameters out tempolary
+          <noise>
+            <type>gaussian</type>
+            <rate>
+              <mean>0</mean>
+              <stddev>0.0002</stddev>
+              <bias_mean>7.5e-06</bias_mean>
+              <bias_stddev>8e-07</bias_stddev>
+            </rate>
+            <accel>
+              <mean>0</mean>
+              <stddev>0.017</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </accel>
+          </noise>
+-->
+        </imu>
+      </sensor>
+<!-- GPS sensor copied from gazebo-5.0.1/test/worlds/gps_test.world -->
+      <sensor name="gps" type="gps">
+        <pose>0 0 0 0 0 0</pose>
+        <update_rate>10.0</update_rate>
+        <always_on>true</always_on>
+        <gps>
+          <position_sensing>
+            <horizontal>
+              <noise type="gaussian_quantized">
+                <mean>0</mean>
+                <stddev>1</stddev>
+                <bias_mean>3</bias_mean>
+                <bias_stddev>1</bias_stddev>
+                <precision>0.5</precision>
+              </noise>
+            </horizontal>
+            <vertical>
+              <noise type="gaussian_quantized">
+                <mean>0</mean>
+                <stddev>1</stddev>
+                <bias_mean>3</bias_mean>
+                <bias_stddev>1</bias_stddev>
+                <precision>1.0</precision>
+              </noise>
+            </vertical>
+          </position_sensing>
+          <velocity_sensing>
+            <horizontal>
+              <noise type="gaussian_quantized">
+                <mean>0</mean>
+                <stddev>0.1</stddev>
+                <bias_mean>0.1</bias_mean>
+                <bias_stddev>0.1</bias_stddev>
+                <precision>0.1</precision>
+              </noise>
+            </horizontal>
+            <vertical>
+              <noise type="gaussian_quantized">
+                <mean>0</mean>
+                <stddev>0.2</stddev>
+                <bias_mean>0.2</bias_mean>
+                <bias_stddev>0.2</bias_stddev>
+                <precision>0.2</precision>
+              </noise>
+            </vertical>
+          </velocity_sensing>
+        </gps>
+      </sensor>
+    </link>
+<!-- Camera (hight is 100mm) 
+    <include>
+      <name>camera</name>
+      <pose>0 0 0.22 0 0 -1.57</pose>
+      <uri>model://camera_ros</uri>
+    </include> -->    
+    <link name="camera_link">
+      <audio_sink>
+        <pose>0 0 0 0 0 3.1415926535</pose>
+      </audio_sink>
+      <pose>0 0 0.22 0 0 -1.57</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.000166667</ixx>
+          <iyy>0.000166667</iyy>
+          <izz>0.000166667</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision-box">
+        <pose>-0.01 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="collision-lens">
+        <pose>0.04 0 0 0 1.57 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.03</radius>
+            <length>0.02</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual-box">
+        <pose>-0.01 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.1 0.1</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.3 0.3 0.3 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <visual name="visual-lens">
+        <pose>0.04 0 0 0 1.57 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.03</radius>
+            <length>0.02</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+<!-- CAMERA -->
+      <sensor type="camera" name="camera">
+        <visualize>false</visualize>
+        <update_rate>20</update_rate>
+        <camera name="camera">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+     <!-- Noise is sampled independently per pixel on each frame.
+          That pixel's noise value is added to each of its color
+          channels, which at that point lie in the range [0,1]. -->
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <robotNamespace>robot2</robotNamespace>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>camera/rgb</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>camera_link</frameName>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+<!-- THERMAL CAMERA --> 
+      <sensor type="camera" name="thermal_camera">
+        <visualize>false</visualize>
+        <update_rate>10</update_rate>
+        <camera name="camera_thermal">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>160</width>
+            <height>120</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+<!--
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+-->
+        </camera>
+        <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera_pink.so">
+          <robotNamespace>robot2</robotNamespace>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10</updateRate>
+          <imageTopicName>camera/thermal/image_raw</imageTopicName>
+          <cameraInfoTopicName>camera/thermal/camera_info</cameraInfoTopicName>
+          <frameName>thermal_optical_frame</frameName>
+          <interface:camera name="thermal_camera_iface" />
+        </plugin>
+      </sensor> 
+    </link>
+        
+    <joint name="camera_joint" type="revolute">
+      <parent>chassis</parent>
+      <child>camera_link</child>
+      <pose>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+    
+<!-- Hokuyo (hight is 70mm) 
+    <include>
+      <name>hokuyo</name>
+      <pose>0 0 0.135 0 0 -1.57</pose>
+      <uri>model://hokuyo_ros</uri>
+    </include> -->
+    <link name="houkyo_link">
+      <pose>0 0 0.135 0 0 -1.57</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.6205208333e-04</ixx>
+          <iyy>0.6205208333e-04</iyy>
+          <izz>4.1927083333e-05</izz>
+        </inertia>
+      </inertial>
+      <visual name="visual-base">
+        <pose>0 0 -0.0145 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.041</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.3 0.3 0.3 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <visual name="visual-top">
+        <pose>0 0 0.0205 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.021</radius>
+            <length>0.029</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <collision name="collision-base">
+        <pose>0 0 -0.0145 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.041</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="collision-top">
+        <pose>0 0 0.0205 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.021</radius>
+            <length>0.029</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <sensor type="ray" name="lms200">
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+		          <samples>1040</samples>			<!-- 1040!!! -->
+		          <resolution>1</resolution>
+		          <min_angle>-2.268928</min_angle> <!-- 90deg: -1.570796 -->
+		          <max_angle>2.268928</max_angle>  <!-- 90deg: 1.570796  -->
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.08</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <plugin name="gazebo_ros_hokuyo_controller" filename="libgazebo_ros_laser.so">
+          <robotNamespace>robot2</robotNamespace>
+          <topicName>scan</topicName>
+          <gaussianNoise>0.005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30</updateRate>
+          <frameName>hokuyo_frame</frameName>
+        </plugin>
+      </sensor>
+    </link>
+        
+    <joint name="hokuyo_joint" type="revolute">
+      <parent>chassis</parent>
+      <child>houkyo_link</child>
+      <pose>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+    
+<!--__________________right_crawler___________________-->
+    <link name="right_rear_wheel"> 
+      <pose>-0.1 0.15 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.3744467859e-03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.3744467859e-03</iyy>
+          <iyz>0</iyz>
+          <izz>11.780972451e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="right_front_wheel">
+    <pose>-0.1 -0.15 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.3744467859e-03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.3744467859e-03</iyy>
+          <iyz>0</iyz>
+          <izz>11.780972451e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="right_center_wheel_1">
+      <pose>-0.1 0.05 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>7.5267323992e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>7.5267323992e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.2900985988e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="right_center_wheel_2">
+      <pose>-0.1 -0.0 0.049 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>7.5267323992e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>7.5267323992e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.2900985988e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="right_center_wheel_3">
+      <pose>-0.1 -0.05 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>7.5267323992e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>7.5267323992e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.2900985988e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="right_sub_wheel_2">
+      <pose>-0.1 0.1 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.3744467859e-03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.3744467859e-03</iyy>
+          <iyz>0</iyz>
+          <izz>11.780972451e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="right_sub_wheel_3">
+      <pose>-0.1 -0.1 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.3744467859e-03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.3744467859e-03</iyy>
+          <iyz>0</iyz>
+          <izz>11.780972451e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+<!--__________________/right_crawler___________________-->
+
+<!--__________________left_crawler___________________-->
+    <link name="left_rear_wheel">
+      <pose>0.1 0.15 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.3744467859e-03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.3744467859e-03</iyy>
+          <iyz>0</iyz>
+          <izz>11.780972451e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_front_wheel">
+      <pose>0.1 -0.15 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.3744467859e-03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.3744467859e-03</iyy>
+          <iyz>0</iyz>
+          <izz>11.780972451e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_center_wheel_1">
+      <pose>0.1 0.05 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>7.5267323992e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>7.5267323992e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.2900985988e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_center_wheel_2">
+      <pose>0.1 -0.0 0.049 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>7.5267323992e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>7.5267323992e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.2900985988e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_center_wheel_3">
+      <pose>0.1 -0.05 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>7.5267323992e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>7.5267323992e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.2900985988e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.05</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_sub_wheel_2">
+      <pose>0.1 0.1 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.3744467859e-03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.3744467859e-03</iyy>
+          <iyz>0</iyz>
+          <izz>11.780972451e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_sub_wheel_3">
+      <pose>0.1 -0.1 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.3744467859e-03</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.3744467859e-03</iyy>
+          <iyz>0</iyz>
+          <izz>11.780972451e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.1</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+<!--__________________/left_crawler___________________-->
+
+<!--__________________right_rear_arm__________________-->
+
+    <link name="right_rear_arm">
+      <pose>-0.151 0.225 0.05 0 0 0</pose>
+      <inertial>
+        <pose>-0.015 0 0 1.57 0 1.57</pose>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.8125e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>3.96253e-3</iyy>
+          <iyz>0</iyz>
+          <izz>4.53125e-3</izz>
+        </inertia>
+      </inertial>
+<!--
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>.002 .16 .05</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>.002 .16 .05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+-->
+      <visual name="crawler_visual">
+        <pose>-0.015 0 -0.05 0 0 1.57</pose>
+        <geometry>
+          <mesh>
+            <uri>model://crawler_robot_ros2/dae/arm_crawler_2.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="right_rear_arm_wheel_1">
+      <pose>-0.166 0.15 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="right_rear_arm_wheel_2">
+      <pose>-0.166 0.3 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="right_rear_arm_wheel_3">
+      <pose>-0.166 0.225 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+<!--__________________/right_rear_arm__________________-->
+
+<!--__________________left_rear_arm__________________-->
+    <link name="left_rear_arm">
+      <pose>0.151 0.225 0.05 0 0 0</pose>
+      <inertial>
+        <pose>0.015 0 0 1.57 0 1.57</pose>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.8125e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>3.96253e-3</iyy>
+          <iyz>0</iyz>
+          <izz>4.53125e-3</izz>
+        </inertia>
+      </inertial>
+<!--
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>.002 .16 .05</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>.002 .16 .05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+-->
+      <visual name="crawler_visual">
+        <pose>0.015 0 -0.05 0 0 1.57</pose>
+        <geometry>
+          <mesh>
+            <uri>model://crawler_robot_ros2/dae/arm_crawler_2.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_rear_arm_wheel_1">
+      <pose>0.166 0.15 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="left_rear_arm_wheel_2">
+      <pose>0.166 0.3 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="left_rear_arm_wheel_3">
+      <pose>0.166 0.225 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+<!--__________________/left_rear_arm__________________-->
+
+<!--__________________right_front_arm__________________-->
+    <link name="right_front_arm">
+      <pose>-0.151 -0.225 0.05 0 0 0</pose>
+      <inertial>
+        <pose>-0.015 0 0 1.57 0 1.57</pose>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.8125e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>3.96253e-3</iyy>
+          <iyz>0</iyz>
+          <izz>4.53125e-3</izz>
+        </inertia>
+      </inertial>
+<!--
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>.002 .16 .05</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>.002 .16 .05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+-->
+      <visual name="crawler_visual">
+        <pose>-0.015 0 -0.05 0 0 1.57</pose>
+        <geometry>
+          <mesh>
+            <uri>model://crawler_robot_ros2/dae/arm_crawler_2.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="right_front_arm_wheel_1">
+      <pose>-0.166 -0.15 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="right_front_arm_wheel_2">
+      <pose>-0.166 -0.3 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="right_front_arm_wheel_3">
+      <pose>-0.166 -0.225 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+<!--__________________/right_front_arm__________________-->
+
+<!--__________________left_front_arm__________________-->
+    <link name="left_front_arm">
+      <pose>0.151 -0.225 0.05 0 0 0</pose>
+      <inertial>
+        <pose>0.015 0 0 1.57 0 1.57</pose>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.8125e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>3.96253e-3</iyy>
+          <iyz>0</iyz>
+          <izz>4.53125e-3</izz>
+        </inertia>
+      </inertial>
+<!--
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>.002 .16 .05</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>.002 .16 .05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+-->
+      <visual name="crawler_visual">
+        <pose>0.015 0 -0.05 0 0 1.57</pose>
+        <geometry>
+          <mesh>
+            <uri>model://crawler_robot_ros2/dae/arm_crawler_2.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_front_arm_wheel_1">
+      <pose>0.166 -0.15 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="left_front_arm_wheel_2">
+      <pose>0.166 -0.3 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+
+    <link name="left_front_arm_wheel_3">
+      <pose>0.166 -0.225 0.05 0 1.570796327 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>6.2674773439e-04</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>6.2674773439e-04</iyy>
+          <iyz>0</iyz>
+          <izz>11.1919238284e-04</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>.8</mu>
+              <mu2>.8</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.03</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>0</self_collide>
+    </link>
+<!--__________________/left_front_arm__________________-->
+
+
+<!--__________________joint___________________-->
+  <joint type="revolute" name="right_rear">
+    <pose>0 0 0.05 0 0 0</pose>
+    <child>right_rear_wheel</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_front">
+    <pose>0 0 0.05 0 0 0</pose>
+    <child>right_front_wheel</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+
+  <joint type="revolute" name="right_center1">
+    <pose>0 0 0.05 0 0 0</pose>
+    <child>right_center_wheel_1</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_center2">
+    <pose>0 0 0.05 0 0 0</pose>
+    <child>right_center_wheel_2</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_center3">
+    <pose>0 0 0.05 0 0 0</pose>
+    <child>right_center_wheel_3</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+<!--
+  <joint type="revolute" name="right_sub1">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>right_sub_wheel_1</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+-->
+
+<joint type="revolute" name="right_sub2">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>right_sub_wheel_2</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+</joint>
+
+<joint type="revolute" name="right_sub3">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>right_sub_wheel_3</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_rear">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>left_rear_wheel</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_front">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>left_front_wheel</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+
+
+  <joint type="revolute" name="left_center1">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>left_center_wheel_1</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_center2">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>left_center_wheel_2</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_center3">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>left_center_wheel_3</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+<!--<joint type="revolute" name="left_sub1">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>left_sub_wheel_1</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+</joint>-->
+
+  <joint type="revolute" name="left_sub2">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>left_sub_wheel_2</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_sub3">
+    <pose>0 0 -0.05 0 0 0</pose>
+    <child>left_sub_wheel_3</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+
+
+  <joint type="revolute" name="left_rear_arm">
+    <pose>0 -0.075 0.001 0 0 0</pose>
+    <child>left_rear_arm</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <dynamics>
+        <damping>.5</damping>
+      </dynamics>
+      <limit>
+        <velocity>1</velocity>
+      </limit>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_rear_arm">
+    <pose>0 -0.075 -0.001 0 0 0</pose>
+    <child>right_rear_arm</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <dynamics>
+        <damping>.5</damping>
+      </dynamics>
+      <limit>
+        <velocity>1</velocity>
+      </limit>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_front_arm">
+    <pose>0 0.075 0.001 0 0 0</pose>
+    <child>left_front_arm</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <dynamics>
+        <damping>.5</damping>
+      </dynamics>
+      <limit>
+        <velocity>1</velocity>
+      </limit>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_front_arm">
+    <pose>0 0.075 -0.001 0 0 0</pose>
+    <child>right_front_arm</child>
+    <parent>chassis</parent>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <dynamics>
+        <damping>.5</damping>
+      </dynamics>
+      <limit>
+        <velocity>1</velocity>
+      </limit>
+    </axis>
+  </joint>
+
+
+
+  <joint type="revolute" name="right_rear_arm_wheel_1">
+    <pose>0 0 0.015 0 0 0</pose>
+    <child>right_rear_arm_wheel_1</child>
+    <parent>right_rear_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_rear_arm_wheel_2">
+    <pose>0 0 0.015 0 0 0</pose>
+    <child>right_rear_arm_wheel_2</child>
+    <parent>right_rear_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_rear_arm_wheel_3">
+    <pose>0 0 0.015 0 0 0</pose>
+    <child>right_rear_arm_wheel_3</child>
+    <parent>right_rear_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+
+
+  <joint type="revolute" name="right_front_arm_wheel_1">
+    <pose>0 0 0.015 0 0 0</pose>
+    <child>right_front_arm_wheel_1</child>
+    <parent>right_front_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_front_arm_wheel_2">
+    <pose>0 0 0.015 0 0 0</pose>
+    <child>right_front_arm_wheel_2</child>
+    <parent>right_front_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="right_front_arm_wheel_3">
+    <pose>0 0 0.015 0 0 0</pose>
+    <child>right_front_arm_wheel_3</child>
+    <parent>right_front_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+
+
+  <joint type="revolute" name="left_rear_arm_wheel_1">
+    <pose>0 0 -0.015 0 0 0</pose>
+    <child>left_rear_arm_wheel_1</child>
+    <parent>left_rear_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_rear_arm_wheel_2">
+    <pose>0 0 -0.015 0 0 0</pose>
+    <child>left_rear_arm_wheel_2</child>
+    <parent>left_rear_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_rear_arm_wheel_3">
+    <pose>0 0 -0.015 0 0 0</pose>
+    <child>left_rear_arm_wheel_3</child>
+    <parent>left_rear_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+
+
+  <joint type="revolute" name="left_front_arm_wheel_1">
+    <pose>0 0 -0.015 0 0 0</pose>
+    <child>left_front_arm_wheel_1</child>
+    <parent>left_front_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_front_arm_wheel_2">
+    <pose>0 0 -0.015 0 0 0</pose>
+    <child>left_front_arm_wheel_2</child>
+    <parent>left_front_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+  <joint type="revolute" name="left_front_arm_wheel_3">
+    <pose>0 0 -0.015 0 0 0</pose>
+    <child>left_front_arm_wheel_3</child>
+    <parent>left_front_arm</parent>
+    <axis>
+      <xyz>0 0 1</xyz>
+    </axis>
+  </joint>
+
+<!--__________________/joint___________________-->
+
+	<plugin name="crawler_flipper" filename="libcrawler_flipper_ros.so">
+	  <robotNamespace>robot2</robotNamespace>
+		<right_front>right_front</right_front>
+		<right_center1>right_center1</right_center1>
+		<right_center2>right_center2</right_center2>
+		<right_center3>right_center3</right_center3>
+		<right_rear>right_rear</right_rear>
+		<left_front>left_front</left_front>
+		<left_center1>left_center1</left_center1>
+		<left_center2>left_center2</left_center2>
+		<left_center3>left_center3</left_center3>
+		<left_front_arm>left_front_arm</left_front_arm>
+		<left_rear_arm>left_rear_arm</left_rear_arm>
+		<right_front_arm>right_front_arm</right_front_arm>
+		<right_rear_arm>right_rear_arm</right_rear_arm>
+		<right_front_arm_wheel_1>right_front_arm_wheel_1</right_front_arm_wheel_1>
+		<right_front_arm_wheel_2>right_front_arm_wheel_2</right_front_arm_wheel_2>
+		<right_front_arm_wheel_3>right_front_arm_wheel_3</right_front_arm_wheel_3>
+		<left_front_arm_wheel_1>left_front_arm_wheel_1</left_front_arm_wheel_1>
+		<left_front_arm_wheel_2>left_front_arm_wheel_2</left_front_arm_wheel_2>
+		<left_front_arm_wheel_3>left_front_arm_wheel_3</left_front_arm_wheel_3>
+		<right_rear_arm_wheel_1>right_rear_arm_wheel_1</right_rear_arm_wheel_1>
+		<right_rear_arm_wheel_2>right_rear_arm_wheel_2</right_rear_arm_wheel_2>
+		<right_rear_arm_wheel_3>right_rear_arm_wheel_3</right_rear_arm_wheel_3>
+		<left_rear_arm_wheel_1>left_rear_arm_wheel_1</left_rear_arm_wheel_1>
+		<left_rear_arm_wheel_2>left_rear_arm_wheel_2</left_rear_arm_wheel_2>
+		<left_rear_arm_wheel_3>left_rear_arm_wheel_3</left_rear_arm_wheel_3>
+		<right_sub2>right_sub2</right_sub2>
+		<right_sub3>right_sub3</right_sub3>
+		<left_sub2>left_sub2</left_sub2>
+		<left_sub3>left_sub3</left_sub3>
+		<gain>0.1</gain>
+		<broadcastTF>true</broadcastTF>
+	</plugin>
+
+  </model>
+</sdf>

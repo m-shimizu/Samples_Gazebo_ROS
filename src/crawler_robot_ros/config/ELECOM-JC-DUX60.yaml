@@ -1,0 +1,28 @@
+#ELECOM-JC-DUX60 controller axis numbers and buttun numbers in the joy topics.
+---
+#velorosity
+speedAxis     : 1
+turnAxis      : 0
+#maxSpeed      : 0.5
+#maxTurnW      : 1.570796327
+#flipper.fr
+frUpButton    : 6
+frDownButton  : 10
+#frW           : 0.314
+#frDefaultAngle: 0.785398163
+#flipper.fl
+flUpButton    : 5
+flDownButton  : 9
+#flW           : 0.314
+#flDefaultAngle: 0.785398163
+#flipper.rr
+rrUpButton    : 7
+rrDownButton  : 11
+#rrW           : 0.314
+#rrDefaultAngle: 0.785398163
+#flipper.rl
+rlUpButton    : 4
+rlDownButton  : 8
+#rlW           : 0.314
+#rlDefaultAngle: 0.785398163
+...

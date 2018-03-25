@@ -1,0 +1,27 @@
+---
+#velorosity
+#speedAxis     : 1
+#turnAxis      : 0
+maxSpeed      : 10.0
+maxTurnW      : 0.628
+#flipper.fr
+#frUpButton    : 9
+#frDownButton  : 7
+frW           : 0.157
+frDefaultAngle: 0.785398163
+#flipper.fl
+#flUpButton    : 8
+#flDownButton  : 6
+flW           : 0.157
+flDefaultAngle: 0.785398163
+#flipper.rr
+#rrUpButton    : 12
+#rrDownButton  : 14
+rrW           : 0.157
+rrDefaultAngle: 0.785398163
+#flipper.rl
+#rlUpButton    : 13
+#rlDownButton  : 15
+rlW           : 0.157
+rlDefaultAngle: 0.785398163
+...

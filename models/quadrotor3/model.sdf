@@ -63,10 +63,10 @@
         <ray>
           <scan>
             <horizontal>
-            <samples>181</samples>
-            <resolution>1</resolution>
-            <min_angle>-1.570796</min_angle>
-            <max_angle>1.570796</max_angle>
+		          <samples>1040</samples>			<!-- 1040!!! -->
+		          <resolution>1</resolution>
+		          <min_angle>-2.268928</min_angle> <!-- 90deg: -1.570796 -->
+		          <max_angle>2.268928</max_angle>  <!-- 90deg: 1.570796  -->
             </horizontal>
           </scan>
           <range>
@@ -112,8 +112,8 @@
           <robotNamespace>robot3</robotNamespace>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
-          <imageTopicName>thermal_camera/image_raw</imageTopicName>
-          <cameraInfoTopicName>thermal_camera/camera_info</cameraInfoTopicName>
+          <imageTopicName>camera/thermal/image_raw</imageTopicName>
+          <cameraInfoTopicName>camera/thermal/camera_info</cameraInfoTopicName>
           <frameName>thermal_optical_frame</frameName>
           <interface:camera name="thermal_camera_iface" />
         </plugin>
@@ -221,7 +221,7 @@
       <plugin name='quadrotor_imu_sim' filename='libhector_gazebo_ros_imu.so'>
         <updateRate>100.0</updateRate>
         <bodyName>base_link</bodyName>
-        <frameId>/base_link</frameId>
+        <frameId>base_link</frameId>
         <topicName>raw_imu</topicName>
         <rpyOffset>0 0 0</rpyOffset>
         <gaussianNoise>0</gaussianNoise>
@@ -234,7 +234,7 @@
       <plugin name='quadrotor_baro_sim' filename='libhector_gazebo_ros_baro.so'>
         <updateRate>10.0</updateRate>
         <bodyName>base_link</bodyName>
-        <frameId>/base_link</frameId>
+        <frameId>base_link</frameId>
         <topicName>pressure_height</topicName>
         <altimeterTopicName>altimeter</altimeterTopicName>
         <offset>0</offset>
@@ -245,7 +245,7 @@
       <plugin name='quadrotor_magnetic_sim' filename='libhector_gazebo_ros_magnetic.so'>
         <updateRate>10.0</updateRate>
         <bodyName>base_link</bodyName>
-        <frameId>/base_link</frameId>
+        <frameId>base_link</frameId>
         <topicName>magnetic</topicName>
         <offset>0 0 0</offset>
         <drift>0.0 0.0 0.0</drift>
@@ -255,7 +255,7 @@
       <plugin name='quadrotor_gps_sim' filename='libhector_gazebo_ros_gps.so'>
         <updateRate>4.0</updateRate>
         <bodyName>base_link</bodyName>
-        <frameId>/base_link</frameId>
+        <frameId>base_link</frameId>
         <topicName>fix</topicName>
         <velocityTopicName>fix_velocity</velocityTopicName>
         <referenceLatitude>49.860246</referenceLatitude>
@@ -283,7 +283,7 @@
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <bodyName>base_link</bodyName>
-        <frameId>/base_link</frameId>
+        <frameId>base_link</frameId>
         <controlRate>100.0</controlRate>
         <controlTolerance>0.01</controlTolerance>
         <controlDelay>0.01</controlDelay>
@@ -301,7 +301,7 @@
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <bodyName>base_link</bodyName>
-        <frameId>/base_link</frameId>
+        <frameId>base_link</frameId>
         <robotNamespace>robot3</robotNamespace>
       </plugin>
 

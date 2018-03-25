@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <world name="default">
+    <gui fullscreen='0'>
+      <camera name='user_default'>
+        <pose frame=''>0.602948 -0.001582 0.357965 -0 0.6 -3.141</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://crawler_robot_ros</uri>
+      <name>robot</name>
+      <pose>0 0 0.03 0 0 0</pose>
+    </include>
+
+    <model name="sphere">
+      <pose>0 1.5 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>Gazebo/WoodPallet</script>
+          </material>
+        </visual>
+        <audio_source>
+          <uri>file://media/audio/cheer.wav</uri>
+          <pitch>2.0</pitch>
+          <gain>1.0</gain>
+          <loop>false</loop>
+          <contact>
+            <collision>collision</collision>
+          </contact>
+        </audio_source>
+      </link>
+    </model>
+  </world>
+</sdf>

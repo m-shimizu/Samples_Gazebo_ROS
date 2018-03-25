@@ -1,0 +1,814 @@
+<?xml version="1.0" ?>
+<robot name="crawler_robot">
+  <joint name="crawler_robot__camera_joint" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__camera_ros_link"/>
+    <origin rpy="0    0   -1.57" xyz="0    0    0.22"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="crawler_robot__hokuyo_joint" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__hokuyo_ros_link"/>
+    <origin rpy="0    0   -1.57" xyz="0     0     0.135"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="crawler_robot__right_rear" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__right_rear_wheel"/>
+    <origin rpy="0      1.5707  0" xyz="-0.05  0.15  0.05"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_front" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__right_front_wheel"/>
+    <origin rpy="0      1.5707  0" xyz="-0.05 -0.15  0.05"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_center1" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__right_center_wheel_1"/>
+    <origin rpy="0      1.5707  0" xyz="-0.05  0.05  0.04"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_center2" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__right_center_wheel_2"/>
+    <origin rpy="0      1.5707  0" xyz="-0.05 -0.05  0.04"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_sub2" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__right_sub_wheel_2"/>
+    <origin rpy="0      1.5707  0" xyz="-0.15     0.1      0.04999"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_sub3" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__right_sub_wheel_3"/>
+    <origin rpy="0      1.5707  0" xyz="-0.15    -0.1      0.04999"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_rear" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__left_rear_wheel"/>
+    <origin rpy="0      1.5707  0" xyz="0.05     0.15     0.04999"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_front" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__left_front_wheel"/>
+    <origin rpy="0      1.5707  0" xyz="0.05    -0.15     0.04999"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_center1" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__left_center_wheel_1"/>
+    <origin rpy="0      1.5707  0" xyz="0.05     0.05     0.03999"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_center2" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__left_center_wheel_2"/>
+    <origin rpy="0      1.5707  0" xyz="0.05    -0.05     0.03999"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_sub2" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__left_sub_wheel_2"/>
+    <origin rpy="0      1.5707  0" xyz="0.05     0.1      0.04999"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_sub3" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__left_sub_wheel_3"/>
+    <origin rpy="0      1.5707  0" xyz="0.05    -0.1      0.04999"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_rear_arm" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__left_rear_arm"/>
+    <origin rpy="0  0  0" xyz="0.151  0.15   0.051"/>
+    <axis xyz="1  0  0"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="1.0"/>
+  </joint>
+  <joint name="crawler_robot__right_rear_arm" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__right_rear_arm"/>
+    <origin rpy="0  0  0" xyz="-0.151  0.15   0.049"/>
+    <axis xyz="1  0  0"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="1.0"/>
+  </joint>
+  <joint name="crawler_robot__left_front_arm" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__left_front_arm"/>
+    <origin rpy="0  0  0" xyz="0.151 -0.15   0.051"/>
+    <axis xyz="1  0  0"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="1.0"/>
+  </joint>
+  <joint name="crawler_robot__right_front_arm" type="fixed">
+    <parent link="crawler_robot__chassis"/>
+    <child link="crawler_robot__right_front_arm"/>
+    <origin rpy="0  0  0" xyz="-0.151 -0.15   0.049"/>
+    <axis xyz="1  0  0"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="1.0"/>
+  </joint>
+  <joint name="crawler_robot__right_rear_arm_wheel_1" type="fixed">
+    <parent link="crawler_robot__right_rear_arm"/>
+    <child link="crawler_robot__right_rear_arm_wheel_1"/>
+    <origin rpy="0      1.5707  0" xyz="0     0     0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_rear_arm_wheel_2" type="fixed">
+    <parent link="crawler_robot__right_rear_arm"/>
+    <child link="crawler_robot__right_rear_arm_wheel_2"/>
+    <origin rpy="0      1.5707  0" xyz="0     0.15   0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_rear_arm_wheel_3" type="fixed">
+    <parent link="crawler_robot__right_rear_arm"/>
+    <child link="crawler_robot__right_rear_arm_wheel_3"/>
+    <origin rpy="0      1.5707  0" xyz="0     0.075  0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_front_arm_wheel_1" type="fixed">
+    <parent link="crawler_robot__right_front_arm"/>
+    <child link="crawler_robot__right_front_arm_wheel_1"/>
+    <origin rpy="0      1.5707  0" xyz="0     0     0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_front_arm_wheel_2" type="fixed">
+    <parent link="crawler_robot__right_front_arm"/>
+    <child link="crawler_robot__right_front_arm_wheel_2"/>
+    <origin rpy="0      1.5707  0" xyz="0    -0.15   0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__right_front_arm_wheel_3" type="fixed">
+    <parent link="crawler_robot__right_front_arm"/>
+    <child link="crawler_robot__right_front_arm_wheel_3"/>
+    <origin rpy="0      1.5707  0" xyz="0    -0.075  0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_rear_arm_wheel_1" type="fixed">
+    <parent link="crawler_robot__left_rear_arm"/>
+    <child link="crawler_robot__left_rear_arm_wheel_1"/>
+    <origin rpy="0      1.5707  0" xyz="0     0    -0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_rear_arm_wheel_2" type="fixed">
+    <parent link="crawler_robot__left_rear_arm"/>
+    <child link="crawler_robot__left_rear_arm_wheel_2"/>
+    <origin rpy="0      1.5707  0" xyz="0     0.15  -0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_rear_arm_wheel_3" type="fixed">
+    <parent link="crawler_robot__left_rear_arm"/>
+    <child link="crawler_robot__left_rear_arm_wheel_3"/>
+    <origin rpy="0      1.5707  0" xyz="0     0.075 -0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_front_arm_wheel_1" type="fixed">
+    <parent link="crawler_robot__left_front_arm"/>
+    <child link="crawler_robot__left_front_arm_wheel_1"/>
+    <origin rpy="0      1.5707  0" xyz="0     0    -0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_front_arm_wheel_2" type="fixed">
+    <parent link="crawler_robot__left_front_arm"/>
+    <child link="crawler_robot__left_front_arm_wheel_2"/>
+    <origin rpy="0      1.5707  0" xyz="0    -0.15  -0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="crawler_robot__left_front_arm_wheel_3" type="fixed">
+    <parent link="crawler_robot__left_front_arm"/>
+    <child link="crawler_robot__left_front_arm_wheel_3"/>
+    <origin rpy="0      1.5707  0" xyz="0    -0.075 -0.001"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <link name="crawler_robot__chassis">
+    <inertial>
+      <mass value="20"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="1.696e-01" ixy="0" ixz="0" iyy="2.176e-02" iyz="0" izz="1.7984e-01"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <box size=".1 .32 .06"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <box size=".1 .32 .06"/>
+      </geometry>
+    </visual>
+    <visual name="crawler_robot__crawler_visual_R">
+      <origin rpy="0      0      1.5707" xyz="-0.08  0    0.05"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/dae/crawler.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="crawler_robot__crawler_visual_L">
+      <origin rpy="0      0      1.5707" xyz="0.08  0    0.05"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/dae/crawler.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__camera_ros_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.000166667" ixy="0" ixz="0" iyy="0.000166667" iyz="0" izz="0.000166667"/>
+    </inertial>
+    <collision name="crawler_robot__collision-box">
+      <origin rpy="0  0  0" xyz="-0.01  0    0"/>
+      <geometry>
+        <box size="0.08 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <collision name="crawler_robot__collision-lens">
+      <origin rpy="0    1.57  0" xyz="0.04  0    0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.03"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual-box">
+      <origin rpy="0  0  0" xyz="-0.01  0    0"/>
+      <geometry>
+        <box size="0.08 0.1 0.1"/>
+      </geometry>
+    </visual>
+    <visual name="crawler_robot__visual-lens">
+      <origin rpy="0    1.57  0" xyz="0.04  0    0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.03"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__hokuyo_ros_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.6205208333e-04" ixy="0" ixz="0" iyy="0.6205208333e-04" iyz="0" izz="4.1927083333e-05"/>
+    </inertial>
+    <collision name="crawler_robot__collision-base">
+      <origin rpy="0  0  0" xyz="0      0     -0.0145"/>
+      <geometry>
+        <box size="0.05 0.05 0.041"/>
+      </geometry>
+    </collision>
+    <collision name="crawler_robot__collision-top">
+      <origin rpy="0  0  0" xyz="0      0      0.0205"/>
+      <geometry>
+        <cylinder length="0.029" radius="0.021"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual-base">
+      <origin rpy="0  0  0" xyz="0      0     -0.0145"/>
+      <geometry>
+        <box size="0.05 0.05 0.041"/>
+      </geometry>
+    </visual>
+    <visual name="crawler_robot__visual-top">
+      <origin rpy="0  0  0" xyz="0      0      0.0205"/>
+      <geometry>
+        <cylinder length="0.029" radius="0.021"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_rear_wheel">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <inertia ixx="1.3744467859e-03" ixy="0" ixz="0" iyy="1.3744467859e-03" iyz="0" izz="11.780972451e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_front_wheel">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <inertia ixx="1.3744467859e-03" ixy="0" ixz="0" iyy="1.3744467859e-03" iyz="0" izz="11.780972451e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_center_wheel_1">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <inertia ixx="7.5267323992e-04" ixy="0" ixz="0" iyy="7.5267323992e-04" iyz="0" izz="11.2900985988e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <geometry>
+        <cylinder length=".05" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <geometry>
+        <cylinder length=".05" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_center_wheel_2">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <inertia ixx="7.5267323992e-04" ixy="0" ixz="0" iyy="7.5267323992e-04" iyz="0" izz="11.2900985988e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <geometry>
+        <cylinder length=".05" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <geometry>
+        <cylinder length=".05" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_sub_wheel_2">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="1.3744467859e-03" ixy="0" ixz="0" iyy="1.3744467859e-03" iyz="0" izz="11.780972451e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_sub_wheel_3">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="1.3744467859e-03" ixy="0" ixz="0" iyy="1.3744467859e-03" iyz="0" izz="11.780972451e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_rear_wheel">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="1.3744467859e-03" ixy="0" ixz="0" iyy="1.3744467859e-03" iyz="0" izz="11.780972451e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_front_wheel">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="1.3744467859e-03" ixy="0" ixz="0" iyy="1.3744467859e-03" iyz="0" izz="11.780972451e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_center_wheel_1">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="7.5267323992e-04" ixy="0" ixz="0" iyy="7.5267323992e-04" iyz="0" izz="11.2900985988e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".05" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".05" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_center_wheel_2">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="7.5267323992e-04" ixy="0" ixz="0" iyy="7.5267323992e-04" iyz="0" izz="11.2900985988e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".05" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".05" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_sub_wheel_2">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="1.3744467859e-03" ixy="0" ixz="0" iyy="1.3744467859e-03" iyz="0" izz="11.780972451e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_sub_wheel_3">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <inertia ixx="1.3744467859e-03" ixy="0" ixz="0" iyy="1.3744467859e-03" iyz="0" izz="11.780972451e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.05"/>
+      <geometry>
+        <cylinder length=".1" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_rear_arm">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="1.57  0    1.57" xyz="-0.015  0.075  0.001"/>
+      <inertia ixx="6.8125e-4" ixy="0" ixz="0" iyy="3.96253e-3" iyz="0" izz="4.53125e-3"/>
+    </inertial>
+    <visual name="crawler_robot__crawler_visual">
+      <origin rpy="0    0    1.57" xyz="-0.015  0.075 -0.049"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/dae/arm_crawler_2.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_rear_arm_wheel_1">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_rear_arm_wheel_2">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_rear_arm_wheel_3">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_rear_arm">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="1.57  0    1.57" xyz="0.015  0.075 -0.001"/>
+      <inertia ixx="6.8125e-4" ixy="0" ixz="0" iyy="3.96253e-3" iyz="0" izz="4.53125e-3"/>
+    </inertial>
+    <visual name="crawler_robot__crawler_visual">
+      <origin rpy="0    0    1.57" xyz="0.015  0.075 -0.051"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/dae/arm_crawler_2.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_rear_arm_wheel_1">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_rear_arm_wheel_2">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_rear_arm_wheel_3">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_front_arm">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="1.57  0    1.57" xyz="-0.015 -0.075  0.001"/>
+      <inertia ixx="6.8125e-4" ixy="0" ixz="0" iyy="3.96253e-3" iyz="0" izz="4.53125e-3"/>
+    </inertial>
+    <visual name="crawler_robot__crawler_visual">
+      <origin rpy="0    0    1.57" xyz="-0.015 -0.075 -0.049"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/dae/arm_crawler_2.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_front_arm_wheel_1">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_front_arm_wheel_2">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__right_front_arm_wheel_3">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0    -0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_front_arm">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="1.57  0    1.57" xyz="0.015 -0.075 -0.001"/>
+      <inertia ixx="6.8125e-4" ixy="0" ixz="0" iyy="3.96253e-3" iyz="0" izz="4.53125e-3"/>
+    </inertial>
+    <visual name="crawler_robot__crawler_visual">
+      <origin rpy="0    0    1.57" xyz="0.015 -0.075 -0.051"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/dae/arm_crawler_2.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_front_arm_wheel_1">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_front_arm_wheel_2">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="crawler_robot__left_front_arm_wheel_3">
+    <inertial>
+      <mass value="1.0"/>
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <inertia ixx="6.2674773439e-04" ixy="0" ixz="0" iyy="6.2674773439e-04" iyz="0" izz="11.1919238284e-04"/>
+    </inertial>
+    <collision name="crawler_robot__collision">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </collision>
+    <visual name="crawler_robot__visual">
+      <origin rpy="0  0  0" xyz="0     0     0.015"/>
+      <geometry>
+        <cylinder length=".03" radius=".05"/>
+      </geometry>
+    </visual>
+  </link>
+</robot>

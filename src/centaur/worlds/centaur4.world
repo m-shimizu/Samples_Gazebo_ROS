@@ -12,18 +12,22 @@
     <!-- A centaur -->
     <include>
       <uri>model://centaur0</uri>
+      <name>robot0</name>
       <pose>0 0 0 0 0 0</pose>
     </include>
     <include>
       <uri>model://centaur1</uri>
+      <name>robot1</name>
       <pose>-2 0 0 0 0 0</pose>
     </include>
     <include>
       <uri>model://centaur2</uri>
+      <name>robot2</name>
       <pose>0 -2 0 0 0 0</pose>
     </include>
     <include>
       <uri>model://centaur3</uri>
+      <name>robot3</name>
       <pose>-2 -2 0 0 0 0</pose>
     </include>
     <model name="sphere">

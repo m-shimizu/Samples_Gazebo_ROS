@@ -1,0 +1,85 @@
+<package>
+  <name>crawler_robot_ros</name>
+  <version>2.5.8</version>
+  <description>
+    A model can be used as a crawler robot with flipper arms which can be controlled from ROS.
+  </description>
+
+  <maintainer email="shimizu@sist.chukyo-u.ac.jp">Masaru Shimizu</maintainer>
+  <license>MIT</license>
+  <url type="repository">https://github.com/m-shimizu/Samples_Gazebo_ROS</url>
+  <author>Masaru Shimizu</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>libgazebo7-dev</build_depend>
+  <build_depend>gazebo_msgs</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>trajectory_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>angles</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>rosgraph_msgs</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>rosconsole</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>polled_camera</build_depend>
+  <build_depend>diagnostic_updater</build_depend>
+  <build_depend>camera_info_manager</build_depend>
+  <!--
+    Need to use libgazebo7-dev since run script needs pkg-config
+    See: https://github.com/ros-simulation/gazebo_ros_pkgs/issues/323 for more info
+  -->
+  <run_depend>libgazebo7-dev</run_depend>
+  <run_depend>gazebo_msgs</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>nodelet</run_depend>
+  <run_depend>angles</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>tf2_ros</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>rosgraph_msgs</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>rosconsole</run_depend>
+  <run_depend>message_generation</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>polled_camera</run_depend>
+  <run_depend>diagnostic_updater</run_depend>
+  <run_depend>camera_info_manager</run_depend>
+
+  <!-- When moved to format 2, this can be turned test_depend -->
+  <build_depend>rostest</build_depend>
+  <run_depend>rostest</run_depend>
+<!--
+
+  <build_depend>gazebo_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>libgazebo7-dev</build_depend>
+
+  <run_depend>gazebo_msgs</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>libgazebo7-dev</run_depend>
+-->
+
+</package>

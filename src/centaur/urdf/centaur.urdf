@@ -535,7 +535,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/pelvis.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/pelvis.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -571,7 +571,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 1.57079632679" xyz="0 0 -0.039"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/waist.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/waist.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -602,7 +602,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 1.57079632679" xyz="-0.0 0 0.159"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/chest.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/chest.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -715,7 +715,7 @@
     <visual>
       <origin rpy=" 3.14159265359 1.57079632679 0" xyz="0 -0.051 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/shoulder_pitch_left.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/shoulder_pitch_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -750,7 +750,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0.024 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/shoulder_roll_left.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/shoulder_roll_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -786,7 +786,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0 0 -0.027"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/shoulder_yaw_left.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/shoulder_yaw_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -828,7 +828,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="-0.03 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/elbow_left_mod.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/elbow_left_mod.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -864,7 +864,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/wrist_yaw_left_mod.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/wrist_yaw_left_mod.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -906,7 +906,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/wrist_roll_left_mod.stl" scale="-0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/wrist_roll_left_mod.stl" scale="-0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -950,7 +950,7 @@
       <geometry>
         <box size="0.035 .035 .01"/>
         <!--<mesh
-          filename="package://centaur/meshes/wrist_yaw_left.stl" scale="0.001 0.001 0.001"/>-->
+          filename="package://centaur/meshes/centaur/wrist_yaw_left.stl" scale="0.001 0.001 0.001"/>-->
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -961,7 +961,7 @@
       <geometry>
         <box size="0.035 .035 .01"/>
         <!--<mesh
-          filename="package://centaur/meshes/wrist_yaw_left.stl" scale="0.001 0.001 0.001"/>-->
+          filename="package://centaur/meshes/centaur/wrist_yaw_left.stl" scale="0.001 0.001 0.001"/>-->
       </geometry>
     </collision>
   </link>
@@ -1112,7 +1112,7 @@
     <visual>
       <origin rpy=" 3.14159265359 1.57079632679 0" xyz="0 0.051 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/shoulder_pitch_left.stl" scale="0.001 -0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/shoulder_pitch_left.stl" scale="0.001 -0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -1147,7 +1147,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0.024 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/shoulder_roll_left.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/shoulder_roll_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -1183,7 +1183,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0 0 -0.027"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/shoulder_yaw_left.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/shoulder_yaw_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -1225,7 +1225,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="-0.03 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/elbow_left_mod.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/elbow_left_mod.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -1261,7 +1261,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/wrist_yaw_left_mod.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/wrist_yaw_left_mod.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -1303,7 +1303,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/wrist_roll_left_mod.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/wrist_roll_left_mod.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -1347,7 +1347,7 @@
       <geometry>
         <box size="0.035 .035 .01"/>
         <!--<mesh
-          filename="package://centaur/meshes/wrist_yaw_left.stl" scale="0.001 0.001 0.001"/>-->
+          filename="package://centaur/meshes/centaur/wrist_yaw_left.stl" scale="0.001 0.001 0.001"/>-->
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -1358,7 +1358,7 @@
       <geometry>
         <box size="0.035 .035 .01"/>
         <!--<mesh
-          filename="package://centaur/meshes/wrist_yaw_left.stl" scale="0.001 0.001 0.001"/>-->
+          filename="package://centaur/meshes/centaur/wrist_yaw_left.stl" scale="0.001 0.001 0.001"/>-->
       </geometry>
     </collision>
   </link>
@@ -1504,7 +1504,7 @@
     <visual>
       <origin rpy=" 1.57079632679 0 -1.57079632679" xyz="0 0 -0.111"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/neck.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/neck.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue">
         <color rgba="0.2 0.2 0.2 1"/>
@@ -1567,13 +1567,13 @@
     <collision name="collision">
       <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.0 0.0 -0.006"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/multisensor_head_collision.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/multisensor_head_collision.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.0 0.0 -0.006"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/multisensor_head.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://centaur/meshes/centaur/multisensor_head.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
   </link>
@@ -1606,14 +1606,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/hokuyo_utm_30lx.dae"/>
+        <mesh filename="package://centaur/meshes/centaur/hokuyo_utm_30lx.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 -0.0115"/>
       <geometry>
         <box size="0.058 0.058 0.087"/>
-        <!--<mesh filename="package://centaur/meshes/hokuyo_utm_30lx.stl"/>-->
+        <!--<mesh filename="package://centaur/meshes/centaur/hokuyo_utm_30lx.stl"/>-->
       </geometry>
     </collision>
   </link>
@@ -1676,7 +1676,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/asus_camera_simple.dae"/>
+        <mesh filename="package://centaur/meshes/centaur/asus_camera_simple.dae"/>
       </geometry>
     </visual>
     <!--        
@@ -1690,7 +1690,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/asus_camera_simple.dae"/>
+        <mesh filename="package://centaur/meshes/centaur/asus_camera_simple.dae"/>
       </geometry>
     </collision>
   </link>
@@ -1765,7 +1765,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/l_f1_link_0.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/l_f1_link_0.stl"/>
       </geometry>
       <material name="green">
         <color rgba="0 1 0 1"/>
@@ -1774,7 +1774,7 @@
     <visual>
       <origin rpy="0.4 0 0" xyz="0 -0.00407 0.04983"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/l_f1_link_1.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/l_f1_link_1.stl"/>
       </geometry>
       <material name="green"/>
     </visual>
@@ -1831,7 +1831,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://centaur/meshes/${prefix}_link_1.stl"/>
+          <mesh filename="package://centaur/meshes/centaur/${prefix}_link_1.stl"/>
         </geometry>
         <material name="green"/>
       </visual>
@@ -1881,7 +1881,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/l_f0_link_0.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/l_f0_link_0.stl"/>
       </geometry>
       <material name="green">
         <color rgba="0 1 0 1"/>
@@ -1890,7 +1890,7 @@
     <visual>
       <origin rpy="0.4 0 0" xyz="0 -0.00407 0.04983"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/l_f0_link_1.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/l_f0_link_1.stl"/>
       </geometry>
       <material name="green"/>
     </visual>
@@ -1947,7 +1947,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://centaur/meshes/${prefix}_link_1.stl"/>
+          <mesh filename="package://centaur/meshes/centaur/${prefix}_link_1.stl"/>
         </geometry>
         <material name="green"/>
       </visual>
@@ -2002,12 +2002,12 @@
     <!--
       <collision name="collision_aaa">
         <geometry>
-          <mesh filename="package://centaur/meshes/${prefix}_palm.stl"/>
+          <mesh filename="package://centaur/meshes/centaur/${prefix}_palm.stl"/>
         </geometry>
       </collision>
       <visual>
         <geometry>
-          <mesh filename="package://centaur/meshes/${prefix}_palm.stl"/>
+          <mesh filename="package://centaur/meshes/centaur/${prefix}_palm.stl"/>
         </geometry>
         <material name="green">
           <color rgba="0 1 0 1"/>
@@ -2017,7 +2017,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/l_palm.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/l_palm.stl"/>
       </geometry>
       <material name="green">
         <color rgba="0 1 0 1"/>
@@ -2026,7 +2026,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/l_palm.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/l_palm.stl"/>
       </geometry>
       <material name="yellow">
         <color rgba="0 1 1 1"/>
@@ -2151,7 +2151,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/r_f1_link_0.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/r_f1_link_0.stl"/>
       </geometry>
       <material name="green">
         <color rgba="0 1 0 1"/>
@@ -2160,7 +2160,7 @@
     <visual>
       <origin rpy="0.4 0 0" xyz="0 -0.00407 0.04983"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/r_f1_link_1.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/r_f1_link_1.stl"/>
       </geometry>
       <material name="green"/>
     </visual>
@@ -2217,7 +2217,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://centaur/meshes/${prefix}_link_1.stl"/>
+          <mesh filename="package://centaur/meshes/centaur/${prefix}_link_1.stl"/>
         </geometry>
         <material name="green"/>
       </visual>
@@ -2267,7 +2267,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/r_f0_link_0.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/r_f0_link_0.stl"/>
       </geometry>
       <material name="green">
         <color rgba="0 1 0 1"/>
@@ -2276,7 +2276,7 @@
     <visual>
       <origin rpy="0.4 0 0" xyz="0 -0.00407 0.04983"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/r_f0_link_1.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/r_f0_link_1.stl"/>
       </geometry>
       <material name="green"/>
     </visual>
@@ -2333,7 +2333,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://centaur/meshes/${prefix}_link_1.stl"/>
+          <mesh filename="package://centaur/meshes/centaur/${prefix}_link_1.stl"/>
         </geometry>
         <material name="green"/>
       </visual>
@@ -2388,12 +2388,12 @@
     <!--
       <collision name="collision_aaa">
         <geometry>
-          <mesh filename="package://centaur/meshes/${prefix}_palm.stl"/>
+          <mesh filename="package://centaur/meshes/centaur/${prefix}_palm.stl"/>
         </geometry>
       </collision>
       <visual>
         <geometry>
-          <mesh filename="package://centaur/meshes/${prefix}_palm.stl"/>
+          <mesh filename="package://centaur/meshes/centaur/${prefix}_palm.stl"/>
         </geometry>
         <material name="green">
           <color rgba="0 1 0 1"/>
@@ -2403,7 +2403,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/r_palm.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/r_palm.stl"/>
       </geometry>
       <material name="green">
         <color rgba="0 1 0 1"/>
@@ -2412,7 +2412,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/r_palm.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/r_palm.stl"/>
       </geometry>
       <material name="yellow">
         <color rgba="0 1 1 1"/>
@@ -2636,14 +2636,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/hokuyo_utm_30lx.dae"/>
+        <mesh filename="package://centaur/meshes/centaur/hokuyo_utm_30lx.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 -0.0115"/>
       <geometry>
         <box size="0.058 0.058 0.087"/>
-        <!--<mesh filename="package://centaur/meshes/hokuyo_utm_30lx.stl"/>-->
+        <!--<mesh filename="package://centaur/meshes/centaur/hokuyo_utm_30lx.stl"/>-->
       </geometry>
     </collision>
   </link>
@@ -2752,13 +2752,13 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/thermaleye_camera_hector_v2.dae"/>
+        <mesh filename="package://centaur/meshes/centaur/thermaleye_camera_hector_v2.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/thermaleye_camera_hector_v2.stl"/>
+        <mesh filename="package://centaur/meshes/centaur/thermaleye_camera_hector_v2.stl"/>
       </geometry>
     </collision>
   </link>
@@ -2782,7 +2782,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/asus_camera_simple.dae"/>
+        <mesh filename="package://centaur/meshes/centaur/asus_camera_simple.dae"/>
       </geometry>
     </visual>
     <!--        
@@ -2796,7 +2796,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://centaur/meshes/asus_camera_simple.dae"/>
+        <mesh filename="package://centaur/meshes/centaur/asus_camera_simple.dae"/>
       </geometry>
     </collision>
   </link>

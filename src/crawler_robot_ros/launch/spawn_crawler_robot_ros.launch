@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="paused" default="false"/>
+	<arg name="gui" default="true"/>
+	<arg name="verbose" default="false"/>
+	<arg name="world" default="crawler_robot.world"/>
+  <arg name="robot_name" default="robot"/>
+  <arg name="use_joystick" default="true"/>
+  <param name="use_sim_time" value="true"/>		
+  <!-- Make robot_description and run robot_state_publisher --> 
+  <include file="$(find crawler_robot_ros)/launch/make_robot_description_and_call_state_publisher_crawler.launch">
+    <arg name="robot_name"   value="$(arg robot_name)"/>
+  </include> 
+  <!-- Launch a joystick type teleop controller if needed --> 
+  <include file="$(find crawler_robot_ros)/launch/joy_and_teleop_crawler.launch"
+                                                      if="$(arg use_joystick)">
+    <arg name="robot_name"   value="$(arg robot_name)"/>
+		<arg name="dev"          value="/dev/input/js0"/>
+		<arg name="gc_bsgp1601"  value="true"/>
+		<arg name="gc_ds4"       value="false"/>
+		<arg name="gc_dux60"     value="false"/>
+  </include> 
+  <!-- Launch Gazebo -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
+         output="screen" args="$(find crawler_robot_ros)/worlds/$(arg world)"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
+         output="screen"/>
+</launch>
+
+

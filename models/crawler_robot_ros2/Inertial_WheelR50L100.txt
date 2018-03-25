@@ -1,0 +1,48 @@
+Info on the element
+___________________
+11/15/2017 14:46:01
+
+Name of the document      :, Unnamed
+Label Name                :, Pad
+Internal Name             :, Pad
+Name of the element       :, Face1
+Object type               :, Solid
+Mouse coordinates         :,  X:, 0.0325583405793,  Y:, -0.0378845818341,  Z:, 0.0263283662498
+Length of the object      :, 0.828318530718, mm
+Perimeter of the shape    :, 0.728318530718, mm
+
+Vertexes and details      :, Edges :,3, Faces :,3, Vertexes faces :,4, Total :,10
+
+Edge1 , 0.1 , mm,X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  -0.05 , X2 ,  0.05 , Y2 ,  0.0 , Z2 ,  0.05 , 
+Edge2 , 0.314159265359 , mm,X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  -0.05 , 
+Edge3 , 0.314159265359 , mm,X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  0.05 , 
+
+Face1 , 0.0314159265359 , mm²
+X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  -0.05 , 
+X2 ,  0.05 , Y2 ,  0.0 , Z2 ,  0.05 , 
+
+Face2 , 0.00785398163397 , mm²
+X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  -0.05 , 
+
+Face3 , 0.00785398163397 , mm²
+X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  0.05 , 
+
+
+Plan                     :, XY:, 0.0°, coordinates:, [,0.0 , 0.0,]  [,0.0 , 0.0,]
+Plan                     :, YZ:, 0.0°, coordinates:, [,0.0 , 0.0,]  [,0.0 , 0.0,]
+Plan                     :, ZX:, 0.0°, coordinates:, [,0.0 , 0.0,]  [,0.0 , 0.0,]
+
+The form surface         :, 0.0471238898038 , mm²
+Surface of the face      :, 0.0314159265359 , mm²
+
+Volume of the form       :, 0.000785398163397 , mm³
+Weight                   :, 5.89048622548e-06 , g, Density:, 7.5
+
+Center of the shape      :, X:, 0.0, Y:, 0.0, Z:, 0.0
+Center of mass           :, X:, 0.0, Y:, 3.36166200942e-19, Z:, 0.0
+BoundBox                 :, X:, 0.1,mm, Y:, 0.1,mm, Z:, 0.1,mm
+
+Matrix of inertia        :, X:, 1.14537232162e-06, Y:, -1.96978771798e-23, Z:, 5.29395592034e-23, :, 0.0
+                         :, X:, -1.96978771798e-23, Y:, 1.14537232162e-06, Z:, -3.89799680338e-25, :, 0.0
+                         :, X:, 5.29395592034e-23, Y:, -3.89799680338e-25, Z:, 9.81747704247e-07, :, 0.0
+                         :, X:, 0.0, Y:, 0.0, Z:, 0.0, :, 1.0

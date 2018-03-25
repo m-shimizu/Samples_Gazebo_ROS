@@ -3121,6 +3121,7 @@
         </visual>
         <velocity_decay/>
         <sensor name='thermal_camera_sensor' type='camera'>
+		      <visualize>false</visualize>
           <update_rate>10</update_rate>
           <camera name='thermal'>
             <horizontal_fov>1.5708</horizontal_fov>
@@ -3133,14 +3134,21 @@
               <near>0.01</near>
               <far>100</far>
             </clip>
+	<!--
+		        <noise>
+		          <type>gaussian</type>
+		          <mean>0.0</mean>
+		          <stddev>0.007</stddev>
+		        </noise>
+	-->
           </camera>
-          <plugin name='thermal_camera_controller' filename='libgazebo_ros_thermal_camera.so'>
+		      <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera_pink.so">
+            <robotNamespace>robot</robotNamespace>
             <alwaysOn>true</alwaysOn>
             <updateRate>10</updateRate>
-            <imageTopicName>thermal/image</imageTopicName>
+            <imageTopicName>thermal/image_raw</imageTopicName>
             <cameraInfoTopicName>thermal/camera_info</cameraInfoTopicName>
             <frameName>infrared_optical_frame</frameName>
-            <robotNamespace>robot</robotNamespace>
           </plugin>
           <pose frame=''>0.0505 0.046 -0.0025 0 -0 0</pose>
         </sensor>
@@ -3844,7 +3852,7 @@
       </joint>
 
       <plugin name='force_based_move_controller' filename='libgazebo_ros_force_based_move.so'>
-        <commandTopic>cmd_vel_raw</commandTopic>
+        <commandTopic>cmd_vel</commandTopic>
         <odometryTopic>odom_raw</odometryTopic>
         <odometryFrame>odom</odometryFrame>
         <odometryRate>20.0</odometryRate>

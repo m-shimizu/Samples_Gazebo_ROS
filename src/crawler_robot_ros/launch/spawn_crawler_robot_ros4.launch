@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="paused" default="false"/>
+	<arg name="gui" default="true"/>
+	<arg name="verbose" default="false"/>
+	<arg name="world" default="crawler_robot4.world"/>
+  <arg name="robot_name" default="robot"/>
+  <param name="use_sim_time" value="true"/>		
+  <!-- Robot0 : Make robot_description and run robot_state_publisher --> 
+  <include file="$(find crawler_robot_ros)/launch/make_robot_description_and_call_state_publisher_crawler.launch">
+    <arg name="robot_name"   value="robot0"/>
+  </include> 
+  <!-- Robot1 : Make robot_description and run robot_state_publisher --> 
+  <include file="$(find crawler_robot_ros)/launch/make_robot_description_and_call_state_publisher_crawler.launch">
+    <arg name="robot_name"   value="robot1"/>
+  </include> 
+  <!-- Robot2 : Make robot_description and run robot_state_publisher --> 
+  <include file="$(find crawler_robot_ros)/launch/make_robot_description_and_call_state_publisher_crawler.launch">
+    <arg name="robot_name"   value="robot2"/>
+  </include> 
+  <!-- Robot3 : Make robot_description and run robot_state_publisher --> 
+  <include file="$(find crawler_robot_ros)/launch/make_robot_description_and_call_state_publisher_crawler.launch">
+    <arg name="robot_name"   value="robot3"/>
+  </include> 
+  <!-- Launch Gazebo -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
+         output="screen" args="$(find crawler_robot_ros)/worlds/$(arg world)"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
+         output="screen"/>
+</launch>
+
+

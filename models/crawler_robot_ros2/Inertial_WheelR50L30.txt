@@ -1,0 +1,49 @@
+Info on the element
+___________________
+11/15/2017 14:51:49
+
+Name of the document      :, Unnamed
+Label Name                :, Pad
+Internal Name             :, Pad
+Name of the element       :, Edge3
+Object type               :, Solid
+Mouse coordinates         :,  X:, 0.0399008616805,  Y:, -0.0301317311823,  Z:, 0.0149999996647
+Length of the object      :, 0.314159265359, mm
+Radius                    :, 0.05, mm
+Perimeter of the shape    :, 0.658318530718, mm
+
+Vertexes and details      :, Edges :,3, Faces :,3, Vertexes faces :,4, Total :,10
+
+Edge1 , 0.03 , mm,X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  -0.015 , X2 ,  0.05 , Y2 ,  0.0 , Z2 ,  0.015 , 
+Edge2 , 0.314159265359 , mm,X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  -0.015 , 
+Edge3 , 0.314159265359 , mm,X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  0.015 , 
+
+Face1 , 0.00942477796077 , mm²
+X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  -0.015 , 
+X2 ,  0.05 , Y2 ,  0.0 , Z2 ,  0.015 , 
+
+Face2 , 0.00785398163397 , mm²
+X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  -0.015 , 
+
+Face3 , 0.00785398163397 , mm²
+X1 ,  0.05 , Y1 ,  0.0 , Z1 ,  0.015 , 
+
+
+Plan                     :, XY:, 180.0°, coordinates:, [,0.05 , 0.0,]  [,0.0 , 0.0,]
+Plan                     :, YZ:, -90.0°, coordinates:, [,0.0 , 0.015,]  [,0.0 , 0.0,]
+Plan                     :, ZX:, -106.699244°, coordinates:, [,0.015 , 0.05,]  [,0.0 , 0.0,]
+
+The form surface         :, 0.0251327412287 , mm²
+Surface of the face      :, 0.0 , mm²
+
+Volume of the form       :, 0.000235619449019 , mm³
+Weight                   :, 1.76714586764e-06 , g, Density:, 7.5
+
+Center of the shape      :, X:, 0.0, Y:, 0.0, Z:, 0.0
+Center of mass           :, X:, 0.0, Y:, 7.243896351e-19, Z:, 6.74047402586e-19
+BoundBox                 :, X:, 0.1,mm, Y:, 0.1,mm, Z:, 0.03,mm
+
+Matrix of inertia        :, X:, 1.64933614313e-07, Y:, -5.28568366539e-24, Z:, -6.61744490042e-24, :, 0.0
+                         :, X:, -5.28568366539e-24, Y:, 1.64933614313e-07, Z:, 2.43624800211e-25, :, 0.0
+                         :, X:, -6.61744490042e-24, Y:, 2.43624800211e-25, Z:, 2.94524311274e-07, :, 0.0
+                         :, X:, 0.0, Y:, 0.0, Z:, 0.0, :, 1.0

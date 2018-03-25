@@ -10,3 +10,8 @@
 ./clone_sdf quadrotor quadrotor2 robot robot2
 ./clone_sdf quadrotor quadrotor3 robot robot3
 
+./clone_sdf crawler_robot_ros crawler_robot_ros0 robot robot0
+./clone_sdf crawler_robot_ros crawler_robot_ros1 robot robot1
+./clone_sdf crawler_robot_ros crawler_robot_ros2 robot robot2
+./clone_sdf crawler_robot_ros crawler_robot_ros3 robot robot3
+

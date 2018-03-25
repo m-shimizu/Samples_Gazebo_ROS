@@ -1,0 +1,23 @@
+Opened mesh /home/masaru/QuadrupedRobot/models/my_4Legs/parts/Body.dae in 28 msec
+All files opened in 2268 msec
+Mesh Bounding Box Size 0.400000 0.200000 0.080000
+Mesh Bounding Box Diag 0.454313 
+Mesh Volume is 0.012800
+Mesh Surface is 0.512000
+Thin shell barycenter -0.000000 -0.000000 -0.000000
+Center of Mass is 0.000000 -0.000000 -0.000000
+Inertia Tensor is :
+| 0.000049 -0.000000 0.000000 |
+| -0.000000 0.000177 0.000000 |
+| 0.000000 0.000000 0.000213 |
+Principal axes are :
+| 1.000000 -0.000000 0.000000 |
+| 0.000000 1.000000 0.000000 |
+| -0.000000 -0.000000 1.000000 |
+axis momenta are :
+| 0.000049 0.000177 0.000213 |
+
+NEW!!! (Right value is X 0.0025 on Followings
+| 0.077333 0.000000 0.000000 |
+| 0.000000 0.277333 0.000000 |
+| 0.000000 0.000000 0.333333 |
