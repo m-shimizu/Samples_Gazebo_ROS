@@ -491,6 +491,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -499,6 +500,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
     </link>
 
     <link name="right_center_wheel_2">
@@ -530,6 +532,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -538,6 +541,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
     </link>
 
     <link name="right_center_wheel_3">
@@ -569,6 +573,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -577,6 +582,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
     </link>
 
     <link name="right_sub_wheel_2">
@@ -608,6 +614,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -616,6 +623,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
       <self_collide>0</self_collide>
     </link>
 
@@ -648,6 +656,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -656,6 +665,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
       <self_collide>0</self_collide>
     </link>
 <!--__________________/right_crawler___________________-->
@@ -768,6 +778,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -776,6 +787,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
     </link>
 
     <link name="left_center_wheel_2">
@@ -807,6 +819,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -815,6 +828,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
     </link>
 
     <link name="left_center_wheel_3">
@@ -846,6 +860,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -854,6 +869,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
     </link>
 
     <link name="left_sub_wheel_2">
@@ -885,6 +901,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -893,6 +910,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
     </link>
 
     <link name="left_sub_wheel_3">
@@ -924,6 +942,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -932,6 +951,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
     </link>
 <!--__________________/left_crawler___________________-->
 
@@ -959,6 +979,7 @@
           </box>
         </geometry>
       </collision>
+-->
       <visual name="visual">
         <geometry>
           <box>
@@ -972,7 +993,6 @@
           <emissive>0 0 0 0</emissive>
         </material>
       </visual>
--->
       <visual name="crawler_visual">
         <pose>-0.015 0 -0.05 0 0 1.57</pose>
         <geometry>
@@ -1092,6 +1112,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -1100,6 +1121,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
       <self_collide>0</self_collide>
     </link>
 <!--__________________/right_rear_arm__________________-->
@@ -1127,6 +1149,7 @@
           </box>
         </geometry>
       </collision>
+-->
       <visual name="visual">
         <geometry>
           <box>
@@ -1140,7 +1163,6 @@
           <emissive>0 0 0 0</emissive>
         </material>
       </visual>
--->
       <visual name="crawler_visual">
         <pose>0.015 0 -0.05 0 0 1.57</pose>
         <geometry>
@@ -1260,6 +1282,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -1268,6 +1291,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
       <self_collide>0</self_collide>
     </link>
 <!--__________________/left_rear_arm__________________-->
@@ -1295,6 +1319,7 @@
           </box>
         </geometry>
       </collision>
+-->
       <visual name="visual">
         <geometry>
           <box>
@@ -1308,7 +1333,6 @@
           <emissive>0 0 0 0</emissive>
         </material>
       </visual>
--->
       <visual name="crawler_visual">
         <pose>-0.015 0 -0.05 0 0 1.57</pose>
         <geometry>
@@ -1428,6 +1452,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -1436,6 +1461,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
       <self_collide>0</self_collide>
     </link>
 <!--__________________/right_front_arm__________________-->
@@ -1463,6 +1489,7 @@
           </box>
         </geometry>
       </collision>
+-->
       <visual name="visual">
         <geometry>
           <box>
@@ -1476,7 +1503,6 @@
           <emissive>0 0 0 0</emissive>
         </material>
       </visual>
--->
       <visual name="crawler_visual">
         <pose>0.015 0 -0.05 0 0 1.57</pose>
         <geometry>
@@ -1596,6 +1622,7 @@
           </friction>
         </surface>
       </collision>
+<!--
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -1604,6 +1631,7 @@
           </cylinder>
         </geometry>
       </visual>
+-->
       <self_collide>0</self_collide>
     </link>
 <!--__________________/left_front_arm__________________-->
