@@ -4,7 +4,7 @@
     <static>false</static>
     <self_collide>0</self_collide>
 <!--__________________body_____________________-->
-    <link name='chassis'>
+    <link name='base_link'>
       <pose>0 0 .05 0 0 0</pose>
       <inertial>
         <mass>20</mass>
@@ -124,152 +124,20 @@
         </gps>
       </sensor>
     </link>
-<!-- Camera (hight is 100mm) 
+    
+<!-- Camera (hight is 100mm) -->
     <include>
       <name>camera</name>
       <pose>0 0 0.22 0 0 -1.57</pose>
       <uri>model://camera_ros</uri>
-    </include> -->    
-    <link name="camera_link">
-      <audio_sink>
-        <pose>0 0 0 0 0 3.1415926535</pose>
-      </audio_sink>
-      <pose>0 0 0.22 0 0 -1.57</pose>
-      <inertial>
-        <mass>0.1</mass>
-        <inertia>
-          <ixx>0.000166667</ixx>
-          <iyy>0.000166667</iyy>
-          <izz>0.000166667</izz>
-        </inertia>
-      </inertial>
-      <collision name="collision-box">
-        <pose>-0.01 0 0 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.08 0.1 0.1</size>
-          </box>
-        </geometry>
-      </collision>
-      <collision name="collision-lens">
-        <pose>0.04 0 0 0 1.57 0</pose>
-        <geometry>
-          <cylinder>
-            <radius>0.03</radius>
-            <length>0.02</length>
-          </cylinder>
-        </geometry>
-      </collision>
-      <visual name="visual-box">
-        <pose>-0.01 0 0 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.08 0.1 0.1</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.3 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.1 0.1 0.1 1</specular>
-          <emissive>0 0 0 0</emissive>
-        </material>
-      </visual>
-      <visual name="visual-lens">
-        <pose>0.04 0 0 0 1.57 0</pose>
-        <geometry>
-          <cylinder>
-            <radius>0.03</radius>
-            <length>0.02</length>
-          </cylinder>
-        </geometry>
-        <material>
-          <ambient>0 0 0 1</ambient>
-          <diffuse>0 0 0 1</diffuse>
-          <specular>0.1 0.1 0.1 1</specular>
-          <emissive>0 0 0 0</emissive>
-        </material>
-      </visual>
-<!-- CAMERA -->
-      <sensor type="camera" name="camera">
-        <visualize>false</visualize>
-        <update_rate>20</update_rate>
-        <camera name="camera">
-          <horizontal_fov>1.047</horizontal_fov>
-          <image>
-            <width>320</width>
-            <height>240</height>
-            <format>R8G8B8</format>
-          </image>
-          <clip>
-            <near>0.1</near>
-            <far>100</far>
-          </clip>
-     <!-- Noise is sampled independently per pixel on each frame.
-          That pixel's noise value is added to each of its color
-          channels, which at that point lie in the range [0,1]. -->
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.007</stddev>
-          </noise>
-        </camera>
-        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-          <robotNamespace>robot</robotNamespace>
-          <alwaysOn>true</alwaysOn>
-          <updateRate>0.0</updateRate>
-          <cameraName>camera/rgb</cameraName>
-          <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>camera_link</frameName>
-          <hackBaseline>0.07</hackBaseline>
-          <distortionK1>0.0</distortionK1>
-          <distortionK2>0.0</distortionK2>
-          <distortionK3>0.0</distortionK3>
-          <distortionT1>0.0</distortionT1>
-          <distortionT2>0.0</distortionT2>
-        </plugin>
-      </sensor>
-<!-- THERMAL CAMERA --> 
-      <sensor type="camera" name="thermal_camera">
-        <visualize>false</visualize>
-        <update_rate>10</update_rate>
-        <camera name="camera_thermal">
-          <horizontal_fov>1.047</horizontal_fov>
-          <image>
-            <width>160</width>
-            <height>120</height>
-            <format>R8G8B8</format>
-          </image>
-          <clip>
-            <near>0.1</near>
-            <far>100</far>
-          </clip>
-<!--
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.007</stddev>
-          </noise>
--->
-        </camera>
-        <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera_pink.so">
-          <robotNamespace>robot</robotNamespace>
-          <alwaysOn>true</alwaysOn>
-          <updateRate>10</updateRate>
-          <imageTopicName>camera/thermal/image_raw</imageTopicName>
-          <cameraInfoTopicName>camera/thermal/camera_info</cameraInfoTopicName>
-          <frameName>thermal_optical_frame</frameName>
-          <interface:camera name="thermal_camera_iface" />
-        </plugin>
-      </sensor> 
-    </link>
-        
+    </include>
+
     <joint name="camera_joint" type="revolute">
-      <parent>chassis</parent>
-      <child>camera_link</child>
+      <parent>base_link</parent>
+      <child>camera::camera_link</child>
       <pose>0 0 0 0 0 0</pose>
       <axis>
-        <xyz>0.000000 0.000000 1.000000</xyz>
+        <xyz>0 0 1</xyz>
         <limit>
           <lower>0</lower>
           <upper>0</upper>
@@ -277,105 +145,19 @@
       </axis>
     </joint>
     
-<!-- Hokuyo (hight is 70mm) 
+<!-- Hokuyo (hight is 70mm) -->
     <include>
       <name>hokuyo</name>
       <pose>0 0 0.135 0 0 -1.57</pose>
       <uri>model://hokuyo_ros</uri>
-    </include> -->
-    <link name="houkyo_link">
-      <pose>0 0 0.135 0 0 -1.57</pose>
-      <inertial>
-        <mass>0.1</mass>
-        <inertia>
-          <ixx>0.6205208333e-04</ixx>
-          <iyy>0.6205208333e-04</iyy>
-          <izz>4.1927083333e-05</izz>
-        </inertia>
-      </inertial>
-      <visual name="visual-base">
-        <pose>0 0 -0.0145 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.05 0.05 0.041</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.3 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.1 0.1 0.1 1</specular>
-          <emissive>0 0 0 0</emissive>
-        </material>
-      </visual>
-      <visual name="visual-top">
-        <pose>0 0 0.0205 0 0 0</pose>
-        <geometry>
-          <cylinder>
-            <radius>0.021</radius>
-            <length>0.029</length>
-          </cylinder>
-        </geometry>
-        <material>
-          <ambient>0 0 0 1</ambient>
-          <diffuse>0 0 0 1</diffuse>
-          <specular>0.1 0.1 0.1 1</specular>
-          <emissive>0 0 0 0</emissive>
-        </material>
-      </visual>
-      <collision name="collision-base">
-        <pose>0 0 -0.0145 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.05 0.05 0.041</size>
-          </box>
-        </geometry>
-      </collision>
-      <collision name="collision-top">
-        <pose>0 0 0.0205 0 0 0</pose>
-        <geometry>
-          <cylinder>
-            <radius>0.021</radius>
-            <length>0.029</length>
-          </cylinder>
-        </geometry>
-      </collision>
-      <sensor type="ray" name="lms200">
-        <always_on>true</always_on>
-        <update_rate>30</update_rate>
-        <pose>0 0 0 0 0 0</pose>
-        <visualize>false</visualize>
-        <ray>
-          <scan>
-            <horizontal>
-		          <samples>1040</samples>			<!-- 1040!!! -->
-		          <resolution>1</resolution>
-		          <min_angle>-2.268928</min_angle> <!-- 90deg: -1.570796 -->
-		          <max_angle>2.268928</max_angle>  <!-- 90deg: 1.570796  -->
-            </horizontal>
-          </scan>
-          <range>
-            <min>0.08</min>
-            <max>30.0</max>
-            <resolution>0.01</resolution>
-          </range>
-        </ray>
-        <plugin name="gazebo_ros_hokuyo_controller" filename="libgazebo_ros_laser.so">
-          <robotNamespace>robot</robotNamespace>
-          <topicName>scan</topicName>
-          <gaussianNoise>0.005</gaussianNoise>
-          <alwaysOn>true</alwaysOn>
-          <updateRate>30</updateRate>
-          <frameName>hokuyo_frame</frameName>
-        </plugin>
-      </sensor>
-    </link>
-        
+    </include>
+
     <joint name="hokuyo_joint" type="revolute">
-      <parent>chassis</parent>
-      <child>houkyo_link</child>
+      <parent>base_link</parent>
+      <child>hokuyo::hokuyo_link</child>
       <pose>0 0 0 0 0 0</pose>
       <axis>
-        <xyz>0.000000 0.000000 1.000000</xyz>
+        <xyz>0 0 1</xyz>
         <limit>
           <lower>0</lower>
           <upper>0</upper>
@@ -476,6 +258,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -493,6 +276,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -517,6 +301,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -534,6 +319,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -558,6 +344,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -575,6 +362,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -599,6 +387,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -616,6 +405,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -641,6 +431,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -658,6 +449,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -763,6 +555,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -780,6 +573,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -804,6 +598,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -821,6 +616,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -845,6 +641,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -862,6 +659,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -886,6 +684,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -903,6 +702,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -927,6 +727,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -944,6 +745,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1097,6 +899,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1114,6 +917,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1267,6 +1071,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1284,6 +1089,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1437,6 +1243,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1454,6 +1261,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1607,6 +1415,7 @@
         </inertia>
       </inertial>
       <collision name="collision">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1624,6 +1433,7 @@
       </collision>
 <!--
       <visual name="visual">
+        <laser_retro>0</laser_retro>
         <geometry>
           <cylinder>
             <radius>.05</radius>
@@ -1638,369 +1448,378 @@
 
 
 <!--__________________joint___________________-->
-  <joint type="revolute" name="right_rear">
-    <pose>0 0 0.05 0 0 0</pose>
-    <child>right_rear_wheel</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_rear">
+      <pose>0 0 0.05 0 0 0</pose>
+      <child>right_rear_wheel</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="right_front">
-    <pose>0 0 0.05 0 0 0</pose>
-    <child>right_front_wheel</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_front">
+      <pose>0 0 0.05 0 0 0</pose>
+      <child>right_front_wheel</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
 
-  <joint type="revolute" name="right_center1">
-    <pose>0 0 0.05 0 0 0</pose>
-    <child>right_center_wheel_1</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_center1">
+      <pose>0 0 0.05 0 0 0</pose>
+      <child>right_center_wheel_1</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="right_center2">
-    <pose>0 0 0.05 0 0 0</pose>
-    <child>right_center_wheel_2</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_center2">
+      <pose>0 0 0.05 0 0 0</pose>
+      <child>right_center_wheel_2</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="right_center3">
-    <pose>0 0 0.05 0 0 0</pose>
-    <child>right_center_wheel_3</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_center3">
+      <pose>0 0 0.05 0 0 0</pose>
+      <child>right_center_wheel_3</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
 <!--
-  <joint type="revolute" name="right_sub1">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>right_sub_wheel_1</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_sub1">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>right_sub_wheel_1</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 -->
 
-<joint type="revolute" name="right_sub2">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>right_sub_wheel_2</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-</joint>
+    <joint type="revolute" name="right_sub2">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>right_sub_wheel_2</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-<joint type="revolute" name="right_sub3">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>right_sub_wheel_3</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_sub3">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>right_sub_wheel_3</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="left_rear">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>left_rear_wheel</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="left_rear">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>left_rear_wheel</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="left_front">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>left_front_wheel</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-
-
-  <joint type="revolute" name="left_center1">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>left_center_wheel_1</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-  <joint type="revolute" name="left_center2">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>left_center_wheel_2</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-  <joint type="revolute" name="left_center3">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>left_center_wheel_3</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-<!--<joint type="revolute" name="left_sub1">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>left_sub_wheel_1</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-</joint>-->
-
-  <joint type="revolute" name="left_sub2">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>left_sub_wheel_2</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-  <joint type="revolute" name="left_sub3">
-    <pose>0 0 -0.05 0 0 0</pose>
-    <child>left_sub_wheel_3</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="left_front">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>left_front_wheel</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
 
 
-  <joint type="revolute" name="left_rear_arm">
-    <pose>0 -0.075 0.001 0 0 0</pose>
-    <child>left_rear_arm</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>1 0 0</xyz>
-      <dynamics>
-        <damping>.5</damping>
-      </dynamics>
-      <limit>
-        <velocity>1</velocity>
-      </limit>
-    </axis>
-  </joint>
+    <joint type="revolute" name="left_center1">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>left_center_wheel_1</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="right_rear_arm">
-    <pose>0 -0.075 -0.001 0 0 0</pose>
-    <child>right_rear_arm</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>1 0 0</xyz>
-      <dynamics>
-        <damping>.5</damping>
-      </dynamics>
-      <limit>
-        <velocity>1</velocity>
-      </limit>
-    </axis>
-  </joint>
+    <joint type="revolute" name="left_center2">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>left_center_wheel_2</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="left_front_arm">
-    <pose>0 0.075 0.001 0 0 0</pose>
-    <child>left_front_arm</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>1 0 0</xyz>
-      <dynamics>
-        <damping>.5</damping>
-      </dynamics>
-      <limit>
-        <velocity>1</velocity>
-      </limit>
-    </axis>
-  </joint>
+    <joint type="revolute" name="left_center3">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>left_center_wheel_3</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="right_front_arm">
-    <pose>0 0.075 -0.001 0 0 0</pose>
-    <child>right_front_arm</child>
-    <parent>chassis</parent>
-    <axis>
-      <xyz>1 0 0</xyz>
-      <dynamics>
-        <damping>.5</damping>
-      </dynamics>
-      <limit>
-        <velocity>1</velocity>
-      </limit>
-    </axis>
-  </joint>
+<!--
+    <joint type="revolute" name="left_sub1">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>left_sub_wheel_1</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+-->
+
+    <joint type="revolute" name="left_sub2">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>left_sub_wheel_2</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="left_sub3">
+      <pose>0 0 -0.05 0 0 0</pose>
+      <child>left_sub_wheel_3</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
 
 
-  <joint type="revolute" name="right_rear_arm_wheel_1">
-    <pose>0 0 0.015 0 0 0</pose>
-    <child>right_rear_arm_wheel_1</child>
-    <parent>right_rear_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="left_rear_arm_joint">
+      <pose>0 -0.075 0.001 0 0 0</pose>
+      <child>left_rear_arm</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <damping>.5</damping>
+        </dynamics>
+        <limit>
+          <velocity>1</velocity>
+        </limit>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="right_rear_arm_wheel_2">
-    <pose>0 0 0.015 0 0 0</pose>
-    <child>right_rear_arm_wheel_2</child>
-    <parent>right_rear_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_rear_arm_joint">
+      <pose>0 -0.075 -0.001 0 0 0</pose>
+      <child>right_rear_arm</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <damping>.5</damping>
+        </dynamics>
+        <limit>
+          <velocity>1</velocity>
+        </limit>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="right_rear_arm_wheel_3">
-    <pose>0 0 0.015 0 0 0</pose>
-    <child>right_rear_arm_wheel_3</child>
-    <parent>right_rear_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="left_front_arm_joint">
+      <pose>0 0.075 0.001 0 0 0</pose>
+      <child>left_front_arm</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <damping>.5</damping>
+        </dynamics>
+        <limit>
+          <velocity>1</velocity>
+        </limit>
+      </axis>
+    </joint>
 
-
-
-  <joint type="revolute" name="right_front_arm_wheel_1">
-    <pose>0 0 0.015 0 0 0</pose>
-    <child>right_front_arm_wheel_1</child>
-    <parent>right_front_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-  <joint type="revolute" name="right_front_arm_wheel_2">
-    <pose>0 0 0.015 0 0 0</pose>
-    <child>right_front_arm_wheel_2</child>
-    <parent>right_front_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-  <joint type="revolute" name="right_front_arm_wheel_3">
-    <pose>0 0 0.015 0 0 0</pose>
-    <child>right_front_arm_wheel_3</child>
-    <parent>right_front_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-
-
-  <joint type="revolute" name="left_rear_arm_wheel_1">
-    <pose>0 0 -0.015 0 0 0</pose>
-    <child>left_rear_arm_wheel_1</child>
-    <parent>left_rear_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-  <joint type="revolute" name="left_rear_arm_wheel_2">
-    <pose>0 0 -0.015 0 0 0</pose>
-    <child>left_rear_arm_wheel_2</child>
-    <parent>left_rear_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
-
-  <joint type="revolute" name="left_rear_arm_wheel_3">
-    <pose>0 0 -0.015 0 0 0</pose>
-    <child>left_rear_arm_wheel_3</child>
-    <parent>left_rear_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_front_arm_joint">
+      <pose>0 0.075 -0.001 0 0 0</pose>
+      <child>right_front_arm</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <damping>.5</damping>
+        </dynamics>
+        <limit>
+          <velocity>1</velocity>
+        </limit>
+      </axis>
+    </joint>
 
 
 
-  <joint type="revolute" name="left_front_arm_wheel_1">
-    <pose>0 0 -0.015 0 0 0</pose>
-    <child>left_front_arm_wheel_1</child>
-    <parent>left_front_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_rear_arm_wheel_1">
+      <pose>0 0 0.015 0 0 0</pose>
+      <child>right_rear_arm_wheel_1</child>
+      <parent>right_rear_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="left_front_arm_wheel_2">
-    <pose>0 0 -0.015 0 0 0</pose>
-    <child>left_front_arm_wheel_2</child>
-    <parent>left_front_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_rear_arm_wheel_2">
+      <pose>0 0 0.015 0 0 0</pose>
+      <child>right_rear_arm_wheel_2</child>
+      <parent>right_rear_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-  <joint type="revolute" name="left_front_arm_wheel_3">
-    <pose>0 0 -0.015 0 0 0</pose>
-    <child>left_front_arm_wheel_3</child>
-    <parent>left_front_arm</parent>
-    <axis>
-      <xyz>0 0 1</xyz>
-    </axis>
-  </joint>
+    <joint type="revolute" name="right_rear_arm_wheel_3">
+      <pose>0 0 0.015 0 0 0</pose>
+      <child>right_rear_arm_wheel_3</child>
+      <parent>right_rear_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+
+    <joint type="revolute" name="right_front_arm_wheel_1">
+      <pose>0 0 0.015 0 0 0</pose>
+      <child>right_front_arm_wheel_1</child>
+      <parent>right_front_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="right_front_arm_wheel_2">
+      <pose>0 0 0.015 0 0 0</pose>
+      <child>right_front_arm_wheel_2</child>
+      <parent>right_front_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="right_front_arm_wheel_3">
+      <pose>0 0 0.015 0 0 0</pose>
+      <child>right_front_arm_wheel_3</child>
+      <parent>right_front_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+
+    <joint type="revolute" name="left_rear_arm_wheel_1">
+      <pose>0 0 -0.015 0 0 0</pose>
+      <child>left_rear_arm_wheel_1</child>
+      <parent>left_rear_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="left_rear_arm_wheel_2">
+      <pose>0 0 -0.015 0 0 0</pose>
+      <child>left_rear_arm_wheel_2</child>
+      <parent>left_rear_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="left_rear_arm_wheel_3">
+      <pose>0 0 -0.015 0 0 0</pose>
+      <child>left_rear_arm_wheel_3</child>
+      <parent>left_rear_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+
+    <joint type="revolute" name="left_front_arm_wheel_1">
+      <pose>0 0 -0.015 0 0 0</pose>
+      <child>left_front_arm_wheel_1</child>
+      <parent>left_front_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="left_front_arm_wheel_2">
+      <pose>0 0 -0.015 0 0 0</pose>
+      <child>left_front_arm_wheel_2</child>
+      <parent>left_front_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="left_front_arm_wheel_3">
+      <pose>0 0 -0.015 0 0 0</pose>
+      <child>left_front_arm_wheel_3</child>
+      <parent>left_front_arm</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
 <!--__________________/joint___________________-->
 
-	<plugin name="crawler_flipper" filename="libcrawler_flipper_ros.so">
-	  <robotNamespace>robot</robotNamespace>
-		<right_front>right_front</right_front>
-		<right_center1>right_center1</right_center1>
-		<right_center2>right_center2</right_center2>
-		<right_center3>right_center3</right_center3>
-		<right_rear>right_rear</right_rear>
-		<left_front>left_front</left_front>
-		<left_center1>left_center1</left_center1>
-		<left_center2>left_center2</left_center2>
-		<left_center3>left_center3</left_center3>
-		<left_front_arm>left_front_arm</left_front_arm>
-		<left_rear_arm>left_rear_arm</left_rear_arm>
-		<right_front_arm>right_front_arm</right_front_arm>
-		<right_rear_arm>right_rear_arm</right_rear_arm>
-		<right_front_arm_wheel_1>right_front_arm_wheel_1</right_front_arm_wheel_1>
-		<right_front_arm_wheel_2>right_front_arm_wheel_2</right_front_arm_wheel_2>
-		<right_front_arm_wheel_3>right_front_arm_wheel_3</right_front_arm_wheel_3>
-		<left_front_arm_wheel_1>left_front_arm_wheel_1</left_front_arm_wheel_1>
-		<left_front_arm_wheel_2>left_front_arm_wheel_2</left_front_arm_wheel_2>
-		<left_front_arm_wheel_3>left_front_arm_wheel_3</left_front_arm_wheel_3>
-		<right_rear_arm_wheel_1>right_rear_arm_wheel_1</right_rear_arm_wheel_1>
-		<right_rear_arm_wheel_2>right_rear_arm_wheel_2</right_rear_arm_wheel_2>
-		<right_rear_arm_wheel_3>right_rear_arm_wheel_3</right_rear_arm_wheel_3>
-		<left_rear_arm_wheel_1>left_rear_arm_wheel_1</left_rear_arm_wheel_1>
-		<left_rear_arm_wheel_2>left_rear_arm_wheel_2</left_rear_arm_wheel_2>
-		<left_rear_arm_wheel_3>left_rear_arm_wheel_3</left_rear_arm_wheel_3>
-		<right_sub2>right_sub2</right_sub2>
-		<right_sub3>right_sub3</right_sub3>
-		<left_sub2>left_sub2</left_sub2>
-		<left_sub3>left_sub3</left_sub3>
-		<gain>0.1</gain>
-		<broadcastTF>true</broadcastTF>
-	</plugin>
+    <plugin name="crawler_flipper" filename="libcrawler_flipper_ros.so">
+      <robotNamespace>robot</robotNamespace>
+      <right_front_arm>right_front_arm_joint</right_front_arm>
+      <right_rear_arm>right_rear_arm_joint</right_rear_arm>
+      <left_front_arm>left_front_arm_joint</left_front_arm>
+      <left_rear_arm>left_rear_arm_joint</left_rear_arm>
+      <right_front>right_front</right_front>
+      <right_rear>right_rear</right_rear>
+      <left_front>left_front</left_front>
+      <left_rear>left_rear</left_rear>
+      <right_center1>right_center1</right_center1>
+      <right_center2>right_center2</right_center2>
+      <right_center3>right_center3</right_center3>
+      <left_center1>left_center1</left_center1>
+      <left_center2>left_center2</left_center2>
+      <left_center3>left_center3</left_center3>
+      <right_front_arm_wheel_1>right_front_arm_wheel_1</right_front_arm_wheel_1>
+      <right_front_arm_wheel_2>right_front_arm_wheel_2</right_front_arm_wheel_2>
+      <right_front_arm_wheel_3>right_front_arm_wheel_3</right_front_arm_wheel_3>
+      <left_front_arm_wheel_1>left_front_arm_wheel_1</left_front_arm_wheel_1>
+      <left_front_arm_wheel_2>left_front_arm_wheel_2</left_front_arm_wheel_2>
+      <left_front_arm_wheel_3>left_front_arm_wheel_3</left_front_arm_wheel_3>
+      <right_rear_arm_wheel_1>right_rear_arm_wheel_1</right_rear_arm_wheel_1>
+      <right_rear_arm_wheel_2>right_rear_arm_wheel_2</right_rear_arm_wheel_2>
+      <right_rear_arm_wheel_3>right_rear_arm_wheel_3</right_rear_arm_wheel_3>
+      <left_rear_arm_wheel_1>left_rear_arm_wheel_1</left_rear_arm_wheel_1>
+      <left_rear_arm_wheel_2>left_rear_arm_wheel_2</left_rear_arm_wheel_2>
+      <left_rear_arm_wheel_3>left_rear_arm_wheel_3</left_rear_arm_wheel_3>
+      <right_sub2>right_sub2</right_sub2>
+      <right_sub3>right_sub3</right_sub3>
+      <left_sub2>left_sub2</left_sub2>
+      <left_sub3>left_sub3</left_sub3>
+      <gain>0.1</gain>
+      <broadcastTF>true</broadcastTF>
+    </plugin>
+
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>robot</robotNamespace>
+<!--      <robotParam>robot/robot_description</robotParam> -->
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
 
   </model>
 </sdf>

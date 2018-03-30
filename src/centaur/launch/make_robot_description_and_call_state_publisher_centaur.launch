@@ -3,9 +3,12 @@
   <arg name="robot_name" default="robot"/>
   <group ns="$(arg robot_name)">
     <param name="tf_prefix" type="string" value="$(arg robot_name)"/>      
-    <rosparam command="load" file="$(find centaur)/config/centaur/centaur_default_controllers.yaml"/> 
-    <rosparam command="load" file="$(find centaur)/config/centaur/centaur_joint_limits.yaml"/>
-    <rosparam command="load" file="$(find centaur)/config/centaur/centaur_thor_mang_hand_parameters.yaml"/>
+    <rosparam command="load" 
+      file="$(find centaur)/config/centaur/centaur_default_controllers.yaml"/> 
+    <rosparam command="load" 
+      file="$(find centaur)/config/centaur/centaur_joint_limits.yaml"/>
+    <rosparam command="load" 
+      file="$(find centaur)/config/centaur/centaur_thor_mang_hand_parameters.yaml"/>
     <!--
     <rosparam command="load" file="$(find centaur)/config/centaur/obelix_flippers_gazebo.yaml"/>
     <rosparam command="load" file="$(find centaur)/config/centaur/vt_hand_left_controllers.yaml"/>
@@ -20,23 +23,27 @@
     <!--
     <param name="robot_description" command="$(find xacro)/xacro '$(find hector_centaur_description)/robots/centaur_default.urdf.xacro' robot_name:=$(arg robot_name)"/>
 -->
-    <param name="robot_description" command="cat $(find centaur)/urdf/centaur.urdf"/>
+    <param name="robot_description" 
+           textfile="$(find centaur)/urdf/centaur.urdf"/>
     <!-- load the controllers -->
-    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
-      args="joint_state_controller           
-            head_lidar_controller
-            flipper_traj_controller
-            left_arm_traj_controller
-            right_arm_traj_controller
-            torso_traj_controller
-            head_traj_controller
-            left_hand_traj_controller
-            right_hand_traj_controller"/>
+    <node name="controller_spawner" 
+          pkg="controller_manager" type="spawner" respawn="false" 
+          output="screen"
+          args="joint_state_controller           
+                head_lidar_controller
+                flipper_traj_controller
+                left_arm_traj_controller
+                right_arm_traj_controller
+                torso_traj_controller
+                head_traj_controller
+                left_hand_traj_controller
+                right_hand_traj_controller"/>
 <!--
             imu_sensor_controller
 -->
 
-    <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher">
+    <node name="robot_state_publisher"
+          pkg="robot_state_publisher" type="robot_state_publisher">
       <!--
       <param name="publish_frequency" type="double" value="100.0"/>
       <param name="tf_prefix" type="string" value="$(arg robot_name)"/>

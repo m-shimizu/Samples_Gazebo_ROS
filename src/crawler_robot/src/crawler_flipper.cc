@@ -12,8 +12,13 @@
 #include <termios.h>
 #include <iostream>
 
-#define D_GET_JOINT(J,N) if(!(J = this->model->GetJoint(N))) gzerr << \
-                                           "Unable to find " << N << std::endl
+#define D_SDFGET_NAME          this->model->GetName().c_str()
+#define D_SDFGET_STRINGX(N)    ((!_sdf->HasElement(N))?\
+                               NULL:_sdf->GetElement(N)->Get<std::string>())
+#define D_SDFGET_JOINT(J,N)    gzmsg<<N<<":"<< D_SDFGET_STRINGX(N)<<std::endl; \
+                               if(!(J = this->model->GetJoint(D_SDFGET_STRINGX(N))))\
+                               {gzerr<<D_SDFGET_NAME<<":No JOINT <"<<N<<">"\
+                                <<std::endl; return false;}
 
 namespace gazebo
 {
@@ -110,43 +115,43 @@ class MobileBasePlugin : public ModelPlugin
     }
     else
         this->gain = _sdf->Get<double>("gain");
-    D_GET_JOINT(hinge1,"right_front");
-    D_GET_JOINT(hinge2,"right_center1");
-    D_GET_JOINT(hinge3,"right_center2");
-    D_GET_JOINT(hinge29,"right_center3");
-    D_GET_JOINT(hinge4,"right_rear");
+    D_SDFGET_JOINT(hinge1,"right_front");
+    D_SDFGET_JOINT(hinge2,"right_center1");
+    D_SDFGET_JOINT(hinge3,"right_center2");
+    D_SDFGET_JOINT(hinge29,"right_center3");
+    D_SDFGET_JOINT(hinge4,"right_rear");
 
-    D_GET_JOINT(hinge5,"left_front");
-    D_GET_JOINT(hinge6,"left_center1");
-    D_GET_JOINT(hinge7,"left_center2");
-    D_GET_JOINT(hinge30,"left_center3");
-    D_GET_JOINT(hinge8,"left_rear");
+    D_SDFGET_JOINT(hinge5,"left_front");
+    D_SDFGET_JOINT(hinge6,"left_center1");
+    D_SDFGET_JOINT(hinge7,"left_center2");
+    D_SDFGET_JOINT(hinge30,"left_center3");
+    D_SDFGET_JOINT(hinge8,"left_rear");
 
-    D_GET_JOINT(hinge9,"right_front_arm");
-    D_GET_JOINT(hinge10,"right_rear_arm");
-    D_GET_JOINT(hinge11,"left_front_arm");
-    D_GET_JOINT(hinge12,"left_rear_arm");
+    D_SDFGET_JOINT(hinge9,"right_front_arm");
+    D_SDFGET_JOINT(hinge10,"right_rear_arm");
+    D_SDFGET_JOINT(hinge11,"left_front_arm");
+    D_SDFGET_JOINT(hinge12,"left_rear_arm");
 
-    D_GET_JOINT(hinge13,"right_front_arm_wheel_1");
-    D_GET_JOINT(hinge14,"right_front_arm_wheel_2");
-    D_GET_JOINT(hinge15,"right_front_arm_wheel_3");
+    D_SDFGET_JOINT(hinge13,"right_front_arm_wheel_1");
+    D_SDFGET_JOINT(hinge14,"right_front_arm_wheel_2");
+    D_SDFGET_JOINT(hinge15,"right_front_arm_wheel_3");
 
-    D_GET_JOINT(hinge16,"left_front_arm_wheel_1");
-    D_GET_JOINT(hinge17,"left_front_arm_wheel_2");
-    D_GET_JOINT(hinge18,"left_front_arm_wheel_3");
+    D_SDFGET_JOINT(hinge16,"left_front_arm_wheel_1");
+    D_SDFGET_JOINT(hinge17,"left_front_arm_wheel_2");
+    D_SDFGET_JOINT(hinge18,"left_front_arm_wheel_3");
 
-    D_GET_JOINT(hinge19,"right_rear_arm_wheel_1");
-    D_GET_JOINT(hinge20,"right_rear_arm_wheel_2");
-    D_GET_JOINT(hinge21,"right_rear_arm_wheel_3");
+    D_SDFGET_JOINT(hinge19,"right_rear_arm_wheel_1");
+    D_SDFGET_JOINT(hinge20,"right_rear_arm_wheel_2");
+    D_SDFGET_JOINT(hinge21,"right_rear_arm_wheel_3");
 
-    D_GET_JOINT(hinge22,"left_rear_arm_wheel_1");
-    D_GET_JOINT(hinge23,"left_rear_arm_wheel_2");
-    D_GET_JOINT(hinge24,"left_rear_arm_wheel_3");
+    D_SDFGET_JOINT(hinge22,"left_rear_arm_wheel_1");
+    D_SDFGET_JOINT(hinge23,"left_rear_arm_wheel_2");
+    D_SDFGET_JOINT(hinge24,"left_rear_arm_wheel_3");
 
-    D_GET_JOINT(hinge25,"right_sub2");
-    D_GET_JOINT(hinge26,"right_sub3");
-    D_GET_JOINT(hinge27,"left_sub2");
-    D_GET_JOINT(hinge28,"left_sub3");
+    D_SDFGET_JOINT(hinge25,"right_sub2");
+    D_SDFGET_JOINT(hinge26,"right_sub3");
+    D_SDFGET_JOINT(hinge27,"left_sub2");
+    D_SDFGET_JOINT(hinge28,"left_sub3");
     return true;
   }
 

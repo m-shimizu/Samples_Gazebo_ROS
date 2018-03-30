@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<robot name="robot">
+  <!-- To move joints, type must be "revolute" -->
+  <joint name="left_rear_arm_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="left_rear_arm"/>
+    <origin rpy="0  0  0" xyz="0.151  0.15   0.051"/>
+    <axis xyz="1  0  0"/>
+    <limit effort="0.0" lower="-3.14" upper="3.14" velocity="1.0"/>
+  </joint>
+  <joint name="right_rear_arm_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="right_rear_arm"/>
+    <origin rpy="0  0  0" xyz="-0.151  0.15   0.049"/>
+    <axis xyz="1  0  0"/>
+    <limit effort="0.0" lower="-3.14" upper="3.14" velocity="1.0"/>
+  </joint>
+  <joint name="left_front_arm_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="left_front_arm"/>
+    <origin rpy="0  0  0" xyz="0.151 -0.15   0.051"/>
+    <axis xyz="1  0  0"/>
+    <limit effort="0.0" lower="-3.14" upper="3.14" velocity="1.0"/>
+  </joint>
+  <joint name="right_front_arm_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="right_front_arm"/>
+    <origin rpy="0  0  0" xyz="-0.151 -0.15   0.049"/>
+    <axis xyz="1  0  0"/>
+    <limit effort="0.0" lower="-3.14" upper="3.14" velocity="1.0"/>
+  </joint>
+
+  <!-- TRANSMISSION for gazebo_ros_control -->
+  <transmission name="right_front_arm_joint_transmssion">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_front_arm_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </joint>
+    <actuator name="right_front_arm_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="right_rear_arm_joint_transmssion">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_rear_arm_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </joint>
+    <actuator name="right_rear_arm_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="left_front_arm_joint_transmssion">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_front_arm_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </joint>
+    <actuator name="left_front_arm_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="left_rear_arm_joint_transmssion">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_rear_arm_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </joint>
+    <actuator name="left_rear_arm_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>

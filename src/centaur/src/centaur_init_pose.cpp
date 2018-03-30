@@ -151,6 +151,7 @@ int main(int argc, char **argv)
 */  
   ros::Time start;
   start = ros::Time::now();
+  sleep(10); // Wait for finishing of spawning the robot controllers.
   while(ros::ok()) {
     //twistCommandOutput.publish(twistCommand);
 //    cameraCommand.header.stamp = ros::Time::now() + ros::Duration(1);

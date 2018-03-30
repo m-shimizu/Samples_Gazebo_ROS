@@ -16,9 +16,11 @@
 		<arg name="use_ground_truth_for_control" default="true" />
 		<arg name="use_pose_estimation" if="$(arg use_ground_truth_for_control)" default="false"/>
 		<arg name="use_pose_estimation" unless="$(arg use_ground_truth_for_control)" default="true"/>
-		<param name="robot_description" command="cat $(find quadrotor)/urdf/quadrotor.urdf"/>
-		<param name="tf_prefix" type="string" value="$(arg tf_prefix)"/> <!-- required for hector_pose_estimation and message_to_tf -->
-		<param name="base_link_frame" type="string" value="$(arg base_link_frame)" />
+		<param name="robot_description" 
+		       textfile="$(find quadrotor)/urdf/quadrotor.urdf"/>
+		<!-- required for hector_pose_estimation and message_to_tf -->
+		<param name="tf_prefix" type="string" value="$(arg tf_prefix)"/> 
+		<param name="base_link_frame" type="string" value="$(arg base_link_frame)"/>
 		<param name="base_stabilized_frame" type="string" value="$(arg tf_prefix)/base_stabilized" />
 		<param name="world_frame" type="string" value="$(arg world_frame)" />
 

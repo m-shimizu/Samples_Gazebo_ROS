@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<sdf version="1.5">
+<sdf version="1.6">
   <world name="default">
     <gui fullscreen='0'>
       <camera name='user_default'>
@@ -20,7 +20,7 @@
     <include>
       <uri>model://crawler_robot</uri>
       <name>crawler_robot</name>
-      <pose>0 0 0.03 0 0 0</pose>
+      <pose>0 0 0 0 0 3.14</pose>
     </include>
 
     <model name="sphere">

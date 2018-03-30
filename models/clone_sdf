@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -eq 2 ] || [ $# -eq 4 ] ; then
+if [ $# -eq 2 ] || [ $# -eq 4 ] || [ $# -eq 6 ] || [ $# -eq 8 ] ; then
   ORG=`echo $1 | sed 's/\///g'`
   CLN=`echo $2 | sed 's/\///g'`
   if [ ! -d $ORG ] ; then
@@ -10,18 +10,29 @@ if [ $# -eq 2 ] || [ $# -eq 4 ] ; then
   backupTimeStamp="`ls -AltR --time-style="+_%Y%m%d_%H%M%S" $CLN 2> /dev/null | awk '{print $6}' | egrep _'[0-9]{8}'_'[0-9]{6}' | sort -nr | head -n 1 `"
   mv $CLN $CLN$backupTimeStamp 2> /dev/null
   cp -r $ORG $CLN 2> /dev/null
+# Replace model name
   sed -i -e "s/$ORG/$CLN/g" $CLN/model.config
   sed -i -e "s/model:\/\/$ORG\//model:\/\/$CLN\//g" $CLN/*.sdf
   sed -i -e "s/>$ORG/>$CLN/g" $CLN/*.sdf
   sed -i -e "s/>\/$ORG/>\/$CLN/g" $CLN/*.sdf
-  if [ $# -eq 4 ] ; then
+# Replace robotNamespace
+  if [ $# -ge 4 ] ; then
     sed -i -e "s/\"$3\"/\"$4\"/g" $CLN/*.sdf
     sed -i -e "s/robotNamespace>$3/robotNamespace>$4/g" $CLN/*.sdf
   else
     sed -i -e "s/\"$ORG\"/\"$CLN\"/g" $CLN/*.sdf
   fi
+# Replace include model name  <uri>model://hokuyo_ros</uri>
+  if [ $# -ge 6 ] ; then
+    sed -i -e "s/model:\/\/$5</model:\/\/$6</" $CLN/*.sdf
+  fi
+  if [ $# -ge 8 ] ; then
+    sed -i -e "s/model:\/\/$7</model:\/\/$8</" $CLN/*.sdf
+  fi
 else
   echo Usage : $0 ORIGINAL_SDF_DIRECOTRY_NAME CLONED_SDF_DIRECTORY_NAME [ORIGINAL_robotoNamespace CLONED_robotNamespace]
-  echo   If SDF_DIRECOTRY_NAME is not same that robotNamespace, you should use arg3 and arg4.
+  echo   "If SDF_DIRECOTRY_NAME is not robotNamespace, you should use arg3 and arg4."
+  echo   "And if there are arg5 and arg6, they are used for replacing a model name in <include> tag."
+  echo   "And if there are arg7 and arg8, they are used for replacing a model name in <include> tag."
 fi
 

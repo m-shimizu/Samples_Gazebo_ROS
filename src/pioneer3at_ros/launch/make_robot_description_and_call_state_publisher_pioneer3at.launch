@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_name" default="robot"/>
+  <group ns="$(arg robot_name)">
+    <param name="tf_prefix" type="string" value="$(arg robot_name)"/>
+<!--
+		<param name="base_footprint_frame" type="string" value="$(arg tf_prefix)/base_footprint" />
+		<param name="world_frame" type="string" value="$(arg world_frame)" />
+-->
+		<param name="robot_description" 
+		       textfile="$(find pioneer3at_ros)/urdf/pioneer3at_ros.urdf"/>
+
+    <node name="robot_state_publisher" 
+          pkg="robot_state_publisher" type="robot_state_publisher" 
+          output="screen">
+<!--
+      <remap from="joint_states" to="/$(arg robot_name)/joint_states"/>
+      <remap from="robot_description" to="/$(arg robot_name)/robot_description"/>
+      <param name="publish_frequency" type="double" value="100.0"/>
+      <param name="tf_prefix" type="string" value="$(arg robot_name)"/>
+-->
+    </node>  
+    <!-- load the controllers -->
+    <param name="joint_state_controller/type" 
+           value="joint_state_controller/JointStateController"/>
+    <param name="joint_state_controller/publish_rate" 
+           type="double" value="50.0" />
+    <node name="controller_spawner" 
+          pkg="controller_manager" type="spawner" respawn="false" 
+          output="screen"
+          args="joint_state_controller" >
+    </node>
+<!-- Calling joint_state_publisher is a former method.
+    <node name="joint_state_publisher" 
+          pkg="joint_state_publisher" type="joint_state_publisher" 
+          output="screen">
+      <param name="publish_frequency" type="double" value="15.0" />
+      <param name="use_gui" value="false" />
+    </node>
+-->
+    <!-- Publishing tf_static for included models. -->
+    <node name="tf_static_hokuyo_link" 
+          pkg="tf" type="static_transform_publisher" 
+          args="0 0 0 0 0 0 $(arg robot_name)/hokuyo_link
+                            $(arg robot_name)/hokuyo::hokuyo_link 100"/>
+    <node name="tf_static_camera_link" 
+          pkg="tf" type="static_transform_publisher" 
+          args="0 0 0 0 0 0 $(arg robot_name)/camera_link
+                            $(arg robot_name)/camera::camera_link 100"/>
+    <!-- Publishing tf_static between odom and base_link. -->
+    <node name="tf_static_odom_base" 
+          pkg="tf" type="static_transform_publisher" 
+          args="0 0 0 0 0 0 $(arg robot_name)/odom
+                            $(arg robot_name)/base_link 100"/>
+  </group>
+</launch>

@@ -36,8 +36,13 @@
 //#define D_SDFGET_TYPE(X,N,D,T) if(!this->sdf->HasElement(N))\
 //                               {ROS_WARN("%s:No <%s>, used default value",\
 //                                D_SDFGET_NAME,N);X=D;} else {X=SDFGET(N,T);}
-#define D_SDFGET_JOINT(J,N)    if(!(J = this->model->GetJoint(N)))\
-                               {ROS_ERROR("%s:No <%s>",D_SDFGET_NAME,N);\
+#define D_SDFGET_ELMT(N)       ((!this->sdf->HasElement(N))?NULL:\
+                               this->sdf->GetElement(N)->Get<std::string>()\
+                               .c_str())
+#define D_SDFGET_JOINT(J,N)    ROS_INFO("%s:%s=%s",\
+                                            D_SDFGET_NAME,N,D_SDFGET_ELMT(N));\
+                               if(!(J=this->model->GetJoint(D_SDFGET_ELMT(N))))\
+                               {ROS_ERROR("%s:No JOINT <%s>",D_SDFGET_NAME,N);\
                                 return false;}
 #define D_SDFGET_STRING(X,N,D) if(!this->sdf->HasElement(N))\
                                {ROS_WARN("%s:No <%s>, used default value",\

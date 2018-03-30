@@ -3864,18 +3864,6 @@
         <robotNamespace>robot2</robotNamespace>
       </plugin>
 
-      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>robot2</robotNamespace>
-        <robotParam>robot_description</robotParam>
-      </plugin>
-
-<!--
-      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>robot2/obelix</robotNamespace>
-        <robotParam>robot_description</robotParam>
-      </plugin>
--->
-
       <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>50.0</updateRate>
@@ -3902,7 +3890,17 @@
         <robotNamespace>robot2</robotNamespace>
       </plugin>
 
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>robot2</robotNamespace>
+        <robotParam>robot_description</robotParam>
+      </plugin>
+
 <!--
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>robot2/obelix</robotNamespace>
+        <robotParam>robot_description</robotParam>
+      </plugin>
+
       <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
         <robotNamespace>robot2/thor_mang</robotNamespace>
         <robotParam>robot_description</robotParam>

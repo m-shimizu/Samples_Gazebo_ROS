@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="paused" default="false"/>
+	<arg name="gui" default="true"/>
+	<arg name="verbose" default="false"/>
+	<arg name="world" default="pioneer3at_ros.world"/>
+  <arg name="robot_name" default="robot"/>
+  <arg name="use_teleop" default="true"/>
+  <param name="use_sim_time" value="true"/>		
+  <!-- Make robot_description and run robot_state_publisher --> 
+  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
+    <arg name="robot_name"   value="$(arg robot_name)"/>
+  </include> 
+  <!-- Launch a teleop_twist_keyboard controller if needed --> 
+<!--
+  <node name="teleop_key" pkg="teleop_twist_keyboard" 
+        type="teleop_twist_keyboard.py" if="$(arg use_teleop)">
+    <param name="cmd_vel" value="$(arg robot_name)/cmd_vel" />
+  </node> 
+-->
+  <!-- Launch Gazebo -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
+         output="screen" args="$(find pioneer3at_ros)/worlds/$(arg world)"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
+         output="screen"/>
+</launch>
+
+

@@ -4,481 +4,522 @@
     <static>false</static>
 		<self_collide>false</self_collide>
 
-      <link name="base_link">
-        <pose>0 0 0.06 0 0 0</pose>
-				<inertial>
-				  <mass>2</mass>
-					<inertia>
-					  <ixx>50</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>50</iyy>
-					  <iyz>0</iyz>
-					  <izz>50</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.2 0.1 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.2 0.1 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="base_link">
+      <pose>0 0 0.06 0 0 0</pose>
+			<inertial>
+			  <mass>2</mass>
+				<inertia>
+				  <ixx>50</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>50</iyy>
+				  <iyz>0</iyz>
+				  <izz>50</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.2 0.1 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.2 0.1 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-      <link name="NECK">
-        <pose>0.1 0 0.11 0 0 0</pose>
-				<inertial>
-				  <mass>0.2</mass>
-					<inertia>
-					  <ixx>2</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>2</iyy>
-					  <iyz>0</iyz>
-					  <izz>2</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="NECK">
+      <pose>0.1 0 0.11 0 0 0</pose>
+			<inertial>
+			  <mass>0.2</mass>
+				<inertia>
+				  <ixx>2</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>2</iyy>
+				  <iyz>0</iyz>
+				  <izz>2</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </visual> 
+      <sensor type="camera" name="camera">
+        <update_rate>20</update_rate>
+        <visualize>true</visualize>
+        <camera name="camera">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+<!-- For gazebo_ros connection
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <robotNamespace>robot</robotNamespace>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>camera/rgb</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>NECK</cameraInfoTopicName>
+          <frameName>camera_link</frameName>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+-->
+      </sensor>
+    </link>
 
-      <joint type="revolute" name="J_NECK">
-        <pose>-0.02 0 -0.03 0 0 0</pose>
-        <child>NECK</child>
-        <parent>base_link</parent>
-        <axis>
-          <xyz>0 0 1</xyz>
-        </axis>
-      </joint>
+    <joint type="revolute" name="J_NECK">
+      <pose>-0.02 0 -0.03 0 0 0</pose>
+      <child>NECK</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
 
-      <link name="FR0">
-        <pose>0.13 -0.03 0.05 0 0 0</pose>
-				<inertial>
-				  <mass>0.01</mass>
-					<inertia>
-					  <ixx>0.5</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>0.5</iyy>
-					  <iyz>0</iyz>
-					  <izz>0.5</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.01 0.01 0.01</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.01 0.01 0.01</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="FR0">
+      <pose>0.13 -0.03 0.05 0 0 0</pose>
+			<inertial>
+			  <mass>0.01</mass>
+				<inertia>
+				  <ixx>0.5</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>0.5</iyy>
+				  <iyz>0</iyz>
+				  <izz>0.5</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.01 0.01 0.01</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.01 0.01 0.01</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_FR_B20">
-				<pose>0 0 0 0 0 0</pose>
-				<child>FR0</child>
-				<parent>base_link</parent>
-				<axis>
-					<xyz>-1 0 0</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_FR_B20">
+			<pose>0 0 0 0 0 0</pose>
+			<child>FR0</child>
+			<parent>base_link</parent>
+			<axis>
+				<xyz>-1 0 0</xyz>
+			</axis>
+		</joint>
 
-      <link name="FR1">
-        <pose>0.13 -0.06 0.05 0 0 0</pose>
-				<inertial>
-				  <mass>0.2</mass>
-					<inertia>
-					  <ixx>2</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>2</iyy>
-					  <iyz>0</iyz>
-					  <izz>2</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.02 0.04 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.02 0.04 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="FR1">
+      <pose>0.13 -0.06 0.05 0 0 0</pose>
+			<inertial>
+			  <mass>0.2</mass>
+				<inertia>
+				  <ixx>2</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>2</iyy>
+				  <iyz>0</iyz>
+				  <izz>2</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.02 0.04 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.02 0.04 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_FR_021">
-				<pose>0 0 0 0 0 0</pose>
-				<child>FR0</child>
-				<parent>FR1</parent>
-				<axis>
-					<xyz>0 0 -1</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_FR_021">
+			<pose>0 0 0 0 0 0</pose>
+			<child>FR0</child>
+			<parent>FR1</parent>
+			<axis>
+				<xyz>0 0 -1</xyz>
+			</axis>
+		</joint>
 
-      <link name="FR2">
-        <pose>0.13 -0.1 0.02 0 0 0</pose>
-				<inertial>
-				  <mass>0.2</mass>
-					<inertia>
-					  <ixx>2</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>2</iyy>
-					  <iyz>0</iyz>
-					  <izz>2</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="FR2">
+      <pose>0.13 -0.1 0.02 0 0 0</pose>
+			<inertial>
+			  <mass>0.2</mass>
+				<inertia>
+				  <ixx>2</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>2</iyy>
+				  <iyz>0</iyz>
+				  <izz>2</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_FR_122">
-				<pose>0 0 0.03 0 0 0</pose>
-				<child>FR2</child>
-				<parent>FR1</parent>
-				<axis>
-					<xyz>-1 0 0</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_FR_122">
+			<pose>0 0 0.03 0 0 0</pose>
+			<child>FR2</child>
+			<parent>FR1</parent>
+			<axis>
+				<xyz>-1 0 0</xyz>
+			</axis>
+		</joint>
 
-      <link name="FL0">
-        <pose>0.13 0.03 0.05 0 0 0</pose>
-				<inertial>
-				  <mass>0.01</mass>
-					<inertia>
-					  <ixx>0.5</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>0.5</iyy>
-					  <iyz>0</iyz>
-					  <izz>0.5</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.01 0.01 0.01</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.01 0.01 0.01</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="FL0">
+      <pose>0.13 0.03 0.05 0 0 0</pose>
+			<inertial>
+			  <mass>0.01</mass>
+				<inertia>
+				  <ixx>0.5</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>0.5</iyy>
+				  <iyz>0</iyz>
+				  <izz>0.5</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.01 0.01 0.01</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.01 0.01 0.01</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_FL_B20">
-				<pose>0 0 0 0 0 0</pose>
-				<child>FL0</child>
-				<parent>base_link</parent>
-				<axis>
-					<xyz>1 0 0</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_FL_B20">
+			<pose>0 0 0 0 0 0</pose>
+			<child>FL0</child>
+			<parent>base_link</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+			</axis>
+		</joint>
 
-      <link name="FL1">
-        <pose>0.13 0.06 0.05 0 0 0</pose>
-				<inertial>
-				  <mass>0.2</mass>
-					<inertia>
-					  <ixx>2</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>2</iyy>
-					  <iyz>0</iyz>
-					  <izz>2</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.02 0.04 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.02 0.04 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="FL1">
+      <pose>0.13 0.06 0.05 0 0 0</pose>
+			<inertial>
+			  <mass>0.2</mass>
+				<inertia>
+				  <ixx>2</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>2</iyy>
+				  <iyz>0</iyz>
+				  <izz>2</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.02 0.04 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.02 0.04 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_FL_021">
-				<pose>0 0 0 0 0 0</pose>
-				<child>FL0</child>
-				<parent>FL1</parent>
-				<axis>
-					<xyz>0 0 1</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_FL_021">
+			<pose>0 0 0 0 0 0</pose>
+			<child>FL0</child>
+			<parent>FL1</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+			</axis>
+		</joint>
 
-      <link name="FL2">
-        <pose>0.13 0.1 0.02 0 0 0</pose>
-				<inertial>
-				  <mass>0.2</mass>
-					<inertia>
-					  <ixx>2</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>2</iyy>
-					  <iyz>0</iyz>
-					  <izz>2</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="FL2">
+      <pose>0.13 0.1 0.02 0 0 0</pose>
+			<inertial>
+			  <mass>0.2</mass>
+				<inertia>
+				  <ixx>2</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>2</iyy>
+				  <iyz>0</iyz>
+				  <izz>2</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_FL_122">
-				<pose>0 0 0.03 0 0 0</pose>
-				<child>FL2</child>
-				<parent>FL1</parent>
-				<axis>
-					<xyz>1 0 0</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_FL_122">
+			<pose>0 0 0.03 0 0 0</pose>
+			<child>FL2</child>
+			<parent>FL1</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+			</axis>
+		</joint>
 
-      <link name="RR0">
-        <pose>-0.13 -0.03 0.05 0 0 0</pose>
-				<inertial>
-				  <mass>0.01</mass>
-					<inertia>
-					  <ixx>0.5</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>0.5</iyy>
-					  <iyz>0</iyz>
-					  <izz>0.5</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.01 0.01 0.01</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.01 0.01 0.01</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="RR0">
+      <pose>-0.13 -0.03 0.05 0 0 0</pose>
+			<inertial>
+			  <mass>0.01</mass>
+				<inertia>
+				  <ixx>0.5</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>0.5</iyy>
+				  <iyz>0</iyz>
+				  <izz>0.5</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.01 0.01 0.01</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.01 0.01 0.01</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_RR_B20">
-				<pose>0 0 0 0 0 0</pose>
-				<child>RR0</child>
-				<parent>base_link</parent>
-				<axis>
-					<xyz>-1 0 0</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_RR_B20">
+			<pose>0 0 0 0 0 0</pose>
+			<child>RR0</child>
+			<parent>base_link</parent>
+			<axis>
+				<xyz>-1 0 0</xyz>
+			</axis>
+		</joint>
 
-      <link name="RR1">
-        <pose>-0.13 -0.06 0.05 0 0 0</pose>
-				<inertial>
-				  <mass>0.2</mass>
-					<inertia>
-					  <ixx>2</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>2</iyy>
-					  <iyz>0</iyz>
-					  <izz>2</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.02 0.04 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.02 0.04 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="RR1">
+      <pose>-0.13 -0.06 0.05 0 0 0</pose>
+			<inertial>
+			  <mass>0.2</mass>
+				<inertia>
+				  <ixx>2</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>2</iyy>
+				  <iyz>0</iyz>
+				  <izz>2</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.02 0.04 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.02 0.04 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_RR_021">
-				<pose>0 0 0 0 0 0</pose>
-				<child>RR0</child>
-				<parent>RR1</parent>
-				<axis>
-					<xyz>0 0 1</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_RR_021">
+			<pose>0 0 0 0 0 0</pose>
+			<child>RR0</child>
+			<parent>RR1</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+			</axis>
+		</joint>
 
-      <link name="RR2">
-        <pose>-0.13 -0.1 0.02 0 0 0</pose>
-				<inertial>
-				  <mass>0.01</mass>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="RR2">
+      <pose>-0.13 -0.1 0.02 0 0 0</pose>
+			<inertial>
+			  <mass>0.01</mass>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_RR_122">
-				<pose>0 0 0.03 0 0 0</pose>
-				<child>RR2</child>
-				<parent>RR1</parent>
-				<axis>
-					<xyz>-1 0 0</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_RR_122">
+			<pose>0 0 0.03 0 0 0</pose>
+			<child>RR2</child>
+			<parent>RR1</parent>
+			<axis>
+				<xyz>-1 0 0</xyz>
+			</axis>
+		</joint>
 
-      <link name="RL0">
-        <pose>-0.13 0.03 0.05 0 0 0</pose>
-				<inertial>
-				  <mass>0.01</mass>
-					<inertia>
-					  <ixx>0.5</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>0.5</iyy>
-					  <iyz>0</iyz>
-					  <izz>0.5</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.01 0.01 0.01</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.01 0.01 0.01</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="RL0">
+      <pose>-0.13 0.03 0.05 0 0 0</pose>
+			<inertial>
+			  <mass>0.01</mass>
+				<inertia>
+				  <ixx>0.5</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>0.5</iyy>
+				  <iyz>0</iyz>
+				  <izz>0.5</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.01 0.01 0.01</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.01 0.01 0.01</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_RL_B20">
-				<pose>0 0 0 0 0 0</pose>
-				<child>RL0</child>
-				<parent>base_link</parent>
-				<axis>
-					<xyz>1 0 0</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_RL_B20">
+			<pose>0 0 0 0 0 0</pose>
+			<child>RL0</child>
+			<parent>base_link</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+			</axis>
+		</joint>
 
-      <link name="RL1">
-        <pose>-0.13 0.06 0.05 0 0 0</pose>
-				<inertial>
-				  <mass>0.2</mass>
-					<inertia>
-					  <ixx>2</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>2</iyy>
-					  <iyz>0</iyz>
-					  <izz>2</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.02 0.04 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.02 0.04 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="RL1">
+      <pose>-0.13 0.06 0.05 0 0 0</pose>
+			<inertial>
+			  <mass>0.2</mass>
+				<inertia>
+				  <ixx>2</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>2</iyy>
+				  <iyz>0</iyz>
+				  <izz>2</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.02 0.04 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.02 0.04 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_RL_021">
-				<pose>0 0 0 0 0 0</pose>
-				<child>RL0</child>
-				<parent>RL1</parent>
-				<axis>
-					<xyz>0 0 -1</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_RL_021">
+			<pose>0 0 0 0 0 0</pose>
+			<child>RL0</child>
+			<parent>RL1</parent>
+			<axis>
+				<xyz>0 0 -1</xyz>
+			</axis>
+		</joint>
 
-      <link name="RL2">
-        <pose>-0.13 0.1 0.02 0 0 0</pose>
-				<inertial>
-				  <mass>0.2</mass>
-					<inertia>
-					  <ixx>2</ixx>
-					  <ixy>0</ixy>
-					  <ixz>0</ixz>
-					  <iyy>2</iyy>
-					  <iyz>0</iyz>
-					  <izz>2</izz>
-					</inertia>
-				</inertial>
-        <collision name="collision">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box><size>0.04 0.02 0.04</size></box>
-          </geometry>
-        </visual> 
-      </link>
+    <link name="RL2">
+      <pose>-0.13 0.1 0.02 0 0 0</pose>
+			<inertial>
+			  <mass>0.2</mass>
+				<inertia>
+				  <ixx>2</ixx>
+				  <ixy>0</ixy>
+				  <ixz>0</ixz>
+				  <iyy>2</iyy>
+				  <iyz>0</iyz>
+				  <izz>2</izz>
+				</inertia>
+			</inertial>
+      <collision name="collision">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.04 0.02 0.04</size></box>
+        </geometry>
+      </visual> 
+    </link>
 
-			<joint type="revolute" name="J_RL_122">
-				<pose>0 0 0.03 0 0 0</pose>
-				<child>RL2</child>
-				<parent>RL1</parent>
-				<axis>
-					<xyz>1 0 0</xyz>
-				</axis>
-			</joint>
+		<joint type="revolute" name="J_RL_122">
+			<pose>0 0 0.03 0 0 0</pose>
+			<child>RL2</child>
+			<parent>RL1</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+			</axis>
+		</joint>
 
-      <!--
-      <plugin filename="libQuadrupedMotion.so" name="QuadrupedMotion">
-        <J_FR_B20>J_FR_B20</J_FR_B20>
-        <J_FR_021>J_FR_021</J_FR_021>
-        <J_FR_122>J_FR_122</J_FR_122>
-        <J_FL_B20>J_FL_B20</J_FL_B20>
-        <J_FL_021>J_FL_021</J_FL_021>
-        <J_FL_122>J_FL_122</J_FL_122>
-        <J_RR_B20>J_RR_B20</J_RR_B20>
-        <J_RR_021>J_RR_021</J_RR_021>
-        <J_RR_122>J_RR_122</J_RR_122>
-        <J_RL_B20>J_RL_B20</J_RL_B20>
-        <J_RL_021>J_RL_021</J_RL_021>
-        <J_RL_122>J_RL_122</J_RL_122>
-      </plugin>
-      -->
+    <!--
+    <plugin filename="libQuadrupedMotion.so" name="QuadrupedMotion">
+      <J_FR_B20>J_FR_B20</J_FR_B20>
+      <J_FR_021>J_FR_021</J_FR_021>
+      <J_FR_122>J_FR_122</J_FR_122>
+      <J_FL_B20>J_FL_B20</J_FL_B20>
+      <J_FL_021>J_FL_021</J_FL_021>
+      <J_FL_122>J_FL_122</J_FL_122>
+      <J_RR_B20>J_RR_B20</J_RR_B20>
+      <J_RR_021>J_RR_021</J_RR_021>
+      <J_RR_122>J_RR_122</J_RR_122>
+      <J_RL_B20>J_RL_B20</J_RL_B20>
+      <J_RL_021>J_RL_021</J_RL_021>
+      <J_RL_122>J_RL_122</J_RL_122>
+    </plugin>
+    -->
 
   </model>
 </sdf>

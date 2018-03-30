@@ -10,8 +10,28 @@
 ./clone_sdf quadrotor quadrotor2 robot robot2
 ./clone_sdf quadrotor quadrotor3 robot robot3
 
-./clone_sdf crawler_robot_ros crawler_robot_ros0 robot robot0
-./clone_sdf crawler_robot_ros crawler_robot_ros1 robot robot1
-./clone_sdf crawler_robot_ros crawler_robot_ros2 robot robot2
-./clone_sdf crawler_robot_ros crawler_robot_ros3 robot robot3
+./clone_sdf camera_ros camera_ros0 robot robot0
+./clone_sdf camera_ros camera_ros1 robot robot1
+./clone_sdf camera_ros camera_ros2 robot robot2
+./clone_sdf camera_ros camera_ros3 robot robot3
+
+./clone_sdf hokuyo_ros hokuyo_ros0 robot robot0
+./clone_sdf hokuyo_ros hokuyo_ros1 robot robot1
+./clone_sdf hokuyo_ros hokuyo_ros2 robot robot2
+./clone_sdf hokuyo_ros hokuyo_ros3 robot robot3
+
+./clone_sdf crawler_robot_ros crawler_robot_ros0 robot robot0 camera_ros camera_ros0 hokuyo_ros hokuyo_ros0
+./clone_sdf crawler_robot_ros crawler_robot_ros1 robot robot1 camera_ros camera_ros1 hokuyo_ros hokuyo_ros1
+./clone_sdf crawler_robot_ros crawler_robot_ros2 robot robot2 camera_ros camera_ros2 hokuyo_ros hokuyo_ros2
+./clone_sdf crawler_robot_ros crawler_robot_ros3 robot robot3 camera_ros camera_ros3 hokuyo_ros hokuyo_ros3
+
+./clone_sdf pioneer2dx_ros pioneer2dx_ros0 robot robot0 camera_ros camera_ros0 hokuyo_ros hokuyo_ros0
+./clone_sdf pioneer2dx_ros pioneer2dx_ros1 robot robot1 camera_ros camera_ros1 hokuyo_ros hokuyo_ros1
+./clone_sdf pioneer2dx_ros pioneer2dx_ros2 robot robot2 camera_ros camera_ros2 hokuyo_ros hokuyo_ros2
+./clone_sdf pioneer2dx_ros pioneer2dx_ros3 robot robot3 camera_ros camera_ros3 hokuyo_ros hokuyo_ros3
+
+./clone_sdf pioneer3at_ros pioneer3at_ros0 robot robot0 camera_ros camera_ros0 hokuyo_ros hokuyo_ros0
+./clone_sdf pioneer3at_ros pioneer3at_ros1 robot robot1 camera_ros camera_ros1 hokuyo_ros hokuyo_ros1
+./clone_sdf pioneer3at_ros pioneer3at_ros2 robot robot2 camera_ros camera_ros2 hokuyo_ros hokuyo_ros2
+./clone_sdf pioneer3at_ros pioneer3at_ros3 robot robot3 camera_ros camera_ros3 hokuyo_ros hokuyo_ros3
 
