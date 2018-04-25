@@ -26,7 +26,7 @@ You need 3 terminals for spawning a robot and controlling the robot.
 
     $ cd Samples_Gazebo_ROS  
     $ source setup.bash  
-    $ roslaunch quadrotor empty.launch  
+    $ roslaunch quadrotor quadrotor.launch  
     
     Terminal 2(To control the robot):  
 

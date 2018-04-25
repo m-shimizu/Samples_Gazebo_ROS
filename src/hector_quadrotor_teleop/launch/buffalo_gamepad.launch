@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-  <arg name="robot" default="quadrotor_ros"/>
+  <arg name="robot" default="robot"/>
   <arg name="joy_dev" default="/dev/input/js0"/>
   <arg name="control_mode" default="velocity"/>
 
