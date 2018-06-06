@@ -337,7 +337,6 @@
       <statusTopic/>
       <robotNamespace>robot</robotNamespace>
     </plugin>
-    <static>0</static>
     <plugin name="quadrotor_aerodynamics" filename="libhector_gazebo_quadrotor_aerodynamics.so">
       <alwaysOn>true</alwaysOn>
       <updateRate>0.0</updateRate>
@@ -345,7 +344,6 @@
       <frameId>base_link</frameId>
       <robotNamespace>robot</robotNamespace>
     </plugin>
-
 <!--
     <plugin name="joint_trajectory_plugin" filename="libgazebo_ros_joint_pose_trajectory.so">
       <topicName>joint_trajectory</topicName>
