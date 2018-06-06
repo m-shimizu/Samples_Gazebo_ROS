@@ -4,9 +4,9 @@ Please find more information in [wiki page](https://github.com/m-shimizu/Samples
 
 ## REQUIREMENT OF THIS REPOSITORY
 
-### Install ROS Kinetic and Gazebo7 from PPA
+### Install ROS Kinetic and Gazebo8 from PPA
 #### *[Ubuntu install of ROS kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
-#### *[Install Gazebo using Ubuntu packages](http://gazebosim.org/tutorials?tut=install_ubuntu&ver=7.0&cat=install)  
+#### *[Install Gazebo using Ubuntu packages](http://gazebosim.org/tutorials?cat=install&tut=install_ubuntu&ver=8.0)  
 Do followings:
 
     sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'  
@@ -14,7 +14,7 @@ Do followings:
     sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-latest.list'  
     wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -  
     sudo apt-get update  
-    sudo apt-get install -y cmake g++ protobuf-compiler pavucontrol libgazebo7 libgazebo7-dev ros-kinetic-desktop ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control ros-kinetic-ros-control ros-kinetic-ros-controllers ros-kinetic-image-view2 ros-kinetic-rqt ros-kinetic-rqt-common-plugins ros-kinetic-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-message-to-tf ros-kinetic-tf2-geometry-msgs ros-kinetic-audio-common ros-kinetic-costmap-2d ros-kinetic-image-transport ros-kinetic-image-transport-plugins ros-kinetic-urdf-tutorial 
+    sudo apt-get install -y cmake g++ protobuf-compiler pavucontrol libgazebo8 libgazebo8-dev ros-kinetic-desktop ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control ros-kinetic-ros-control ros-kinetic-ros-controllers ros-kinetic-image-view2 ros-kinetic-rqt ros-kinetic-rqt-common-plugins ros-kinetic-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-message-to-tf ros-kinetic-tf2-geometry-msgs ros-kinetic-audio-common ros-kinetic-costmap-2d ros-kinetic-image-transport ros-kinetic-image-transport-plugins ros-kinetic-urdf-tutorial ros-kinetic-gazebo8-ros*  
     sudo rosdep init  
     rosdep update  
     sudo apt-get install -y python−rosinstall  
