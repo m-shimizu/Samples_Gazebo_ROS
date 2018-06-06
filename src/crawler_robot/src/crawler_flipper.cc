@@ -165,7 +165,7 @@ class MobileBasePlugin : public ModelPlugin
     double vel_rot = -1 * msgs::Convert(_msg->orientation()).GetAsEuler().z
                      * (this->wheelSeparation / this->wheelRadius);
 #endif
-#if(GAZEBO_MAJOR_VERSION == 7)
+#if(GAZEBO_MAJOR_VERSION >= 7)
     double vel_rot = -1 * msgs::ConvertIgn(_msg->orientation()).Euler().Z()
                      * (this->wheelSeparation / this->wheelRadius);
 #endif

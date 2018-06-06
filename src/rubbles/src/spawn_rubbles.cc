@@ -14,9 +14,12 @@ namespace gazebo
 class Factory : public WorldPlugin
 {
   sdf::SDF modelSDF[MAX_MODELS];
-  public: void Spawn_Box(physics::WorldPtr _parent, char* modelname, int modelnumber
-                                              , float mass, float sx, float sy, float sz, float x, float y, float z
-                                              , float roll=0, float pitch=0, float yaw=0)
+  public: void Spawn_Box(physics::WorldPtr _parent, const char* modelname
+                                    , int modelnumber
+                                    , float mass
+                                    , float sx, float sy, float sz
+                                    , float x, float y, float z
+                                    , float roll=0, float pitch=0, float yaw=0)
   {
     char modelfullname[100];
     sprintf(modelfullname, "%s%d", modelname, modelnumber);
@@ -54,7 +57,11 @@ class Factory : public WorldPlugin
         </sdf>", modelfullname, x, y, z, roll, pitch, yaw, mass, sx, sy, sz, sx, sy, sz);
 //    sdf::SDF modelSDF;
     modelSDF[modelnumber].SetFromString(stringcmd);
+#if(GAZEBO_MAJOR_VERSION > 7)
+    sdf::ElementPtr model = modelSDF[modelnumber].Root()->GetElement("model");
+#else
     sdf::ElementPtr model = modelSDF[modelnumber].root->GetElement("model");
+#endif
     model->GetAttribute("name")->SetFromString(modelfullname);
     _parent->InsertModelSDF(modelSDF[modelnumber]);
   }
@@ -67,8 +74,9 @@ class Factory : public WorldPlugin
       for(dx = 3; dx > -3; dx -= 1)
         for(dy = 3; dy > -3; dy -= 1)
         {
-          Spawn_Box(_parent, "box", modelcount, 1.0, .03, .3, .7, cx+dx, cy+dy, 1.5+dz*1.2
-                                                                       , modelcount/2, modelcount/3, modelcount/5);
+          Spawn_Box(_parent, "box", modelcount, 1.0, .03, .3, .7
+                             , cx+dx, cy+dy, 1.5+dz*1.2
+                             , modelcount/2, modelcount/3, modelcount/5);
           modelcount++;
         }
   }

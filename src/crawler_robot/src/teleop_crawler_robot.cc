@@ -62,7 +62,7 @@ void  publish_vel_cmd(gazebo::transport::PublisherPtr pub,
 #if(GAZEBO_MAJOR_VERSION == 5)
   gazebo::math::Pose pose(speed, 0, 0, 0, 0, turn);
 #endif
-#if(GAZEBO_MAJOR_VERSION == 7)
+#if(GAZEBO_MAJOR_VERSION >= 7)
   ignition::math::Pose3d pose(speed, 0, 0, 0, 0, turn);
 #endif
   gazebo::msgs::Pose msg;

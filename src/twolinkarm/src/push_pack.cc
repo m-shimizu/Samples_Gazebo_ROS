@@ -40,7 +40,7 @@ namespace gazebo
         y = this->model->GetWorldPose().pos.y + 0;
         z = this->model->GetWorldPose().pos.z;
         // Publish the pack xyz.
-#if(GAZEBO_MAJOR_VERSION == 7)
+#if(GAZEBO_MAJOR_VERSION >= 7)
         gazebo::msgs::Set(&msg, ignition::math::Vector3d(x, y, z));
 #else
         gazebo::msgs::Set(&msg, gazebo::math::Vector3(x, y, z));
