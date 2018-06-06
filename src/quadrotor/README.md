@@ -5,19 +5,20 @@ In this sample, you can find a quadrotor robot model.
 There is a world file as "worlds/quadrotor.world" to show a quadrotor robot.  
 And there is a world file as "worlds/quadrotor4.world" to show 4 quadrotor robots.  
 
-## ROBOT
+## ROBOT  
 quadrotor\_ros was imported from ![tu-darmstad](https://github.com/tu-darmstadt-ros-pkg/hector_quadrotor) and converted into sdf.
 
-## IMPORTED PLUGINS and PACKAGES
-* hector_gazebo_thermal_camera
-* hector_quadrotor_actions
-* hector_quadrotor_controller_gazebo
-* hector_quadrotor_controllers
-* hector_quadrotor_gazebo
-* hector_quadrotor_gazebo_plugins
-* hector_quadrotor_interface
-* hector_quadrotor_teleop
-* hector_uav_msgs
+## IMPORTED PLUGINS and PACKAGES  
+* hector_gazebo_plugins  
+* hector_gazebo_thermal_camera  
+* hector_quadrotor_actions  
+* hector_quadrotor_controller_gazebo  
+* hector_quadrotor_controllers  
+* hector_quadrotor_gazebo  
+* hector_quadrotor_gazebo_plugins  
+* hector_quadrotor_interface  
+* hector_quadrotor_teleop  
+* hector_uav_msgs  
 
 ## How to fly with a quadrotor  
 You need 3 terminals for spawning a robot and controlling the robot.  
