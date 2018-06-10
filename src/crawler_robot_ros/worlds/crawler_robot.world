@@ -23,6 +23,63 @@
       <pose>0 0 0.03 0 0 3.14</pose>
     </include>
 
+    <model name="stairs">
+      <pose>1 0 0 0 0 0</pose>
+      <static>true</static>
+      <link name="step1">
+        <pose>0 0 0.05 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box> <size>0.3 1.0 0.1</size> </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box> <size>0.3 1.0 0.1</size> </box>
+          </geometry>
+        </visual>
+      </link>
+      <link name="step2">
+        <pose>0.3 0 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box> <size>0.3 1.0 0.1</size> </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box> <size>0.3 1.0 0.1</size> </box>
+          </geometry>
+        </visual>
+      </link>
+      <link name="step3">
+        <pose>0.6 0 0.25 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box> <size>0.3 1.0 0.1</size> </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box> <size>0.3 1.0 0.1</size> </box>
+          </geometry>
+        </visual>
+      </link>
+      <link name="step4">
+        <pose>0.9 0 0.35 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box> <size>0.3 1.0 0.1</size> </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box> <size>0.3 1.0 0.1</size> </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
     <model name="sphere">
       <pose>0 1.5 0.5 0 0 0</pose>
       <link name="link">
