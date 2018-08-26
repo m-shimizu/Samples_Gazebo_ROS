@@ -16,14 +16,14 @@
     </include>
 
     <include>
-      <uri>model://pioneer3at</uri>
-      <name>pioneer3at_A</name>
+      <uri>model://crawler_robot</uri>
+      <name>Robot_A</name>
       <pose>-2 -0 0.17 0 0 0</pose>
     </include>
 
     <include>
-      <uri>model://pioneer3at</uri>
-      <name>pioneer3at_B</name>
+      <uri>model://crawler_robot</uri>
+      <name>Robot_B</name>
       <pose>-3 -4 0.17 0 0 0</pose>
     </include>
 
