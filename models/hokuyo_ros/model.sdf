@@ -95,8 +95,6 @@
         </ray>
 
         <plugin name="gazebo_ros_hokuyo_controller" filename="libgazebo_ros_laser.so">
-<!--      <robotNamespace>ROBOTNAME</robotNamespace> -->
-          <robotNamespace>robot</robotNamespace>
           <topicName>scan</topicName>
           <gaussianNoise>0.005</gaussianNoise>
           <alwaysOn>true</alwaysOn>

@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="robot_name" default="robot"/>
+  <arg name="xcoordinate" default="0.0"/>
+  <arg name="ycoordinate" default="0.0"/>
+  <arg name="zcoordinate" default="0.0"/>
   <group ns="$(arg robot_name)">
     <param name="tf_prefix" type="string" value="$(arg robot_name)"/>
 <!--
@@ -9,7 +12,10 @@
 -->
 		<param name="robot_description" 
 		       textfile="$(find pioneer2dx_ros)/urdf/pioneer2dx_ros.urdf"/>
-
+		<node pkg="gazebo_ros" type="spawn_model"
+          respawn="false"
+          name="spawn_model"
+          args="-file $(find pioneer2dx_ros)/urdf/pioneer2dx_ros.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
     <node name="robot_state_publisher" 
           pkg="robot_state_publisher" type="robot_state_publisher" 
           output="screen">

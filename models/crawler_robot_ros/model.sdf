@@ -1780,7 +1780,6 @@
 <!--__________________/joint___________________-->
 
     <plugin name="crawler_flipper" filename="libcrawler_flipper_ros.so">
-      <robotNamespace>robot</robotNamespace>
       <right_front_arm>right_front_arm_joint</right_front_arm>
       <right_rear_arm>right_rear_arm_joint</right_rear_arm>
       <left_front_arm>left_front_arm_joint</left_front_arm>
@@ -1816,7 +1815,6 @@
     </plugin>
 
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>robot</robotNamespace>
 <!--      <robotParam>robot/robot_description</robotParam> -->
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>

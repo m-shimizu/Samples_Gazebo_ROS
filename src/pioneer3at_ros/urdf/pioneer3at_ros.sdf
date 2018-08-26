@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="robot">
+    <include>
+      <uri>model://pioneer3at_ros</uri>
+    </include>
+  </model>
+</sdf>

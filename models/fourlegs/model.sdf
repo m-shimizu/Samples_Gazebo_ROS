@@ -77,7 +77,6 @@
         </camera>
 <!-- For gazebo_ros connection
         <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-          <robotNamespace>robot</robotNamespace>
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
           <cameraName>camera/rgb</cameraName>

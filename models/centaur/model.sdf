@@ -735,7 +735,6 @@
             <depthImageCameraInfoTopicName>head_cam_ni/depth/camera_info</depthImageCameraInfoTopicName>
             <pointCloudTopicName>head_cam_ni/depth/points</pointCloudTopicName>
             <frameName>head_cam_depth_optical_frame</frameName>
-            <robotNamespace>robot</robotNamespace>
           </plugin>
           <pose frame="">0.065 0.049 0.23 0 -0 0</pose>
         </sensor>
@@ -856,7 +855,6 @@
           <plugin name="gazebo_ros_head_link_hokuyo_laser_controller" filename="libgazebo_ros_laser.so">
             <topicName>head_lidar/scan</topicName>
             <frameName>head_link_hokuyo_laser_frame</frameName>
-            <robotNamespace>robot</robotNamespace>
           </plugin>
           <pose frame="">0 0.000323 0.012797 0 0.021197 -0.003571</pose>
         </sensor>
@@ -3143,7 +3141,6 @@
 	-->
           </camera>
 		      <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera_pink.so">
-            <robotNamespace>robot</robotNamespace>
             <alwaysOn>true</alwaysOn>
             <updateRate>10</updateRate>
             <imageTopicName>thermal/image_raw</imageTopicName>
@@ -3189,7 +3186,6 @@
             <Cy>0</Cy>
             <focalLength>0</focalLength>
             <hackBaseline>0</hackBaseline>
-            <robotNamespace>robot</robotNamespace>
           </plugin>
           <pose frame="">0.055 0.049 0.055 0 -0 0</pose>
         </sensor>
@@ -3608,7 +3604,6 @@
           <plugin name="gazebo_ros_laser1_controller" filename="libgazebo_ros_laser.so">
             <topicName>laser1/scan_no_intensities_from_gazebo</topicName>
             <frameName>laser1_frame</frameName>
-            <robotNamespace>robot</robotNamespace>
           </plugin>
           <pose frame="">0.03 0 0.085 0 -0 0</pose>
         </sensor>
@@ -3861,7 +3856,6 @@
         <yaw_velocity_p_gain>4000.0</yaw_velocity_p_gain>
         <x_velocity_p_gain>10000.0</x_velocity_p_gain>
         <y_velocity_p_gain>10000.0</y_velocity_p_gain>
-        <robotNamespace>robot</robotNamespace>
       </plugin>
 
       <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
@@ -3875,7 +3869,6 @@
         <rateGaussianNoise>0.05 0.05 0.05</rateGaussianNoise>
         <headingDrift>0.0</headingDrift>
         <headingGaussianNoise>0.05</headingGaussianNoise>
-        <robotNamespace>robot</robotNamespace>
       </plugin>
 
       <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
@@ -3887,22 +3880,20 @@
         <frameName>world</frameName>
         <xyzOffsets>0 0 0</xyzOffsets>
         <rpyOffsets>0 0 0</rpyOffsets>
-        <robotNamespace>robot</robotNamespace>
       </plugin>
 
       <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>robot</robotNamespace>
         <robotParam>robot_description</robotParam>
       </plugin>
 
 <!--
       <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>robot/obelix</robotNamespace>
+        <robot Namespace>robot/obelix</robot Namespace>
         <robotParam>robot_description</robotParam>
       </plugin>
 
       <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>robot/thor_mang</robotNamespace>
+        <robot Namespace>robot/thor_mang</robot Namespace>
         <robotParam>robot_description</robotParam>
       </plugin>
 -->
@@ -3917,7 +3908,6 @@
         <rateGaussianNoise>0.05 0.05 0.05</rateGaussianNoise>
         <headingDrift>0.0</headingDrift>
         <headingGaussianNoise>0.05</headingGaussianNoise>
-        <robotNamespace>robot</robotNamespace>
         <bodyName>base_link</bodyName>
         <xyzOffset>0 0 -0.3</xyzOffset>
         <rpyOffset>0 -0 0</rpyOffset>
@@ -3932,7 +3922,6 @@
         <secondServoName>laser1/y</secondServoName>
         <secondServoAxis>0 1 0</secondServoAxis>
         <torque>0.5</torque>
-        <robotNamespace>robot</robotNamespace>
         <topicName>laser1/command</topicName>
         <jointStateName>joint_states</jointStateName>
         <proportionalControllerGain>8.0</proportionalControllerGain>
@@ -3949,7 +3938,6 @@
         <secondServoName>camera/y</secondServoName>
         <secondServoAxis>0 1 0</secondServoAxis>
         <torque>0.5</torque>
-        <robotNamespace>robot</robotNamespace>
         <topicName>camera/command</topicName>
         <jointStateName>joint_states</jointStateName>
         <proportionalControllerGain>8.0</proportionalControllerGain>

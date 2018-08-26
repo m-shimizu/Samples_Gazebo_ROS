@@ -280,7 +280,6 @@
     
     <plugin name="skid_steer_drive_controller" 
             filename="libgazebo_ros_skid_steer_drive.so">
-      <robotNamespace>robot</robotNamespace>
       <updateRate>100.0</updateRate>
       <leftFrontJoint>left_front</leftFrontJoint>
       <rightFrontJoint>right_front</rightFrontJoint>
@@ -306,7 +305,6 @@
     </plugin>   -->
 
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>robot</robotNamespace>
 <!--      <robotParam>robot/robot_description</robotParam> -->
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
