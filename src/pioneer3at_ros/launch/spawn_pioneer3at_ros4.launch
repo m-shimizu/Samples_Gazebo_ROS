@@ -22,11 +22,11 @@
   </include> 
   <!-- Robot1 : Make robot_description and run robot_state_publisher --> 
   <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
-    <arg name="robot_name"  value="include"/>
+    <arg name="robot_name"  value="robot1"/>
     <arg name="xcoordinate" value="2.0"/>
     <arg name="ycoordinate" value="0.0"/>
     <arg name="zcoordinate" value="0.03"/>
-  </robot1> 
+  </include> 
   <!-- Robot2 : Make robot_description and run robot_state_publisher --> 
   <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
     <arg name="robot_name"  value="robot2"/>
