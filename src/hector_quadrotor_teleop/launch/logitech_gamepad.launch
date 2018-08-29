@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 
 <launch>
+  <arg name="robot" default="robot"/>
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="control_mode" default="velocity"/>
 
+  <group ns="$(arg robot)">
   <node name="joy" pkg="joy" type="joy_node" output="screen" >
     <param name="dev" value="$(arg joy_dev)" />
     <param name="autorepeat_rate" value="10" />
@@ -27,4 +29,5 @@
     </rosparam>
 
   </node>
+  </group>
 </launch>

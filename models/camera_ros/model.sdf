@@ -5,7 +5,6 @@
     <pose>0 0 0.05 0 0 0</pose>
     <link name="camera_link">
       <audio_sink /> <!-- Camera and microphone should be combined -->
-      <pose>0 0 0 0 0 0</pose>
       <inertial>
         <mass>0.1</mass>
         <inertia>
@@ -85,7 +84,6 @@
           </noise>
         </camera>
         <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-          <robotNamespace>robot</robotNamespace>
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
           <cameraName>camera/rgb</cameraName>
@@ -124,7 +122,6 @@
         </camera>
         <plugin name="thermal_camera_controller" 
                 filename="libgazebo_ros_thermal_camera_pink.so">
-          <robotNamespace>robot</robotNamespace>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
           <imageTopicName>camera/thermal/image_raw</imageTopicName>

@@ -2,6 +2,9 @@
 
 <launch>
   <arg name="robot_name" default="robot"/>
+  <arg name="xcoordinate" default="0.0"/>
+  <arg name="ycoordinate" default="0.0"/>
+  <arg name="zcoordinate" default="0.0"/>
   <arg name="world_frame" default="world"/> <!-- This should actually be "/world". See https://github.com/ros-simulation/gazebo_ros_pkgs/pull/324 -->
   <group ns="$(arg robot_name)">
 		<arg name="controllers" default="
@@ -18,6 +21,10 @@
 		<arg name="use_pose_estimation" unless="$(arg use_ground_truth_for_control)" default="true"/>
 		<param name="robot_description" 
 		       textfile="$(find quadrotor)/urdf/quadrotor.urdf"/>
+		<node pkg="gazebo_ros" type="spawn_model"
+          respawn="false"
+          name="spawn_model"
+          args="-file $(find quadrotor)/urdf/quadrotor.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
 		<!-- required for hector_pose_estimation and message_to_tf -->
 		<param name="tf_prefix" type="string" value="$(arg tf_prefix)"/> 
 		<param name="base_link_frame" type="string" value="$(arg base_link_frame)"/>

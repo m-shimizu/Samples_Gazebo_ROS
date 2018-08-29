@@ -6,27 +6,41 @@
 	<arg name="world" default="pioneer3at_ros4.world"/>
   <arg name="robot_name" default="robot"/>
   <param name="use_sim_time" value="true"/>		
-  <!-- Robot0 : Make robot_description and run robot_state_publisher --> 
-  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
-    <arg name="robot_name"   value="robot0"/>
-  </include> 
-  <!-- Robot1 : Make robot_description and run robot_state_publisher --> 
-  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
-    <arg name="robot_name"   value="robot1"/>
-  </include> 
-  <!-- Robot2 : Make robot_description and run robot_state_publisher --> 
-  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
-    <arg name="robot_name"   value="robot2"/>
-  </include> 
-  <!-- Robot3 : Make robot_description and run robot_state_publisher --> 
-  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
-    <arg name="robot_name"   value="robot3"/>
-  </include> 
+
   <!-- Launch Gazebo -->
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
          output="screen" args="$(find pioneer3at_ros)/worlds/$(arg world)"/>
   <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
          output="screen"/>
+
+  <!-- Robot0 : Make robot_description and run robot_state_publisher --> 
+  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
+    <arg name="robot_name"  value="robot0"/>
+    <arg name="xcoordinate" value="0.0"/>
+    <arg name="ycoordinate" value="0.0"/>
+    <arg name="zcoordinate" value="0.03"/>
+  </include> 
+  <!-- Robot1 : Make robot_description and run robot_state_publisher --> 
+  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
+    <arg name="robot_name"  value="robot1"/>
+    <arg name="xcoordinate" value="2.0"/>
+    <arg name="ycoordinate" value="0.0"/>
+    <arg name="zcoordinate" value="0.03"/>
+  </include> 
+  <!-- Robot2 : Make robot_description and run robot_state_publisher --> 
+  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
+    <arg name="robot_name"  value="robot2"/>
+    <arg name="xcoordinate" value="0.0"/>
+    <arg name="ycoordinate" value="2.0"/>
+    <arg name="zcoordinate" value="0.03"/>
+  </include> 
+  <!-- Robot3 : Make robot_description and run robot_state_publisher --> 
+  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
+    <arg name="robot_name"  value="robot3"/>
+    <arg name="xcoordinate" value="2.0"/>
+    <arg name="ycoordinate" value="2.0"/>
+    <arg name="zcoordinate" value="0.03"/>
+  </include> 
 </launch>
 
 

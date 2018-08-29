@@ -7,9 +7,19 @@
   <arg name="robot_name" default="robot"/>
   <arg name="use_teleop" default="true"/>
   <param name="use_sim_time" value="true"/>		
+
+  <!-- Launch Gazebo -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
+         output="screen" args="$(find pioneer2dx_ros)/worlds/$(arg world)"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
+         output="screen"/>
+
   <!-- Make robot_description and run robot_state_publisher --> 
   <include file="$(find pioneer2dx_ros)/launch/make_robot_description_and_call_state_publisher_pioneer2dx.launch">
-    <arg name="robot_name"   value="$(arg robot_name)"/>
+    <arg name="robot_name"  value="$(arg robot_name)"/>
+    <arg name="xcoordinate" value="0.0"/>
+    <arg name="ycoordinate" value="0.0"/>
+    <arg name="zcoordinate" value="0.03"/>
   </include> 
   <!-- Launch a teleop_twist_keyboard controller if needed --> 
 <!--
@@ -18,11 +28,6 @@
     <param name="cmd_vel" value="$(arg robot_name)/cmd_vel" />
   </node> 
 -->
-  <!-- Launch Gazebo -->
-  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
-         output="screen" args="$(find pioneer2dx_ros)/worlds/$(arg world)"/>
-  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
-         output="screen"/>
 </launch>
 
 

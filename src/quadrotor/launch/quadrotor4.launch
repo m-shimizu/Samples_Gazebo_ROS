@@ -8,31 +8,40 @@
   <arg name="verbose" default="false"/>
   <arg name="world" default="quadrotor4.world"/>
 
-  <!-- Launch robot state publishers -->
-  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
-    <arg name="robot_name" value="robot0"/>
-  </include>
-
-  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
-    <arg name="robot_name" value="robot1"/>
-  </include>
-
-  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
-    <arg name="robot_name" value="robot2"/>
-  </include>
-
-  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
-    <arg name="robot_name" value="robot3"/>
-  </include>
-
-
   <!-- Launch gazebo -->
-
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(find quadrotor)/worlds/$(arg world)"/>
   <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
 
-  <!-- Transfer sound to ROS -->
+  <!-- Launch robot state publishers -->
+  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
+    <arg name="robot_name"  value="robot0"/>
+    <arg name="xcoordinate" value="0.0"/>
+    <arg name="ycoordinate" value="0.0"/>
+    <arg name="zcoordinate" value="0.0"/>
+  </include>
 
+  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
+    <arg name="robot_name"  value="robot1"/>
+    <arg name="xcoordinate" value="-2.0"/>
+    <arg name="ycoordinate" value="0.0"/>
+    <arg name="zcoordinate" value="0.0"/>
+  </include>
+
+  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
+    <arg name="robot_name"  value="robot2"/>
+    <arg name="xcoordinate" value="0.0"/>
+    <arg name="ycoordinate" value="-2.0"/>
+    <arg name="zcoordinate" value="0.0"/>
+  </include>
+
+  <include file="$(find quadrotor)/launch/make_robot_description_and_call_state_publisher_quadrotor.launch">
+    <arg name="robot_name"  value="robot3"/>
+    <arg name="xcoordinate" value="-2.0"/>
+    <arg name="ycoordinate" value="-2.0"/>
+    <arg name="zcoordinate" value="0.0"/>
+  </include>
+
+  <!-- Transfer sound to ROS -->
   <include file="$(find audio_capture)/launch/capture.launch">
     <arg name="ns" value="gazebo"/>
     <arg name="device" value="pulse"/>
