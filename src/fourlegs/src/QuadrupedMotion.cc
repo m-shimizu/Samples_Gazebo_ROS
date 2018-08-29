@@ -20,6 +20,9 @@
 #include "Motion.hh"
 #include "QuadrupedMotion.hh"
 
+// Before Gazebo7 including Gazebo7, doslike_kbhit and doslike_getch worked correctly.
+// But after Gazebo8, they no longer worked.
+// Especially, the funcion tcsetattr won't work.
 int  doslike_kbhit(void)
 {
   struct termios  oldt, newt;
@@ -43,6 +46,9 @@ int  doslike_kbhit(void)
   return 0;
 }
 
+// Before Gazebo7 including Gazebo7, doslike_kbhit and doslike_getch worked correctly.
+// But after Gazebo8, they no longer worked.
+// Especially, the funcion tcsetattr won't work.
 int  doslike_getch(void)
 {
   static struct termios  oldt, newt;
@@ -226,12 +232,19 @@ void QuadrupedMotion::Load(physics::ModelPtr _model,
 {
   this->model = _model;
   this->node = transport::NodePtr(new transport::Node());
+#if(GAZEBO_MAJOR_VERSION <= 7)
   this->node->Init(this->model->GetWorld()->GetName());
+#endif
+#if(GAZEBO_MAJOR_VERSION >= 8)
+  this->node->Init(this->model->GetWorld()->Name());
+#endif
   this->velSub = this->node->Subscribe(std::string("~/") +
       this->model->GetName()+"/vel_cmd", &QuadrupedMotion::OnVelMsg, this);
   for(int J=0; J < G_JOINTS; J++)
     get_joint_info_from_sdf(this->Joint[J], joint_name[J], _model, _sdf);
   Init();
+  this->keySub = this->node->Subscribe(std::string("~/keyboard/keypress"), 
+      &QuadrupedMotion::OnKeyPress, this);
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
           boost::bind(&QuadrupedMotion::OnUpdate, this));
 }
@@ -292,7 +305,12 @@ void QuadrupedMotion::OnVelMsg(ConstPosePtr &_msg)
   /*
   double vr, va;
   vr = _msg->position().x();
+#if(GAZEBO_MAJOR_VERSION == 5)
   va =  msgs::Convert(_msg->orientation()).GetAsEuler().z;
+#endif
+#if(GAZEBO_MAJOR_VERSION >= 7)
+  va =  msgs::ConvertIgn(_msg->orientation()).Euler().Z();
+#endif
   this->wheelSpeed[LEFT] = vr + va * this->wheelSeparation / 2.0;
   this->wheelSpeed[RIGHT] = vr - va * this->wheelSeparation / 2.0;
   */
@@ -317,6 +335,7 @@ void set_walk_motion(ATI_PACK ** mdblp, int kind_of_motion, float motion_speed)
   }
 }
 
+// This is the old version, currently no use.
 void  check_key_command(ATI_PACK ** mdblp)
 {
   static int   motion_flag  = 0;
@@ -367,6 +386,54 @@ void  check_key_command(ATI_PACK ** mdblp)
 }
 
 /////////////////////////////////////////////////
+void QuadrupedMotion::OnKeyPress(ConstAnyPtr &_msg)
+{
+  static int   motion_flag  = 0;
+  static float motion_speed = 1;
+  const auto key = static_cast<const unsigned int>(_msg->int_value());
+  gzmsg << "KEY(" << key << ") pressed\n";
+  switch(key)
+  {
+    case ' ': StopAllMotions(mdblp);
+          break;
+    case 'd': motion_flag = 0;
+          mdblp = &STAND_L;
+          StartAllMotions(mdblp);
+          break;
+    case 'e': motion_flag = 1;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    case 'c': motion_flag = 2;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    case 'f': motion_flag = 3;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    case 's': motion_flag = 4;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    case '1': motion_speed = 0.3;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    case '2': motion_speed = 0.8;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    case '3': motion_speed = 1;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    case '4': motion_speed = 1.5;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    case '5': motion_speed = 2;
+          set_walk_motion(&mdblp, motion_flag, motion_speed);
+          break;
+    default : printf("%c is not command\n", key);
+          Disp_Usage();
+          break;
+  }   
+}
+
+/////////////////////////////////////////////////
 void QuadrupedMotion::Move_A_Joint(int _motor)
 {
   float P = current_joint_target_angle[_motor] - this->Joint[_motor]->GetAngle(0).Radian();
@@ -394,7 +461,7 @@ void QuadrupedMotion::OnUpdate()
   if(dec < 0)
   {
     dec = 10;
-    check_key_command(&mdblp);
+//  check_key_command(&mdblp);
     MotionPlayer(mdblp);
   }
   else

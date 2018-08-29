@@ -36,10 +36,12 @@ namespace gazebo
     private: void PID_Control(void);
 
     private: void OnVelMsg(ConstVector3dPtr &_msg);
+    private: void OnKeyPress(ConstAnyPtr &_msg);
     private: void check_key_command(void);
+    private: void DoControl(void);
 
     private: transport::NodePtr node;
-    private: transport::SubscriberPtr velSub;
+    private: transport::SubscriberPtr velSub, keySub;
 
     private: float Px, Py;
     private: physics::ModelPtr model;

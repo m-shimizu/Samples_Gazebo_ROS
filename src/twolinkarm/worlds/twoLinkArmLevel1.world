@@ -13,5 +13,15 @@
       <pose>0 0 0 0 0 3.14159265</pose>
       <uri>model://twoLinkArm</uri>
     </include>
+
+    <gui fullscreen='0'>
+      <!-- KEYPUBLISHER SEE: https://github.com/osrf/car_demo/issues/25 -->
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'/>
+      <camera name='user_camera'>
+        <pose frame=''>0.961893 -0.002183 1.97459 2.4e-05 1.5698 1.56827</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
   </world>
 </sdf>

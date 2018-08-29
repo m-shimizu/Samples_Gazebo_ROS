@@ -15,11 +15,11 @@ There is a real one of the twoLinkArm. The original one has angle limitations in
 ## How to run.  
 You can run this sample by using a following command.  
 
-    $ roslaunch fourlegs spawn_twoLinkArm.launch  
+    $ roslaunch twolinkarm spawn_twoLinkArm.launch  
 
 Or you can run this sample by using a following command instead of using roslaunch.  
 
-    $ gazebo ~/Samples_Gazebo_ROS/src/twoLinkArm/worlds/twoLinkArm.world  
+    $ gazebo ~/Samples_Gazebo_ROS/src/twolinkarm/worlds/twoLinkArm.world  
     
 You can see an usage for operating the fourlegs robot on the terminal you started this repository.  
 You can move the pack by typing keys(diamond cursor formation by i,j,k,l and ,), then the twoLinkArm follow the moving pack.  

@@ -12,17 +12,24 @@ namespace gazebo
     {
       // Store the pointer to the model
       this->model = _parent;
+      gazebo::transport::NodePtr node(new gazebo::transport::Node());
+#if(GAZEBO_MAJOR_VERSION <= 7)
+      node->Init(this->model->GetWorld()->GetName());
+#endif
+#if(GAZEBO_MAJOR_VERSION >= 8)
+      node->Init(this->model->GetWorld()->Name());
+#endif
+
+      this->keySub = node->Subscribe(std::string("~/keyboard/keypress"), 
+                                               &PackPush::OnKeyPress, this);
 
       // Listen to the update event. This event is broadcast every
       // simulation iteration.
       this->updateConnection = event::Events::ConnectWorldUpdateBegin(
           boost::bind(&PackPush::OnUpdate, this, _1));
 
-      gazebo::transport::NodePtr node(new gazebo::transport::Node());
-      node->Init();
-
-      pub = node->Advertise<gazebo::msgs::Vector3d>("~/twoLinkArm/vel_cmd");
-      pub->WaitForConnection();
+      this->pub = node->Advertise<gazebo::msgs::Vector3d>("~/twoLinkArm/vel_cmd");
+      this->pub->WaitForConnection();
 
       this->model->SetLinearVel(math::Vector3(0.0, 0.1, 0));
     }
@@ -54,8 +61,12 @@ namespace gazebo
     // Pointer to the update event connection
     private: event::ConnectionPtr updateConnection;
 
+    private: transport::SubscriberPtr keySub;
     private: gazebo::transport::PublisherPtr pub;
 
+// Before Gazebo7 including Gazebo7, doslike_kbhit and doslike_getch worked correctly.
+// But after Gazebo8, they no longer worked.
+// Especially, the funcion tcsetattr won't work.
 /////////////////////////////////////////////////
 // To know pushing any key
 int	doslike_kbhit(void)
@@ -81,6 +92,9 @@ int	doslike_kbhit(void)
 	return 0;
 }
 
+// Before Gazebo7 including Gazebo7, doslike_kbhit and doslike_getch worked correctly.
+// But after Gazebo8, they no longer worked.
+// Especially, the funcion tcsetattr won't work.
 /////////////////////////////////////////////////
 // To gwt a charactor code of a pushed key
 int	doslike_getch(void)
@@ -94,6 +108,27 @@ int	doslike_getch(void)
 	int c = getchar();
 	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 	return c;
+}
+
+/////////////////////////////////////////////////
+// To control joint behaviors by keyboard input directory
+void	OnKeyPress(ConstAnyPtr &_msg)
+{
+  const auto key = static_cast<const unsigned int>(_msg->int_value());
+  gzmsg << "KEY(" << key << ") pressed\n";
+  switch(key)
+	{
+		case 'i': this->model->SetLinearVel(math::Vector3(0, 0.1, 0));
+			  break;
+		case 'j': this->model->SetLinearVel(math::Vector3(-0.1, 0, 0));
+			  break;
+		case 'l': this->model->SetLinearVel(math::Vector3(0.1, 0, 0));
+			  break;
+		case ',': this->model->SetLinearVel(math::Vector3(0, -0.1, 0));
+			  break;
+		case 'k': this->model->SetLinearVel(math::Vector3(0, 0, 0));
+			  break;
+	}
 }
 
 /////////////////////////////////////////////////

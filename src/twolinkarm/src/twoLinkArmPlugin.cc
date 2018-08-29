@@ -41,7 +41,12 @@ void _2link_arm::Load(physics::ModelPtr _model,
   this->model = _model;
 
   this->node = transport::NodePtr(new transport::Node());
+#if(GAZEBO_MAJOR_VERSION <= 7)
   this->node->Init(this->model->GetWorld()->GetName());
+#endif
+#if(GAZEBO_MAJOR_VERSION >= 8)
+  this->node->Init(this->model->GetWorld()->Name());
+#endif
 
   this->velSub = this->node->Subscribe(std::string("~/") +
       this->model->GetName() + "/vel_cmd", &_2link_arm::OnVelMsg, this);
@@ -64,6 +69,9 @@ void _2link_arm::Load(physics::ModelPtr _model,
     gzerr << "Unable to find elbow joint["
           << _sdf->GetElement("elbow")->Get<std::string>() << "]\n";
 
+  this->keySub = this->node->Subscribe(std::string("~/keyboard/keypress"), 
+      &_2link_arm::OnKeyPress, this);
+
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
           boost::bind(&_2link_arm::OnUpdate, this));
 }
@@ -73,6 +81,9 @@ void _2link_arm::Init()
 {
 }
 
+// Before Gazebo7 including Gazebo7, doslike_kbhit and doslike_getch worked correctly.
+// But after Gazebo8, they no longer worked.
+// Especially, the funcion tcsetattr won't work.
 /////////////////////////////////////////////////
 // To know pushing any key
 int	doslike_kbhit(void)
@@ -98,6 +109,9 @@ int	doslike_kbhit(void)
 	return 0;
 }
 
+// Before Gazebo7 including Gazebo7, doslike_kbhit and doslike_getch worked correctly.
+// But after Gazebo8, they no longer worked.
+// Especially, the funcion tcsetattr won't work.
 /////////////////////////////////////////////////
 // To gwt a charactor code of a pushed key
 int	doslike_getch(void)
@@ -131,9 +145,29 @@ void ik(float* th1, float* th2, float px, float py)
   }
 }
 
-
 /////////////////////////////////////////////////
 // To control joint behaviors by keyboard input directory
+void	_2link_arm::OnKeyPress(ConstAnyPtr &_msg)
+{
+  const auto key = static_cast<const unsigned int>(_msg->int_value());
+  gzmsg << "KEY(" << key << ") pressed\n";
+  switch(key)
+	{
+		case 'f': Px += 0.05;
+			  break;
+		case 's': Px -= 0.05;
+			  break;
+		case 'e': Py += 0.05;
+			  break;
+		case 'c': Py -= 0.05;
+			  break;
+		case 'd': Px = 0.4, Py = 0;
+			  break;
+	}
+}
+
+/////////////////////////////////////////////////
+// OLD VERSION!! To control joint behaviors by keyboard input directory
 void	_2link_arm::check_key_command(void)
 {
 	if(doslike_kbhit())
@@ -230,6 +264,6 @@ void _2link_arm::PID_Control(void)
 /////////////////////////////////////////////////
 void _2link_arm::OnUpdate()
 {
-//  check_key_command();
+//  check_key_command(); <= Needless forever!!
   PID_Control();
 }

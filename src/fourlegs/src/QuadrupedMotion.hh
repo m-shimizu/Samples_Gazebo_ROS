@@ -37,9 +37,10 @@ namespace gazebo
     private: void Move_A_Joint(int _motor);
 
     private: void OnVelMsg(ConstPosePtr &_msg);
+    private: void OnKeyPress(ConstAnyPtr &_msg);
 
     private: transport::NodePtr node;
-    private: transport::SubscriberPtr velSub;
+    private: transport::SubscriberPtr velSub, keySub;
 
     private: physics::ModelPtr model;
     private: physics::JointPtr Joint[MAX_MOTORS];
