@@ -174,10 +174,11 @@
     </joint>
 
 <!-- Camera (hight is 100mm) -->
+<!-- Including model causes a trouble of RobotNameSpace in sdf version 1.5.
     <include>
       <name>camera</name>
       <pose>0.1 0 0.383 0 0 0</pose>
-<!--  <pose>0.1 0 0.22 0 0 0</pose> sample memo -->
+      <pose>0.1 0 0.22 0 0 0</pose> <= sample memo>
       <uri>model://camera_ros</uri>
     </include>
 
@@ -193,18 +194,274 @@
         </limit>
       </axis>
     </joint>
-    
+-->
+    <link name="camera_link">
+      <pose>0.1 0 0.383 0 0 0</pose>
+      <audio_sink /> <!-- Camera and microphone should be combined -->
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.000166667</ixx>
+          <iyy>0.000166667</iyy>
+          <izz>0.000166667</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision-box">
+        <pose>-0.01 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="collision-lens">
+        <pose>0.04 0 0 0 1.57 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.03</radius>
+            <length>0.02</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual-box">
+        <pose>-0.01 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.1 0.1</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.3 0.3 0.3 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <visual name="visual-lens">
+        <pose>0.04 0 0 0 1.57 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.03</radius>
+            <length>0.02</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+<!-- RGB CAMERA --> 
+      <sensor type="camera" name="camera">
+        <update_rate>20</update_rate>
+        <visualize>false</visualize>
+        <camera name="camera">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>camera/rgb</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>camera_link</frameName>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+<!-- THERMAL CAMERA --> 
+      <sensor type="camera" name="thermal_camera_sensor">
+        <update_rate>10</update_rate>
+        <camera name="camera_ros_thermal">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>160</width>
+            <height>120</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+<!--
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+-->
+        </camera>
+        <plugin name="thermal_camera_controller" 
+                filename="libgazebo_ros_thermal_camera_pink.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10</updateRate>
+          <imageTopicName>camera/thermal/image_raw</imageTopicName>
+          <cameraInfoTopicName>camera/thermal/camera_info</cameraInfoTopicName>
+          <frameName>camera_link</frameName>
+          <interface:camera name="thermal_camera_iface" />
+        </plugin>
+      </sensor> 
+    </link>
+    <joint name="camera_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>camera_link</child>
+      <pose>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+        
 <!-- Hokuyo (hight is 70mm) -->
+<!-- Including model causes a trouble of RobotNameSpace in sdf version 1.5.
     <include>
       <name>hokuyo</name>
       <pose>0.1 0 0.298 0 0 0</pose>
-<!--  <pose>0.1 0 0.135 0 0 0</pose> sample memo -->
+      <pose>0.1 0 0.135 0 0 0</pose> <= sample memo 
       <uri>model://hokuyo_ros</uri>
     </include>
 
     <joint name="hokuyo_joint" type="revolute">
       <parent>base_link</parent>
       <child>hokuyo::hokuyo_link</child>
+      <pose>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+-->
+    <link name="hokuyo_link">
+      <pose>0.1 0 0.298 0 0 0</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.6205208333e-04</ixx>
+          <iyy>0.6205208333e-04</iyy>
+          <izz>4.1927083333e-05</izz>
+        </inertia>
+      </inertial>
+      <visual name="visual-base">
+        <pose>0 0 -0.0145 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.041</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.3 0.3 0.3 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <visual name="visual-top">
+        <pose>0 0 0.0205 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.021</radius>
+            <length>0.029</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <visual name="visual-top-back">
+        <pose>-0.02 0 0.019 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.025</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+      <collision name="collision-base">
+        <pose>0 0 -0.0145 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.041</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="collision-top">
+        <pose>0 0 0.0205 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.021</radius>
+            <length>0.029</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <sensor type="ray" name="lms200">
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <pose>0 0 0.01815 0 0 0</pose> <!-- From URG04LX Spec -->
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+		          <samples>1040</samples>			<!-- 1040!!! -->
+		          <resolution>1</resolution>
+		          <min_angle>-2.268928</min_angle> <!-- 90deg: -1.570796 -->
+		          <max_angle>2.268928</max_angle>  <!-- 90deg: 1.570796  -->
+            </horizontal>
+          </scan>
+          <range>
+<!--            <min>0.20</min>  From URG04LX Spec -->
+            <min>0.15</min>
+            <max>5.6</max> <!-- From URG04LX Spec -->
+            <resolution>0.001</resolution> <!-- From URG04LX Spec -->
+          </range>
+        </ray>
+        <plugin name="gazebo_ros_hokuyo_controller" filename="libgazebo_ros_laser.so">
+          <topicName>scan</topicName>
+          <gaussianNoise>0.005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30</updateRate>
+          <frameName>hokuyo_link</frameName>
+        </plugin>
+      </sensor>
+    </link>
+    <joint name="hokuyo_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>hokuyo_link</child>
       <pose>0 0 0 0 0 0</pose>
       <axis>
         <xyz>0 0 1</xyz>

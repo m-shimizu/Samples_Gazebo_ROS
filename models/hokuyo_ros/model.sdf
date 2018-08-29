@@ -93,7 +93,6 @@
             <resolution>0.001</resolution> <!-- From URG04LX Spec -->
           </range>
         </ray>
-
         <plugin name="gazebo_ros_hokuyo_controller" filename="libgazebo_ros_laser.so">
           <topicName>scan</topicName>
           <gaussianNoise>0.005</gaussianNoise>
