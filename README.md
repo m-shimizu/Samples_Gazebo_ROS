@@ -2,12 +2,15 @@
 This repository has several packages to show sample codes for Gazebo and/or ROS, sample models and worlds for Gazebo.  
 Please find more information in [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki).  
 
-## REQUIREMENT OF THIS REPOSITORY
+## About this branch  
+This branch had been maintained with ROS-Kinetic and Gazebo 8.  
 
-### Install ROS Kinetic and Gazebo8 from PPA
+## REQUIREMENT OF THIS REPOSITORY  
+
+### Install ROS Kinetic and Gazebo8 from PPA  
 #### *[Ubuntu install of ROS kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 #### *[Install Gazebo using Ubuntu packages](http://gazebosim.org/tutorials?cat=install&tut=install_ubuntu&ver=8.0)  
-Do followings:
+Do followings:  
 
     sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'  
     sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0xB01FA116  
