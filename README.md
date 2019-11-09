@@ -3,7 +3,7 @@ This repository has several packages to show sample codes for Gazebo and/or ROS,
 Please find more information in [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki).  
 
 ## About this branch  
-This branch had been maintained with ROS-Kinetic and Gazebo 8.  
+This branch had been maintained with ROS-Dashing and Gazebo 9.  
 
 ## REQUIREMENT OF THIS REPOSITORY  
 
