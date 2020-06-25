@@ -31,7 +31,11 @@ namespace gazebo
       this->pub = node->Advertise<gazebo::msgs::Vector3d>("~/twoLinkArm/vel_cmd");
       this->pub->WaitForConnection();
 
+#if(GAZEBO_MAJOR_VERSION <= 8)
       this->model->SetLinearVel(math::Vector3(0.0, 0.1, 0));
+#else
+      this->model->SetLinearVel(ignition::math::Vector3d(0.0, 0.1, 0));
+#endif
     }
 
     // Called by the world update start event
@@ -43,9 +47,15 @@ namespace gazebo
         gazebo::msgs::Vector3d msg;
         float x, y, z;
         // Get current pack xyz.
+#if(GAZEBO_MAJOR_VERSION <= 8)
         x = this->model->GetWorldPose().pos.x + 1;
         y = this->model->GetWorldPose().pos.y + 0;
         z = this->model->GetWorldPose().pos.z;
+#else
+        x = this->model->WorldPose().Pos().X() + 1;
+        y = this->model->WorldPose().Pos().Y() + 0;
+        z = this->model->WorldPose().Pos().Z();
+#endif
         // Publish the pack xyz.
 #if(GAZEBO_MAJOR_VERSION >= 7)
         gazebo::msgs::Set(&msg, ignition::math::Vector3d(x, y, z));
@@ -118,6 +128,7 @@ void	OnKeyPress(ConstAnyPtr &_msg)
   gzmsg << "KEY(" << key << ") pressed\n";
   switch(key)
 	{
+#if(GAZEBO_MAJOR_VERSION <= 8)
 		case 'i': this->model->SetLinearVel(math::Vector3(0, 0.1, 0));
 			  break;
 		case 'j': this->model->SetLinearVel(math::Vector3(-0.1, 0, 0));
@@ -128,6 +139,18 @@ void	OnKeyPress(ConstAnyPtr &_msg)
 			  break;
 		case 'k': this->model->SetLinearVel(math::Vector3(0, 0, 0));
 			  break;
+#else
+		case 'i': this->model->SetLinearVel(ignition::math::Vector3d(0, 0.1, 0));
+			  break;
+		case 'j': this->model->SetLinearVel(ignition::math::Vector3d(-0.1, 0, 0));
+			  break;
+		case 'l': this->model->SetLinearVel(ignition::math::Vector3d(0.1, 0, 0));
+			  break;
+		case ',': this->model->SetLinearVel(ignition::math::Vector3d(0, -0.1, 0));
+			  break;
+		case 'k': this->model->SetLinearVel(ignition::math::Vector3d(0, 0, 0));
+			  break;
+#endif
 	}
 }
 
@@ -140,16 +163,29 @@ void	check_key_command(void)
 		int cmd = doslike_getch();
 		switch(cmd)
 		{
-			case 'i': this->model->SetLinearVel(math::Vector3(0, 0.1, 0));
-				  break;
-			case 'j': this->model->SetLinearVel(math::Vector3(-0.1, 0, 0));
-				  break;
-			case 'l': this->model->SetLinearVel(math::Vector3(0.1, 0, 0));
-				  break;
-			case ',': this->model->SetLinearVel(math::Vector3(0, -0.1, 0));
-				  break;
-			case 'k': this->model->SetLinearVel(math::Vector3(0, 0, 0));
-				  break;
+#if(GAZEBO_MAJOR_VERSION <= 8)
+		case 'i': this->model->SetLinearVel(math::Vector3(0, 0.1, 0));
+			  break;
+		case 'j': this->model->SetLinearVel(math::Vector3(-0.1, 0, 0));
+			  break;
+		case 'l': this->model->SetLinearVel(math::Vector3(0.1, 0, 0));
+			  break;
+		case ',': this->model->SetLinearVel(math::Vector3(0, -0.1, 0));
+			  break;
+		case 'k': this->model->SetLinearVel(math::Vector3(0, 0, 0));
+			  break;
+#else
+		case 'i': this->model->SetLinearVel(ignition::math::Vector3d(0, 0.1, 0));
+			  break;
+		case 'j': this->model->SetLinearVel(ignition::math::Vector3d(-0.1, 0, 0));
+			  break;
+		case 'l': this->model->SetLinearVel(ignition::math::Vector3d(0.1, 0, 0));
+			  break;
+		case ',': this->model->SetLinearVel(ignition::math::Vector3d(0, -0.1, 0));
+			  break;
+		case 'k': this->model->SetLinearVel(ignition::math::Vector3d(0, 0, 0));
+			  break;
+#endif
 		}
 	}
 }

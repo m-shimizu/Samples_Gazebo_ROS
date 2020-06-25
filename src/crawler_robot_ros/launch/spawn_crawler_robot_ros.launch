@@ -10,12 +10,12 @@
 
   <!-- Launch Gazebo -->
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
-         output="screen" args="$(find crawler_robot_ros)/worlds/$(arg world)"/>
+         output="screen" args="$(dirname)/../worlds/$(arg world)"/>
   <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
          output="screen"/>
 
   <!-- Make robot_description and run robot_state_publisher --> 
-  <include file="$(find crawler_robot_ros)/launch/make_robot_description_and_call_state_publisher_crawler.launch">
+  <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_crawler.launch">
     <arg name="robot_name"  value="$(arg robot_name)"/>
     <arg name="xcoordinate" value="0.0"/>
     <arg name="ycoordinate" value="0.0"/>
@@ -23,7 +23,7 @@
   </include> 
 
   <!-- Launch a joystick type teleop controller if needed --> 
-  <include file="$(find crawler_robot_ros)/launch/joy_and_teleop_crawler.launch"
+  <include file="$(dirname)/../launch/joy_and_teleop_crawler.launch"
                                                       if="$(arg use_joystick)">
     <arg name="robot_name"   value="$(arg robot_name)"/>
 		<arg name="dev"          value="/dev/input/js0"/>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="robot" default="robot"/>
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="control_mode" default="velocity"/>
+
+  <group ns="$(arg robot)">
+    <include file="$(find hector_quadrotor_teleop)/launch/xbox_controller.launch">
+      <arg name="joy_dev" value="$(arg joy_dev)" />
+      <arg name="control_mode" value="$(arg control_mode)" />
+    </include>
+  </group>
+</launch>

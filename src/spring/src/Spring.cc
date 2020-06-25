@@ -34,7 +34,7 @@ void Spring::Load(physics::ModelPtr _model,
   this->model = _model;
 
   this->node = transport::NodePtr(new transport::Node());
-  this->node->Init(this->model->GetWorld()->GetName());
+  this->node->Init(this->model->GetWorld()->Name());
 
   if (!_sdf->HasElement("joint_name"))
     gzerr << "Spring plugin missing <Joint_Name> element\n";
@@ -57,9 +57,9 @@ void Spring::Init()
   physics::EntityPtr parent = boost::dynamic_pointer_cast<physics::Entity>(
       this->joint->GetChild());
 
-  math::Box bb = parent->GetBoundingBox();
+  ignition::math::Box bb = parent->BoundingBox();
   // This assumes that the largest dimension of the wheel is the diameter
-  this->head_distance = bb.GetSize().GetMax();
+  this->head_distance = bb.Size().Max();
 }
 
 /////////////////////////////////////////////////
@@ -79,8 +79,10 @@ void Spring::OnUpdate()
   common::Time currTime = this->model->GetWorld()->GetSimTime();
   common::Time stepTime = currTime - this->prevUpdateTime;
   */
-  this->joint->SetForce(0, -this->spring_constant * this->joint->GetAngle(0).Radian());
-  if( this->joint->GetAngle(0).Radian() > 0.045 )
+//  this->joint->SetForce(0, -this->spring_constant * this->joint->Position(0).Radian());
+//  if( this->joint->Position(0).Radian() > 0.045 )
+  this->joint->SetForce(0, -this->spring_constant * this->joint->Position(0));
+  if( this->joint->Position(0) > 0.045 )
   {
      this->joint->SetPosition(0, 0.045);
   }

@@ -10,7 +10,7 @@
 
   <!-- Launch gazebo -->
 
-  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(find spring)/worlds/$(arg world)"/>
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(dirname)/../worlds/$(arg world)"/>
   <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
 
 </launch>

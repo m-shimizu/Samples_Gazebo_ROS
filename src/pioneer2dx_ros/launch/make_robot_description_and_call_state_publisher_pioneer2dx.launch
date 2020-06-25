@@ -11,11 +11,11 @@
 		<param name="world_frame" type="string" value="$(arg world_frame)" />
 -->
 		<param name="robot_description" 
-		       textfile="$(find pioneer2dx_ros)/urdf/pioneer2dx_ros.urdf"/>
+		       textfile="$(dirname)/../urdf/pioneer2dx_ros.urdf"/>
 		<node pkg="gazebo_ros" type="spawn_model"
           respawn="false"
           name="spawn_model"
-          args="-file $(find pioneer2dx_ros)/sdf/model.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
+          args="-file $(dirname)/../sdf/model.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
     <node name="robot_state_publisher" 
           pkg="robot_state_publisher" type="robot_state_publisher" 
           output="screen">

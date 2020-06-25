@@ -12,7 +12,7 @@ Ubuntu 18.04.
 
 ### Install ROS Melodic and Gazebo9 from PPA
 #### *[Ubuntu install of ROS melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)
-#### *[Install Gazebo using Ubuntu packages](http://gazebosim.org/tutorials?cat=install&tut=install_ubuntu&ver=9.0)  
+#### *[Install Gazebo 9 using Ubuntu packages](http://gazebosim.org/tutorials?cat=install&tut=install_ubuntu&ver=9.0)  
 Do followings:
 
     sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'  
@@ -31,6 +31,7 @@ Just do the next commands.
     $ cd ~  
     $ git clone https://github.com/m-shimizu/Samples_Gazebo_ROS/  
     $ cd ~/Samples_Gazebo_ROS  
+    $ rosinstall src /opt/ros/melodic
     $ catkin_make  
     $ source setup.bash  
 
@@ -48,4 +49,8 @@ But all models are under "~/Sample_Gazebo_ROS/models" directory.
 This models folder exists for Gazebo, so it is good that all models are collected in a directory.  
 A resonable solution to do this, make a symbolic link of the model folder in the repository into the model folder.  
 
-Edit date: 9th Nov. 2019
+## SEE ALSO STRONGLY.  
+* [osrf/gazebo/Migration](https://bitbucket.org/osrf/gazebo/src/default/Migration.md)  
+* [Migration to Gazebo 9 / ROS melodic](https://github.com/wuwushrek/sim_cf/issues/2)  
+
+Edit date: 24th Jun. 2020

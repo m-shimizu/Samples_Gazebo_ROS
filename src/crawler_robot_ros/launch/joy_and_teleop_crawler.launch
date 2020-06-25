@@ -14,13 +14,13 @@
 		<node pkg="crawler_robot_ros" type="teleop_crawler" name="teleop_crawler"
 		      output="screen" >
 		  <rosparam command="load"
-                file="$(find crawler_robot_ros)/config/speed_w_angle.yaml" />
+                file="$(dirname)/../config/speed_w_angle.yaml" />
 		  <rosparam command="load" if="$(arg gc_dux60)" 
-		            file="$(find crawler_robot_ros)/config/ELECOM-JC-DUX60.yaml"/>
+		            file="$(dirname)/../config/ELECOM-JC-DUX60.yaml"/>
 		  <rosparam command="load" if="$(arg gc_ds4)"
-                file="$(find crawler_robot_ros)/config/PS-DS4.yaml"/>
+                file="$(dirname)/../config/PS-DS4.yaml"/>
 		  <rosparam command="load" if="$(arg gc_bsgp1601)"
-                file="$(find crawler_robot_ros)/config/iBUFFALO-BSGP1601.yaml"/>
+                file="$(dirname)/../config/iBUFFALO-BSGP1601.yaml"/>
 		</node>
   </group>
 </launch>

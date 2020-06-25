@@ -20,11 +20,11 @@
 		<arg name="use_pose_estimation" if="$(arg use_ground_truth_for_control)" default="false"/>
 		<arg name="use_pose_estimation" unless="$(arg use_ground_truth_for_control)" default="true"/>
 		<param name="robot_description" 
-		       textfile="$(find quadrotor)/urdf/quadrotor.urdf"/>
+		       textfile="$(dirname)/../urdf/quadrotor.urdf"/>
 		<node pkg="gazebo_ros" type="spawn_model"
           respawn="false"
           name="spawn_model"
-          args="-file $(find quadrotor)/sdf/model.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
+          args="-file $(dirname)/../sdf/model.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
 		<!-- required for hector_pose_estimation and message_to_tf -->
 		<param name="tf_prefix" type="string" value="$(arg tf_prefix)"/> 
 		<param name="base_link_frame" type="string" value="$(arg base_link_frame)"/>
@@ -84,8 +84,8 @@
 
 		<!-- load aerodynamic and motor parameters -->
 		<arg name="motors" default="robbe_2827-34_epp1045" />
-		<rosparam command="load" file="$(find quadrotor)/config/quadrotor/quadrotor_aerodynamics.yaml" />
-		<rosparam command="load" file="$(find quadrotor)/config/quadrotor/$(arg motors).yaml" />
+		<rosparam command="load" file="$(dirname)/../config/quadrotor/quadrotor_aerodynamics.yaml" />
+		<rosparam command="load" file="$(dirname)/../config/quadrotor/$(arg motors).yaml" />
     <node name="tf_static_hokuyo_link_frame" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 $(arg robot_name)/hokuyo_link $(arg robot_name)/hokuyo_frame 100"/>
   </group>
 </launch>

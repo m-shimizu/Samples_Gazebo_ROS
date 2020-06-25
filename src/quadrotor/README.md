@@ -8,17 +8,47 @@ And there is a world file as "worlds/quadrotor4.world" to show 4 quadrotor robot
 ## ROBOT  
 quadrotor\_ros was imported from ![tu-darmstad](https://github.com/tu-darmstadt-ros-pkg/hector_quadrotor) and converted into sdf.
 
-## IMPORTED PLUGINS and PACKAGES  
+## IMPORTING PACKAGES by rosinstalling  
+* hector_components_description  
+* hector_compressed_map_transport  
+* hector_gazebo  
 * hector_gazebo_plugins  
 * hector_gazebo_thermal_camera  
+* hector_gazebo_worlds  
+* hector_geotiff  
+* hector_geotiff_plugins  
+* hector_imu_attitude_to_tf  
+* hector_imu_tools  
+* hector_localization  
+* hector_mapping  
+* hector_map_server  
+* hector_map_tools  
+* hector_marker_drawing  
+* hector_models  
+* hector_models.rosinstall  
+* hector_nav_msgs  
+* hector_pose_estimation  
+* hector_pose_estimation_core  
+* hector_quadrotor  
 * hector_quadrotor_actions  
 * hector_quadrotor_controller_gazebo  
 * hector_quadrotor_controllers  
+* hector_quadrotor_demo  
+* hector_quadrotor_description  
 * hector_quadrotor_gazebo  
 * hector_quadrotor_gazebo_plugins  
 * hector_quadrotor_interface  
+* hector_quadrotor_model  
+* hector_quadrotor_pose_estimation  
 * hector_quadrotor_teleop  
+* hector_sensors_description  
+* hector_sensors_gazebo  
+* hector_slam  
+* hector_slam_launch  
+* hector_trajectory_server  
 * hector_uav_msgs  
+* hector_xacro_tools  
+* rtt_hector_pose_estimation  
 
 ## How to fly with a quadrotor  
 You need 3 terminals for spawning a robot and controlling the robot.  
@@ -33,9 +63,9 @@ You need 3 terminals for spawning a robot and controlling the robot.
 
     $ cd Samples_Gazebo_ROS  
     $ source setup.bash  
-    $ roslaunch hector_quadrotor_teleop buffalo_gamepad.launch robot:=robot  
+    $ roslaunch quadrotor buffalo_gamepad.launch robot:=robot  
      (AND PUSH No.4 BUTTON TO START!!)  
-     (You can also use logitech_gamepad.launch or sony_dualshock3.launch or xbox_controller.launch, and you should read them to find whch button is for start.)  
+     (You can also use logitech_gamepad.launch or sony_dualshock3.launch or xbox_controller.launch, and you should read them to find which button is for start.)  
     
     Terminal 3(To watch the camera view of the robot):  
 
@@ -56,4 +86,4 @@ This package uses following model.
 |There is no original executable program.|-|
 
 
-UPDATED : 28th Feb. 2018
+UPDATED : 25th Jun. 2020

@@ -127,7 +127,9 @@
           <imageTopicName>camera/thermal/image_raw</imageTopicName>
           <cameraInfoTopicName>camera/thermal/camera_info</cameraInfoTopicName>
           <frameName>camera_link</frameName>
+<!-- Before ROS-Melodic, below was accepted by gazebo_ros_spawn
           <interface:camera name="thermal_camera_iface" />
+-->
         </plugin>
       </sensor> 
     </link>

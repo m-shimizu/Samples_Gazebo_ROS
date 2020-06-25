@@ -9,17 +9,17 @@
   <arg name="world" default="centaur.world"/>
 
   <!-- Launch gazebo -->
-  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(find centaur)/worlds/$(arg world)"/>
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(dirname)/../worlds/$(arg world)"/>
   <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
 
   <!-- Launch robot state publishers -->
-  <include file="$(find centaur)/launch/make_robot_description_and_call_state_publisher_centaur.launch">
+  <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_centaur.launch">
     <arg name="robot_name"  value="robot"/>
     <arg name="xcoordinate" value="0.0"/>
     <arg name="ycoordinate" value="0.0"/>
     <arg name="zcoordinate" value="0.0"/>
   </include>
-  <include file="$(find centaur)/launch/centaur_joint_trajectory.launch">
+  <include file="$(dirname)/../launch/centaur_joint_trajectory.launch">
     <arg name="robot_name" value="robot"/>
   </include>
 

@@ -10,12 +10,12 @@
 
   <!-- Launch Gazebo -->
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
-         output="screen" args="$(find pioneer3at_ros)/worlds/$(arg world)"/>
+         output="screen" args="$(dirname)/../worlds/$(arg world)"/>
   <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
          output="screen"/>
 
   <!-- Make robot_description and run robot_state_publisher --> 
-  <include file="$(find pioneer3at_ros)/launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
+  <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
     <arg name="robot_name"  value="$(arg robot_name)"/>
     <arg name="xcoordinate" value="0.0"/>
     <arg name="ycoordinate" value="0.0"/>

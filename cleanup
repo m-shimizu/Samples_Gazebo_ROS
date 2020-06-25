@@ -2,4 +2,12 @@
 
 \rm -r devel build
 rm src/CMakeLists.txt
-
+rm src/setup.bash
+rm src/setup.sh
+rm src/setup.zsh
+yes | \rm -r src/hector_gazebo
+yes | \rm -r src/hector_localization
+yes | \rm -r src/hector_models
+yes | \rm -r src/hector_nist_arenas_gazebo
+yes | \rm -r src/hector_quadrotor
+yes | \rm -r src/hector_slam

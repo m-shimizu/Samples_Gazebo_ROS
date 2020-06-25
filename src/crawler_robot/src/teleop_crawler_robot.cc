@@ -19,7 +19,9 @@
 #include <gazebo/gazebo.hh>
 #include <gazebo/transport/transport.hh>
 #include <gazebo/msgs/msgs.hh>
+#if(GAZEBO_MAJOR_VERSION <= 8)
 #include <gazebo/math/gzmath.hh>
+#endif
 #include "flipper_control_msgs.hh"
 
 #include <termios.h>

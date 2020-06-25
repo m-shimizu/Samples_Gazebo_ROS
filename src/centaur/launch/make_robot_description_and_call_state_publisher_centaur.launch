@@ -7,19 +7,19 @@
   <group ns="$(arg robot_name)">
     <param name="tf_prefix" type="string" value="$(arg robot_name)"/>      
     <rosparam command="load" 
-      file="$(find centaur)/config/centaur/centaur_default_controllers.yaml"/> 
+      file="$(dirname)/../config/centaur/centaur_default_controllers.yaml"/> 
     <rosparam command="load" 
-      file="$(find centaur)/config/centaur/centaur_joint_limits.yaml"/>
+      file="$(dirname)/../config/centaur/centaur_joint_limits.yaml"/>
     <rosparam command="load" 
-      file="$(find centaur)/config/centaur/centaur_thor_mang_hand_parameters.yaml"/>
+      file="$(dirname)/../config/centaur/centaur_thor_mang_hand_parameters.yaml"/>
     <!--
-    <rosparam command="load" file="$(find centaur)/config/centaur/obelix_flippers_gazebo.yaml"/>
-    <rosparam command="load" file="$(find centaur)/config/centaur/vt_hand_left_controllers.yaml"/>
-    <rosparam command="load" file="$(find centaur)/config/centaur/vt_hand_left_trajectory_controllers.yaml"/>
-    <rosparam command="load" file="$(find centaur)/config/centaur/vt_hand_left_trajectory_sim_controllers.yaml"/>
-    <rosparam command="load" file="$(find centaur)/config/centaur/vt_hand_right_controllers.yaml"/>
-    <rosparam command="load" file="$(find centaur)/config/centaur/vt_hand_right_trajectory_controllers.yaml"/>
-    <rosparam command="load" file="$(find centaur)/config/centaur/vt_hand_right_trajectory_sim_controllers.yaml"/>
+    <rosparam command="load" file="$(dirname)/../config/centaur/obelix_flippers_gazebo.yaml"/>
+    <rosparam command="load" file="$(dirname)/../config/centaur/vt_hand_left_controllers.yaml"/>
+    <rosparam command="load" file="$(dirname)/../config/centaur/vt_hand_left_trajectory_controllers.yaml"/>
+    <rosparam command="load" file="$(dirname)/../config/centaur/vt_hand_left_trajectory_sim_controllers.yaml"/>
+    <rosparam command="load" file="$(dirname)/../config/centaur/vt_hand_right_controllers.yaml"/>
+    <rosparam command="load" file="$(dirname)/../config/centaur/vt_hand_right_trajectory_controllers.yaml"/>
+    <rosparam command="load" file="$(dirname)/../config/centaur/vt_hand_right_trajectory_sim_controllers.yaml"/>
 -->
     <!-- robot_description is needed for gazebo_ros package. -->
     <!-- Following was not working -->
@@ -27,11 +27,11 @@
     <param name="robot_description" command="$(find xacro)/xacro '$(find hector_centaur_description)/robots/centaur_default.urdf.xacro' robot_name:=$(arg robot_name)"/>
 -->
     <param name="robot_description" 
-           textfile="$(find centaur)/urdf/centaur.urdf"/>
+           textfile="$(dirname)/../urdf/centaur.urdf"/>
 		<node pkg="gazebo_ros" type="spawn_model"
           respawn="false"
           name="spawn_model"
-          args="-file $(find centaur)/sdf/model.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
+          args="-file $(dirname)/../sdf/model.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
     <!-- load the controllers -->
     <node name="controller_spawner" 
           pkg="controller_manager" type="spawner" respawn="false" 

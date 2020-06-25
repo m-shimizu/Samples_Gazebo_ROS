@@ -6,7 +6,9 @@
 #include <gazebo/msgs/MessageTypes.hh>
 #include <gazebo/common/Time.hh>
 #include <stdio.h>
+#if(GAZEBO_MAJOR_VERSION <= 8)
 #include <gazebo/math/gzmath.hh>
+#endif
 #include "flipper_control_msgs.hh"
 
 #include <termios.h>
@@ -91,7 +93,12 @@ class MobileBasePlugin : public ModelPlugin
     // physics::WorldPtr world = physics::get_world("default");
     this->model = _model;
     this->node = transport::NodePtr(new transport::Node());
+#if(GAZEBO_MAJOR_VERSION <= 7)
     this->node->Init(this->model->GetWorld()->GetName());
+#endif
+#if(GAZEBO_MAJOR_VERSION >= 8)
+    this->node->Init(this->model->GetWorld()->Name());
+#endif
     if(this->LoadParams(_sdf))
     {
       this->velSub = this->node->Subscribe(
@@ -240,7 +247,11 @@ class MobileBasePlugin : public ModelPlugin
   /////////////////////////////////////////////////
   void Move_A_Joint_In_Angle(physics::JointPtr _joint, double _target_angle)
   {
+#if(GAZEBO_MAJOR_VERSION <= 8)
     float P = _target_angle - _joint->GetAngle(0).Radian();
+#else
+    float P = _target_angle - _joint->Position(0);
+#endif
     P *= 10;
     // See also [JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
     //  Set torque fitting power and direction calculated by each angle.

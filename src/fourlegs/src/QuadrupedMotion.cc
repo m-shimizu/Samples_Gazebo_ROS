@@ -436,7 +436,8 @@ void QuadrupedMotion::OnKeyPress(ConstAnyPtr &_msg)
 /////////////////////////////////////////////////
 void QuadrupedMotion::Move_A_Joint(int _motor)
 {
-  float P = current_joint_target_angle[_motor] - this->Joint[_motor]->GetAngle(0).Radian();
+//  float P = current_joint_target_angle[_motor] - this->Joint[_motor]->Angle(0).Radian();
+  float P = current_joint_target_angle[_motor] - this->Joint[_motor]->Position(0);
   P *= 10;
   // See also [JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
   //  Set torque fitting power and direction calculated by each angle.

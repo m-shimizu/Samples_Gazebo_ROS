@@ -237,8 +237,13 @@ void _2link_arm::PID_Control(void)
   float Target_Angle_Shoulder , Target_Angle_Elbow;
   float OrderS, OrderE;
   ik(&Target_Angle_Shoulder, &Target_Angle_Elbow, Px, Py);
+#if(GAZEBO_MAJOR_VERSION <= 8)
   Monitor_Angle_Shoulder = this->JointS->GetAngle(0).Radian();
   Monitor_Angle_Elbow    = this->JointE->GetAngle(0).Radian();
+#else
+  Monitor_Angle_Shoulder = this->JointS->Position(0);
+  Monitor_Angle_Elbow    = this->JointE->Position(0);
+#endif
 /*
 	printf("Monitor Angle Soulder : %f\n", this->JointS->GetAngle(0).Degree());
 	printf("Monitor Angle Elbow   : %f\n", this->JointE->GetAngle(0).Degree());

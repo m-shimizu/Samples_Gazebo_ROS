@@ -6,7 +6,9 @@
 #include <gazebo/common/common.hh>
 #include <gazebo/common/Time.hh>
 #include <gazebo/msgs/MessageTypes.hh>
+#if(GAZEBO_MAJOR_VERSION <= 8)
 #include <gazebo/math/gzmath.hh>
+#endif
 #include <gazebo/physics/physics.hh>
 #include <gazebo/sensors/sensors.hh>
 #include <gazebo/transport/TransportTypes.hh>
@@ -236,10 +238,15 @@ class MobileBasePlugin : public ModelPlugin
 
     // TODO create some non-perfect odometry!
     // getting data for base_footprint to odom transform
-    math::Pose pose = model->GetWorldPose();
-
+#if(GAZEBO_MAJOR_VERSION <= 8)
+    math::Pose3 pose = model->GetWorldPose();
     tf::Quaternion qt(pose.rot.x, pose.rot.y, pose.rot.z, pose.rot.w);
     tf::Vector3 vt(pose.pos.x, pose.pos.y, pose.pos.z);
+#else
+    ignition::math::Pose3d pose = model->WorldPose();
+    tf::Quaternion qt(pose.Rot().X(), pose.Rot().Y(), pose.Rot().Z(), pose.Rot().W());
+    tf::Vector3 vt(pose.Pos().X(), pose.Pos().Y(), pose.Pos().Z());
+#endif
 
     tf::Transform base_footprint_to_odom(qt, vt);
     if (this->broadcast_tf_) 
@@ -249,29 +256,49 @@ class MobileBasePlugin : public ModelPlugin
             odom_frame, base_footprint_frame));
     }
     // publish odom topic
+#if(GAZEBO_MAJOR_VERSION <= 8)
     odom_.pose.pose.position.x = pose.pos.x;
     odom_.pose.pose.position.y = pose.pos.y;
-
     odom_.pose.pose.orientation.x = pose.rot.x;
     odom_.pose.pose.orientation.y = pose.rot.y;
     odom_.pose.pose.orientation.z = pose.rot.z;
     odom_.pose.pose.orientation.w = pose.rot.w;
+#else
+    odom_.pose.pose.position.x = pose.Pos().X();
+    odom_.pose.pose.position.y = pose.Pos().Y();
+    odom_.pose.pose.orientation.x = pose.Rot().X();
+    odom_.pose.pose.orientation.y = pose.Rot().Y();
+    odom_.pose.pose.orientation.z = pose.Rot().Z();
+    odom_.pose.pose.orientation.w = pose.Rot().W();
+#endif
     odom_.pose.covariance[0] = this->covariance_x_;
     odom_.pose.covariance[7] = this->covariance_y_;
-    odom_.pose.covariance[14] = 1000000000000.0;
-    odom_.pose.covariance[21] = 1000000000000.0;
+    odom_.pose.covariance[14] = 1000000000000.0; 
+    odom_.pose.covariance[21] = 1000000000000.0; 
     odom_.pose.covariance[28] = 1000000000000.0;
     odom_.pose.covariance[35] = this->covariance_yaw_;
 
     // get velocity in /odom frame
+#if(GAZEBO_MAJOR_VERSION <= 8)
     math::Vector3 linear;
     linear = this->model->GetWorldLinearVel();
     odom_.twist.twist.angular.z = this->model->GetWorldAngularVel().z;
+#else
+    ignition::math::Vector3d linear;
+    linear = this->model->WorldLinearVel();
+    odom_.twist.twist.angular.z = this->model->WorldAngularVel().Z();
+#endif
 
     // convert velocity to child_frame_id (aka base_footprint)
+#if(GAZEBO_MAJOR_VERSION <= 8)
     float yaw = pose.rot.GetYaw();
     odom_.twist.twist.linear.x = cosf(yaw) * linear.x + sinf(yaw) * linear.y;
     odom_.twist.twist.linear.y = cosf(yaw) * linear.y - sinf(yaw) * linear.x;
+#else
+    float yaw = pose.Rot().Yaw();
+    odom_.twist.twist.linear.x = cosf(yaw) * linear.X() + sinf(yaw) * linear.Y();
+    odom_.twist.twist.linear.y = cosf(yaw) * linear.Y() - sinf(yaw) * linear.X();
+#endif
     odom_.twist.covariance[0] = this->covariance_x_;
     odom_.twist.covariance[7] = this->covariance_y_;
     odom_.twist.covariance[14] = 1000000000000.0;
@@ -295,7 +322,11 @@ class MobileBasePlugin : public ModelPlugin
     gazebo_ros_ = GazeboRosPtr(new GazeboRos(model, _sdf, "robot"));
     gazebo_ros_->isInitialized();
     this->node = transport::NodePtr(new transport::Node());
+#if(GAZEBO_MAJOR_VERSION <= 8)
     this->node->Init(this->model->GetWorld()->GetName());
+#else
+    this->node->Init(this->model->GetWorld()->Name());
+#endif
     if(this->LoadParams(_sdf))
     {
 /*
@@ -323,7 +354,11 @@ class MobileBasePlugin : public ModelPlugin
                                                  "broadcastTF", broadcast_tf_);
       gazebo_ros_->getParameter<double>(update_rate_,"updateRate",update_rate_); 
       update_period_ = (update_rate_ > 0.0)?(1.0/update_rate_):0.0;
+#if(GAZEBO_MAJOR_VERSION <= 8)
       last_update_time_ = model->GetWorld()->GetSimTime();
+#else
+      last_update_time_ = model->GetWorld()->SimTime();
+#endif
       // ROS: get tf parameters
       tf_prefix_ = tf::getPrefixParam(*gazebo_ros_->node());
       transform_broadcaster_ = new tf::TransformBroadcaster();
@@ -502,7 +537,11 @@ class MobileBasePlugin : public ModelPlugin
   /////////////////////////////////////////////////
   void Move_A_Joint(physics::JointPtr _joint, double _target_angle)
   {
+#if(GAZEBO_MAJOR_VERSION <= 8)
     float P = _target_angle - _joint->GetAngle(0).Radian();
+#else
+    float P = _target_angle - _joint->Position(0);
+#endif
     P *= 100;
     // See also [JointController](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1physics_1_1JointController.html)
     //  Set torque fitting power and direction calculated by each angle.
@@ -528,7 +567,11 @@ class MobileBasePlugin : public ModelPlugin
   public:
   void OnUpdate(void)
   {
+#if(GAZEBO_MAJOR_VERSION <= 8)
     common::Time current_time = model->GetWorld()->GetSimTime();
+#else
+    common::Time current_time = model->GetWorld()->SimTime();
+#endif
     double seconds_since_last_update=(current_time-last_update_time_).Double();
     if(seconds_since_last_update > update_period_)
     {
