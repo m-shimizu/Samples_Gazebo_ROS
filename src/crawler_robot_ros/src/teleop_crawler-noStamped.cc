@@ -79,7 +79,7 @@ private:
      : w(5.0), currentAngle(0.0), defaultAngle(M_PI/4.0), 
        upButton(0), downButton(0), name(_name) 
     {}
-    int    upButton, downButton;
+    int    upButton, downButton, last_upB, last_downB;
     double w;
     double currentAngle;
     double defaultAngle;
@@ -119,24 +119,28 @@ public:
     _nh.param<double>("frW",            flipper.fr.w, 2.0*M_PI/20.0);
     _nh.param<double>("frDefaultAngle", flipper.fr.defaultAngle, M_PI/4.0);
     flipper.fr.currentAngle = flipper.fr.defaultAngle;
+    flipper.fr.last_upB = flipper.fr.last_downB = 0;
     // Read parameters for structure flipper.fr
     _nh.param<int>(   "flUpButton",     flipper.fl.upButton, 8);
     _nh.param<int>(   "flDownButton",   flipper.fl.downButton, 6);
     _nh.param<double>("flW",            flipper.fl.w, 2.0*M_PI/20.0);
     _nh.param<double>("flDefaultAngle", flipper.fl.defaultAngle, M_PI/4.0);
     flipper.fl.currentAngle = flipper.fl.defaultAngle;
+    flipper.fl.last_upB = flipper.fl.last_downB = 0;
     // Read parameters for structure flipper.fr
     _nh.param<int>(   "rrUpButton",     flipper.rr.upButton, 13);
     _nh.param<int>(   "rrDownButton",   flipper.rr.downButton, 15);
     _nh.param<double>("rrW",            flipper.rr.w, 2.0*M_PI/20.0);
     _nh.param<double>("rrDefaultAngle", flipper.rr.defaultAngle, M_PI/4.0);
     flipper.rr.currentAngle = flipper.rr.defaultAngle;
+    flipper.rr.last_upB = flipper.rr.last_downB = 0;
     // Read parameters for structure flipper.fr
     _nh.param<int>(   "rlUpButton",     flipper.rl.upButton, 12);
     _nh.param<int>(   "rlDownButton",   flipper.rl.downButton, 14);
     _nh.param<double>("rlW",            flipper.rl.w, 2.0*M_PI/20.0);
     _nh.param<double>("rlDefaultAngle", flipper.rl.defaultAngle, M_PI/4.0);
     flipper.rl.currentAngle = flipper.rl.defaultAngle;
+    flipper.rl.last_upB = flipper.rl.last_downB = 0;
 
     joy_subscriber = node_handle_.subscribe<sensor_msgs::Joy>(topicname_joy, 1,
                        boost::bind(&Teleop::joyCallback, this, _1));
@@ -157,11 +161,14 @@ public:
   double updateCurrentFlipperAngle(Flipper& flpr, 
                                    const sensor_msgs::JoyConstPtr& joy)
   {
-    if(getUpButton(joy, flpr) && getDownButton(joy, flpr))
+    int currentUpButton, currentDownButton;
+    currentUpButton   = getUpButton(joy, flpr);
+    currentDownButton = getDownButton(joy, flpr);
+    if(currentUpButton && currentDownButton)
       flpr.currentAngle = flpr.defaultAngle;
-    else if(getUpButton(joy, flpr))
+    else if(currentUpButton)
       flpr.currentAngle += flpr.w;
-    else if(getDownButton(joy, flpr))
+    else if(currentDownButton)
       flpr.currentAngle -= flpr.w;
     return flpr.currentAngle;
   }
@@ -233,24 +240,40 @@ public:
     return output;
   }
 
-  bool getUpButton(const sensor_msgs::JoyConstPtr &joy, const Flipper &flpr)
+  bool getUpButton(const sensor_msgs::JoyConstPtr &joy, Flipper &flpr)
   {
+    int current_Button;
     if(flpr.upButton < 0 || flpr.upButton >= joy->buttons.size())
     {
       ROS_ERROR_STREAM("upButton of " << flpr.name << " is out of range, joy has " << joy->buttons.size() << " buttons");
       return false;
     }
-    return joy->buttons[flpr.upButton] > 0;
+    current_Button = joy->buttons[flpr.upButton];
+    if(flpr.last_upB != current_Button)
+    {
+      flpr.last_upB = current_Button;
+      if(current_Button != 0)
+        return true;
+    }
+    return false;
   }
 
-  bool getDownButton(const sensor_msgs::JoyConstPtr &joy, const Flipper &flpr)
+  bool getDownButton(const sensor_msgs::JoyConstPtr &joy, Flipper &flpr)
   {
+    int current_Button;
     if(flpr.downButton < 0 || flpr.downButton >= joy->buttons.size())
     {
       ROS_ERROR_STREAM("downButton of " << flpr.name << " is out of range, joy has " << joy->buttons.size() << " buttons");
       return false;
     }
-    return joy->buttons[flpr.downButton] > 0;
+    current_Button = joy->buttons[flpr.downButton];
+    if(flpr.last_downB != current_Button)
+    {
+      flpr.last_downB = current_Button;
+      if(current_Button != 0)
+        return true;
+    }
+    return false;
   }
 
   void stop()

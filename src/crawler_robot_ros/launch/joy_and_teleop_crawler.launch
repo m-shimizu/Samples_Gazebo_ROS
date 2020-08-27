@@ -3,7 +3,7 @@
 	<arg name="dev"         default="/dev/input/js0"/>
   <arg name="robot_name"  default="robot"/>
   <arg name="gc_bsgp1601" default="false"/>
-  <arg name="gc_ds4"      default="false"/>
+  <arg name="gc_ds4"      default="true"/>
   <arg name="gc_dux60"    default="false"/>
   <group ns="$(arg robot_name)">
 		<!-- start joy_node -->

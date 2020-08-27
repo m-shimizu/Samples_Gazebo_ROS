@@ -27,8 +27,8 @@
                                                       if="$(arg use_joystick)">
     <arg name="robot_name"   value="$(arg robot_name)"/>
 		<arg name="dev"          value="/dev/input/js0"/>
-		<arg name="gc_bsgp1601"  value="true"/>
-		<arg name="gc_ds4"       value="false"/>
+		<arg name="gc_bsgp1601"  value="false"/>
+		<arg name="gc_ds4"       value="true"/>
 		<arg name="gc_dux60"     value="false"/>
   </include> 
 </launch>
