@@ -13,7 +13,7 @@ if (PKG_CONFIG_FOUND)
   pkg_check_modules(SDF sdformat)
 endif()
 
-add_compile_options(-std=gnu++11)
+add_compile_options(-std=gnu++14)
 set (CMAKE_CXX_FLAGS "-g -Wall")
 
 include_directories(include
