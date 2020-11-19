@@ -24,6 +24,7 @@ You can move the robot with an ordinary teleop software by following command:
 You can use gc\_ds4 or gc\_dux60 instead of gc\_bsgp1601.  
 gc\_ds4 means a game controller as the Dual Shock 4 of SONY.  
 gc\_dux60 means a game controller as the JC-DUX60 of ELECOM.  
+gc\_jyp62 means a game controller as the 400-JYP62US of SANWA.  
 gc\_bsgp1601 means a game controller as the BSGP1601 of iBUFFALO.  
 
 ## Model and plugin.  
