@@ -3,8 +3,9 @@
 	<arg name="dev"         default="/dev/input/js0"/>
   <arg name="robot_name"  default="robot"/>
   <arg name="gc_bsgp1601" default="false"/>
-  <arg name="gc_ds4"      default="true"/>
+  <arg name="gc_ds4"      default="false"/>
   <arg name="gc_dux60"    default="false"/>
+  <arg name="gc_jyp62"    default="false"/>
   <group ns="$(arg robot_name)">
 		<!-- start joy_node -->
     <node pkg="joy" type="joy_node" name="joy_node">
@@ -15,6 +16,8 @@
 		      output="screen" >
 		  <rosparam command="load"
                 file="$(dirname)/../config/speed_w_angle.yaml" />
+		  <rosparam command="load" if="$(arg gc_jyp62)"
+                file="$(dirname)/../config/sanwa_400-JYP62US.yaml"/> 
 		  <rosparam command="load" if="$(arg gc_dux60)" 
 		            file="$(dirname)/../config/ELECOM-JC-DUX60.yaml"/>
 		  <rosparam command="load" if="$(arg gc_ds4)"
