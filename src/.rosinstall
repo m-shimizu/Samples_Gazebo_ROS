@@ -15,4 +15,5 @@
     version: melodic-devel}
 - git: {local-name: hector_nist_arenas_gazebo, uri: 'https://github.com/tu-darmstadt-ros-pkg/hector_nist_arenas_gazebo.git',
     version: catkin}
+- git: {local-name: pysdf, uri: 'https://github.com/andreasBihlmaier/pysdf.git', version: master}
 - setup-file: {local-name: /opt/ros/melodic/setup.sh}

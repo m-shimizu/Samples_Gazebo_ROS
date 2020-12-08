@@ -11,3 +11,4 @@ yes | \rm -r src/hector_models
 yes | \rm -r src/hector_nist_arenas_gazebo
 yes | \rm -r src/hector_quadrotor
 yes | \rm -r src/hector_slam
+yes | \rm -r src/pysdf
