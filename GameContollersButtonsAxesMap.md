@@ -4,7 +4,7 @@
 ##### Buttons  
     00 Square  
     01 X  
-    02 Square  
+    02 Circle  
     03 Triangle  
     04 L1  
     05 R1  
