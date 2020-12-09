@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 
 <launch>
-  <arg name="robot_name" default="robot"/>
+  <arg name="robot_name"  default="robot"/>
   <arg name="xcoordinate" default="0.0"/>
   <arg name="ycoordinate" default="0.0"/>
   <arg name="zcoordinate" default="0.0"/>
   <arg name="world_frame" default="world"/> <!-- This should actually be "/world". See https://github.com/ros-simulation/gazebo_ros_pkgs/pull/324 -->
+  <arg name="modelSdf"    default="model.sdf"/>
+
   <group ns="$(arg robot_name)">
 		<arg name="controllers" default="
 		  controller/position
@@ -24,7 +26,7 @@
 		<node pkg="gazebo_ros" type="spawn_model"
           respawn="false"
           name="spawn_model"
-          args="-file $(dirname)/../sdf/model.sdf -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
+          args="-file $(dirname)/../sdf/$(arg modelSdf) -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>
 		<!-- required for hector_pose_estimation and message_to_tf -->
 		<param name="tf_prefix" type="string" value="$(arg tf_prefix)"/> 
 		<param name="base_link_frame" type="string" value="$(arg base_link_frame)"/>

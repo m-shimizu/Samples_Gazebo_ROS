@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="paused"   default="false"/>
+  <arg name="gui"      default="true"/>
+  <arg name="verbose"  default="false"/>
+  <arg name="world"    default="centaur.world"/>
+  <arg name="modelSdf" default="model.sdf"/>
+
   <param name="use_sim_time" value="true"/>
   
-  <arg name="paused" default="false"/>
-  <arg name="gui" default="true"/>
-  <arg name="verbose" default="false"/>
-  <arg name="world" default="centaur.world"/>
-
   <!-- Launch gazebo -->
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(dirname)/../worlds/$(arg world)"/>
   <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
@@ -18,6 +19,7 @@
     <arg name="xcoordinate" value="0.0"/>
     <arg name="ycoordinate" value="0.0"/>
     <arg name="zcoordinate" value="0.0"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include>
   <include file="$(dirname)/../launch/centaur_joint_trajectory.launch">
     <arg name="robot_name" value="robot0"/>
@@ -28,6 +30,7 @@
     <arg name="xcoordinate" value="-2.0"/>
     <arg name="ycoordinate" value="0.0"/>
     <arg name="zcoordinate" value="0.0"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include>
   <include file="$(dirname)/../launch/centaur_joint_trajectory.launch">
     <arg name="robot_name" value="robot1"/>
@@ -38,6 +41,7 @@
     <arg name="xcoordinate" value="0.0"/>
     <arg name="ycoordinate" value="-2.0"/>
     <arg name="zcoordinate" value="0.0"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include>
   <include file="$(dirname)/../launch/centaur_joint_trajectory.launch">
     <arg name="robot_name" value="robot2"/>
@@ -48,6 +52,7 @@
     <arg name="xcoordinate" value="-2.0"/>
     <arg name="ycoordinate" value="-2.0"/>
     <arg name="zcoordinate" value="0.0"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include>
   <include file="$(dirname)/../launch/centaur_joint_trajectory.launch">
     <arg name="robot_name" value="robot3"/>

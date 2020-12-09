@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="paused" default="false"/>
-	<arg name="gui" default="true"/>
-	<arg name="verbose" default="false"/>
-	<arg name="world" default="crawler_robot.world"/>
-  <arg name="robot_name" default="robot"/>
+	<arg name="paused"       default="false"/>
+	<arg name="gui"          default="true"/>
+	<arg name="verbose"      default="false"/>
+	<arg name="world"        default="crawler_robot.world"/>
+  <arg name="robot_name"   default="robot"/>
   <arg name="use_joystick" default="true"/>
+  <arg name="modelSdf"     default="model.sdf"/>
+
   <param name="use_sim_time" value="true"/>		
 
   <!-- Launch Gazebo -->
@@ -20,6 +22,7 @@
     <arg name="xcoordinate" value="0.0"/>
     <arg name="ycoordinate" value="0.0"/>
     <arg name="zcoordinate" value="0.03"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include> 
 
   <!-- Launch a joystick type teleop controller if needed --> 

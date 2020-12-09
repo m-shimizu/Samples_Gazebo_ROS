@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="paused" default="false"/>
-	<arg name="gui" default="true"/>
-	<arg name="verbose" default="false"/>
-	<arg name="world" default="pioneer2dx_ros4.world"/>
+	<arg name="paused"     default="false"/>
+	<arg name="gui"        default="true"/>
+	<arg name="verbose"    default="false"/>
+	<arg name="world"      default="pioneer2dx_ros4.world"/>
   <arg name="robot_name" default="robot"/>
+  <arg name="modelSdf"   default="model.sdf"/>
+
   <param name="use_sim_time" value="true"/>		
 
   <!-- Launch Gazebo -->
@@ -19,6 +21,7 @@
     <arg name="xcoordinate" value="0.0"/>
     <arg name="ycoordinate" value="0.0"/>
     <arg name="zcoordinate" value="0.03"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include> 
   <!-- Robot1 : Make robot_description and run robot_state_publisher --> 
   <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_pioneer2dx.launch">
@@ -26,6 +29,7 @@
     <arg name="xcoordinate" value="2.0"/>
     <arg name="ycoordinate" value="0.0"/>
     <arg name="zcoordinate" value="0.03"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include> 
   <!-- Robot2 : Make robot_description and run robot_state_publisher --> 
   <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_pioneer2dx.launch">
@@ -33,6 +37,7 @@
     <arg name="xcoordinate" value="0.0"/>
     <arg name="ycoordinate" value="2.0"/>
     <arg name="zcoordinate" value="0.03"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include> 
   <!-- Robot3 : Make robot_description and run robot_state_publisher --> 
   <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_pioneer2dx.launch">
@@ -40,6 +45,7 @@
     <arg name="xcoordinate" value="2.0"/>
     <arg name="ycoordinate" value="2.0"/>
     <arg name="zcoordinate" value="0.03"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include> 
 </launch>
 
