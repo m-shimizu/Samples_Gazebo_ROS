@@ -38,7 +38,7 @@
     <node name="controller_spawner" 
           pkg="controller_manager" type="spawner" respawn="false" 
           output="screen"
-          args="joint_state_controller           
+          args="joint_state_controller 
                 head_lidar_controller
                 flipper_traj_controller
                 left_arm_traj_controller
