@@ -11,7 +11,7 @@
 
   <!-- Launch gazebo -->
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(dirname)/../worlds/$(arg world)"/>
-  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen" if="$(arg gui)"/>
 
   <!-- Launch robot state publishers -->
   <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_quadrotor.launch">

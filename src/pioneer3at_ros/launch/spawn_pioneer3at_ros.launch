@@ -14,7 +14,7 @@
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
          output="screen" args="$(dirname)/../worlds/$(arg world)"/>
   <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
-         output="screen"/>
+         output="screen" if="$(arg gui)"/>
 
   <!-- Make robot_description and run robot_state_publisher --> 
   <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_pioneer3at.launch">
