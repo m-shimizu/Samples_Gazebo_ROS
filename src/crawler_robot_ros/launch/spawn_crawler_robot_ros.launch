@@ -2,10 +2,11 @@
 <launch>
   <arg name="paused"       default="false"/>
   <arg name="gui"          default="true"/>
+  <arg name="audio"        default="false"/>
+  <arg name="use_joystick" default="false"/>`
   <arg name="verbose"      default="false"/>
   <arg name="world"        default="crawler_robot.world"/>
   <arg name="robot_name"   default="robot"/>
-  <arg name="use_joystick" default="true"/>
   <arg name="modelSdf"     default="model.sdf"/>
 
   <param name="use_sim_time" value="true"/>    
@@ -34,6 +35,13 @@
     <arg name="gc_ds4"       value="true"/>
     <arg name="gc_dux60"     value="false"/>
   </include> 
+  
+  <!-- Transfer sound to ROS -->
+  <include file="$(find audio_capture)/launch/capture.launch" if="$(arg audio)">
+    <arg name="ns" value="gazebo"/>
+    <arg name="device" value="pulse"/>
+  </include>
+
 </launch>
 
 

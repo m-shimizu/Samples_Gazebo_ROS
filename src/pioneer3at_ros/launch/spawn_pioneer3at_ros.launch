@@ -2,10 +2,11 @@
 <launch>
   <arg name="paused"     default="false"/>
   <arg name="gui"        default="true"/>
+  <arg name="audio"      default="false"/>
+  <arg name="use_teleop" default="false"/>
   <arg name="verbose"    default="false"/>
   <arg name="world"      default="pioneer3at_ros.world"/>
   <arg name="robot_name" default="robot"/>
-  <arg name="use_teleop" default="true"/>
   <arg name="modelSdf"   default="model.sdf"/>
 
   <param name="use_sim_time" value="true"/>    
@@ -24,13 +25,19 @@
     <arg name="zcoordinate" value="0.03"/>
     <arg name="modelSdf"    value="$(arg modelSdf)"/>
   </include> 
+  
   <!-- Launch a teleop_twist_keyboard controller if needed --> 
-<!--
   <node name="teleop_key" pkg="teleop_twist_keyboard" 
         type="teleop_twist_keyboard.py" if="$(arg use_teleop)">
     <param name="cmd_vel" value="$(arg robot_name)/cmd_vel" />
   </node> 
--->
+
+  <!-- Transfer sound to ROS -->
+  <include file="$(find audio_capture)/launch/capture.launch" if="$(arg audio)">
+    <arg name="ns" value="gazebo"/>
+    <arg name="device" value="pulse"/>
+  </include>
+
 </launch>
 
 

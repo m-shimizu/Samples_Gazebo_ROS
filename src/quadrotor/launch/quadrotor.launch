@@ -5,9 +5,11 @@
   
   <arg name="paused"   default="false"/>
   <arg name="gui"      default="true"/>
+  <arg name="audio"    default="false"/>
   <arg name="verbose"  default="false"/>
   <arg name="world"    default="quadrotor.world"/>
   <arg name="modelSdf" default="model.sdf"/>
+  
 
   <!-- Launch gazebo -->
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(dirname)/../worlds/$(arg world)"/>
@@ -23,7 +25,7 @@
   </include>
 
   <!-- Transfer sound to ROS -->
-  <include file="$(find audio_capture)/launch/capture.launch">
+  <include file="$(find audio_capture)/launch/capture.launch" if="$(arg audio)">
     <arg name="ns" value="gazebo"/>
     <arg name="device" value="pulse"/>
   </include>
