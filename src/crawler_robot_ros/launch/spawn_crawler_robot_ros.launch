@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="paused"       default="false"/>
-	<arg name="gui"          default="true"/>
-	<arg name="verbose"      default="false"/>
-	<arg name="world"        default="crawler_robot.world"/>
+  <arg name="paused"       default="false"/>
+  <arg name="gui"          default="true"/>
+  <arg name="verbose"      default="false"/>
+  <arg name="world"        default="crawler_robot.world"/>
   <arg name="robot_name"   default="robot"/>
   <arg name="use_joystick" default="true"/>
   <arg name="modelSdf"     default="model.sdf"/>
 
-  <param name="use_sim_time" value="true"/>		
+  <param name="use_sim_time" value="true"/>    
 
   <!-- Launch Gazebo -->
   <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
@@ -29,10 +29,10 @@
   <include file="$(dirname)/../launch/joy_and_teleop_crawler.launch"
                                                       if="$(arg use_joystick)">
     <arg name="robot_name"   value="$(arg robot_name)"/>
-		<arg name="dev"          value="/dev/input/js0"/>
-		<arg name="gc_bsgp1601"  value="false"/>
-		<arg name="gc_ds4"       value="true"/>
-		<arg name="gc_dux60"     value="false"/>
+    <arg name="dev"          value="/dev/input/js0"/>
+    <arg name="gc_bsgp1601"  value="false"/>
+    <arg name="gc_ds4"       value="true"/>
+    <arg name="gc_dux60"     value="false"/>
   </include> 
 </launch>
 

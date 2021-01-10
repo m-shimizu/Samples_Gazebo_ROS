@@ -502,10 +502,10 @@
         <ray>
           <scan>
             <horizontal>
-		          <samples>1040</samples>			<!-- 1040!!! -->
-		          <resolution>1</resolution>
-		          <min_angle>-2.268928</min_angle> <!-- 90deg: -1.570796 -->
-		          <max_angle>2.268928</max_angle>  <!-- 90deg: 1.570796  -->
+              <samples>1040</samples>      <!-- 1040!!! -->
+              <resolution>1</resolution>
+              <min_angle>-2.268928</min_angle> <!-- 90deg: -1.570796 -->
+              <max_angle>2.268928</max_angle>  <!-- 90deg: 1.570796  -->
             </horizontal>
           </scan>
           <range>

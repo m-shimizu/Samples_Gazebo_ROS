@@ -30,7 +30,7 @@
 -->
     <param name="robot_description" 
            textfile="$(dirname)/../urdf/centaur.urdf"/>
-		<node pkg="gazebo_ros" type="spawn_model"
+    <node pkg="gazebo_ros" type="spawn_model"
           respawn="false"
           name="spawn_model"
           args="-file $(dirname)/../sdf/$(arg modelSdf) -sdf -x $(arg xcoordinate) -y $(arg ycoordinate) -z $(arg zcoordinate) -model $(arg robot_name)"/>

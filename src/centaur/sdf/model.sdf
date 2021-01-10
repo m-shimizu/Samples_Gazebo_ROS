@@ -3119,7 +3119,7 @@
         </visual>
         <velocity_decay/>
         <sensor name="thermal_camera_sensor" type="camera">
-		      <visualize>false</visualize>
+          <visualize>false</visualize>
           <update_rate>10</update_rate>
           <camera name="thermal">
             <horizontal_fov>1.5708</horizontal_fov>
@@ -3132,15 +3132,15 @@
               <near>0.01</near>
               <far>100</far>
             </clip>
-	<!--
-		        <noise>
-		          <type>gaussian</type>
-		          <mean>0.0</mean>
-		          <stddev>0.007</stddev>
-		        </noise>
-	-->
+  <!--
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+  -->
           </camera>
-		      <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera_pink.so">
+          <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera_pink.so">
             <alwaysOn>true</alwaysOn>
             <updateRate>10</updateRate>
             <imageTopicName>thermal/image_raw</imageTopicName>

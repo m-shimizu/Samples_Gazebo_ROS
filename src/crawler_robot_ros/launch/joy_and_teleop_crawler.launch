@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="dev"         default="/dev/input/js0"/>
+  <arg name="dev"         default="/dev/input/js0"/>
   <arg name="robot_name"  default="robot"/>
   <arg name="gc_bsgp1601" default="false"/>
   <arg name="gc_ds4"      default="false"/>
   <arg name="gc_dux60"    default="false"/>
   <arg name="gc_jyp62"    default="false"/>
   <group ns="$(arg robot_name)">
-		<!-- start joy_node -->
+    <!-- start joy_node -->
     <node pkg="joy" type="joy_node" name="joy_node">
       <param name="_dev" value="$(arg dev)" />
     </node> 
-		<!-- start teleop_crawler -->
-		<node pkg="crawler_robot_ros" type="teleop_crawler" name="teleop_crawler"
-		      output="screen" >
-		  <rosparam command="load"
+    <!-- start teleop_crawler -->
+    <node pkg="crawler_robot_ros" type="teleop_crawler" name="teleop_crawler"
+          output="screen" >
+      <rosparam command="load"
                 file="$(dirname)/../config/speed_w_angle.yaml" />
-		  <rosparam command="load" if="$(arg gc_jyp62)"
+      <rosparam command="load" if="$(arg gc_jyp62)"
                 file="$(dirname)/../config/sanwa_400-JYP62US.yaml"/> 
-		  <rosparam command="load" if="$(arg gc_dux60)" 
-		            file="$(dirname)/../config/ELECOM-JC-DUX60.yaml"/>
-		  <rosparam command="load" if="$(arg gc_ds4)"
+      <rosparam command="load" if="$(arg gc_dux60)" 
+                file="$(dirname)/../config/ELECOM-JC-DUX60.yaml"/>
+      <rosparam command="load" if="$(arg gc_ds4)"
                 file="$(dirname)/../config/PS-DS4.yaml"/>
-		  <rosparam command="load" if="$(arg gc_bsgp1601)"
+      <rosparam command="load" if="$(arg gc_bsgp1601)"
                 file="$(dirname)/../config/iBUFFALO-BSGP1601.yaml"/>
-		</node>
+    </node>
   </group>
 </launch>
 
