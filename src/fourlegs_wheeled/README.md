@@ -20,11 +20,10 @@ This package uses following model.
 
 |Model Name|Plugin(Program) Filename(s)|
 |---|---|
-|[fourlegs_wheeled](https://github.com/m-shimizu/Samples_Gazebo_ROS/tree/master/models/fourlegs_wheeled)|QuadrupedMotion.cc<br>Motion.cc|
+|[fourlegs_wheeled](https://github.com/m-shimizu/Samples_Gazebo_ROS/tree/master/models/fourlegs_wheeled)|SkidSteerPluginFourlegsWheeled.cc<br>And requiring following both programs in the fourlegs<br>QuadrupedMotion.cc<br>Motion.cc|
 
 |Program file|Description|
 |---|---|
-|QuadrupedMotion.cc|The plugin program.|
-|SkidSteerPluginFourlegsWheeled.cc|A program for skidsteering with key command inputs.|
+|SkidSteerPluginFourlegsWheeled.cc|A plugin program for skidsteering with key command inputs.|
 
 Date : 9 Sep. 2021
