@@ -17,3 +17,4 @@
     version: catkin}
 - git: {local-name: pysdf, uri: 'https://github.com/andreasBihlmaier/pysdf.git', version: master}
 - setup-file: {local-name: /opt/ros/melodic/setup.sh}
+- setup-file: {local-name: /opt/ros/noetic/setup.sh}

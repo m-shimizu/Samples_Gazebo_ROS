@@ -3,16 +3,16 @@ This repository has several packages to show sample codes for Gazebo and/or ROS,
 Please find more information in [wiki page](https://github.com/m-shimizu/Samples_Gazebo_ROS/wiki).  
 
 ## About this branch  
-This branch has been maintained with ROS-Melodic and Gazebo 9.  
+This branch has been maintained with ROS-noetic and Gazebo 11.  
 
 ## REQUIREMENT OF THIS REPOSITORY
 
 ### OS
-Ubuntu 18.04.  
+Ubuntu 20.04LTS.  
 
-### Install ROS Melodic and Gazebo9 from PPA
-#### *[Ubuntu install of ROS melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)
-#### *[Install Gazebo 9 using Ubuntu packages](http://gazebosim.org/tutorials?cat=install&tut=install_ubuntu&ver=9.0)  
+### Install ROS noetic and Gazebo11 from PPA
+#### *[Ubuntu install of ROS noetic](http://wiki.ros.org/noetic/Installation/Ubuntu)
+#### *[Install Gazebo 11 using Ubuntu packages](http://gazebosim.org/tutorials?cat=install&tut=install_ubuntu&ver=11.0)  
 Do followings:
 
     sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'  
@@ -20,10 +20,19 @@ Do followings:
     sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-latest.list'  
     wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -   
     sudo apt-get update  
-    sudo apt-get install -y cmake g++ protobuf-compiler pavucontrol libgazebo9 libgazebo9-dev ros-melodic-desktop ros-melodic-ros-controllers ros-melodic-image-view2 ros-melodic-rqt ros-melodic-rqt-common-plugins ros-melodic-rqt-joint-trajectory-controller ros-melodic-gmapping ros-melodic-joy ros-melodic-joystick-drivers ros-melodic-teleop-twist-joy ros-melodic-teleop-twist-keyboard ros-melodic-amcl ros-melodic-navigation ros-melodic-audio-common ros-melodic-costmap-2d ros-melodic-image-transport ros-melodic-image-transport-plugins ros-melodic-urdf-tutorial ros-melodic-tf2-geometry-msgs ros-melodic-map-server ros-melodic-move-base ros-melodic-robot-state-publisher ros-melodic-diagnostic-updater ros-melodic-rgbd-launch ros-melodic-moveit ros-melodic-rosbridge-server ros-melodic-gazebo-ros* ros-melodic-hector-* python-rosinstall python-catkin-tools libignition-msgs-dev libignition-transport4-dev  
+    sudo apt-get install -y cmake g++ protobuf-compiler pavucontrol libgazebo11 libgazebo11-dev ros-noetic-desktop ros-noetic-ros-controllers ros-noetic-image-view2 ros-noetic-rqt ros-noetic-rqt-common-plugins ros-noetic-rqt-joint-trajectory-controller ros-noetic-gmapping ros-noetic-joy ros-noetic-teleop-twist-joy ros-noetic-teleop-twist-keyboard ros-noetic-amcl ros-noetic-navigation ros-noetic-audio-common ros-noetic-costmap-2d ros-noetic-image-transport ros-noetic-image-transport-plugins ros-noetic-urdf-tutorial ros-noetic-tf2-geometry-msgs ros-noetic-map-server ros-noetic-move-base ros-noetic-robot-state-publisher ros-noetic-diagnostic-updater ros-noetic-rgbd-launch ros-noetic-moveit ros-noetic-rosbridge-server ros-noetic-gazebo-ros* ros-noetic-hector-* ros-noetic-ros-ign* python3-rosinstall python3-rosinstall-generator python3-catkin-tools python3-bloom python3-vcstool libignition-msgs-dev libignition-transport4-dev  
     sudo rosdep init  
     rosdep update  
     gazebo (and wait for finish of downloading fundamental models)  
+    
+And some Hector Quadrotor programs need QT4.  
+    
+#### *[Packages in “Qt4 for Ubuntu 20.04”](https://launchpad.net/~rock-core/+archive/ubuntu/qt4/+packages)  
+#### *[How to Install Qt4 Libraries in Ubuntu 20.04 LTS](https://ubuntuhandbook.org/index.php/2020/07/install-qt4-ubuntu-20-04/)  
+#### *[Pyqt4 in Ubuntu 20.04](https://stackoverflow.com/questions/61818849/pyqt4-in-ubuntu-20-04)  
+    sudo add-apt-repository ppa:rock-core/qt4  
+    sudo apt update  
+    sudo apt install libqt4-declarative libqt4* libqtcore4 libqtgui4 libqtwebkit4 qt4*  
 
 ## Preparing for using this repository.  
 Just do the next commands.  
@@ -31,7 +40,7 @@ Just do the next commands.
     $ cd ~  
     $ git clone https://github.com/m-shimizu/Samples_Gazebo_ROS/  
     $ cd ~/Samples_Gazebo_ROS  
-    $ rosinstall src /opt/ros/melodic
+    $ rosinstall src /opt/ros/noetic
     $ catkin_make  
     $ source setup.bash  
 
@@ -51,6 +60,6 @@ A resonable solution to do this, make a symbolic link of the model folder in the
 
 ## SEE ALSO STRONGLY.  
 * [osrf/gazebo/Migration](https://bitbucket.org/osrf/gazebo/src/default/Migration.md)  
-* [Migration to Gazebo 9 / ROS melodic](https://github.com/wuwushrek/sim_cf/issues/2)  
+* [Migration to Gazebo 9 / ROS noetic](https://github.com/wuwushrek/sim_cf/issues/2)  
 
-Edit date: 24th Jun. 2020
+Edit date: 28th Feb. 2022
