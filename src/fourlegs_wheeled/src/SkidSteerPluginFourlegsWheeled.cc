@@ -127,7 +127,11 @@ void SkidSteerDrivePlugin::Load(physics::ModelPtr _model,
                                         this->joints[RIGHT_FRONT]->GetChild() );
   if (wheelLink)
   {
+#if(GAZEBO_MAJOR_VERSION >= 11)
+    ignition::math::AxisAlignedBox bb = wheelLink->BoundingBox();
+#else
     ignition::math::Box bb = wheelLink->BoundingBox();
+#endif
     this->wheelRadius = bb.Size().Max() * 0.5;
   }
 

@@ -57,9 +57,16 @@ void Spring::Init()
   physics::EntityPtr parent = boost::dynamic_pointer_cast<physics::Entity>(
       this->joint->GetChild());
 
-  ignition::math::Box bb = parent->BoundingBox();
+  if(parent)
+  {
+#if(GAZEBO_MAJOR_VERSION >= 11)
+    ignition::math::AxisAlignedBox bb = parent->BoundingBox();
+#else
+    ignition::math::Box bb = parent->BoundingBox();
+#endif
   // This assumes that the largest dimension of the wheel is the diameter
-  this->head_distance = bb.Size().Max();
+    this->head_distance = bb.Size().Max();
+  }
 }
 
 /////////////////////////////////////////////////

@@ -13,8 +13,13 @@ if (PKG_CONFIG_FOUND)
   pkg_check_modules(SDF sdformat)
 endif()
 
-add_compile_options(-std=gnu++14)
+add_compile_options(-std=gnu++17)
 set (CMAKE_CXX_FLAGS "-g -Wall")
+
+# Depend on system install of Gazebo and SDFormat
+#find_package(gazebo REQUIRED)
+find_package(Boost REQUIRED COMPONENTS thread)
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 include_directories(include
   ${Boost_INCLUDE_DIRS}
@@ -61,4 +66,5 @@ add_dependencies(crawler_flipper flipper_control_msgs)
 # Build the robot controller
 add_executable(teleop_crawler_robot src/teleop_crawler_robot.cc)
 target_link_libraries(teleop_crawler_robot flipper_control_msgs ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#target_link_libraries(teleop_crawler_robot flipper_control_msgs ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES} "-pthread")
 add_dependencies(teleop_crawler_robot flipper_control_msgs)
