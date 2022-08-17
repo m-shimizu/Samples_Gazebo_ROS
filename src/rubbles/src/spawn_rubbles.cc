@@ -23,7 +23,7 @@ class Factory : public WorldPlugin
   {
     char modelfullname[100];
     sprintf(modelfullname, "%s%d", modelname, modelnumber);
-    char stringcmd[1024]; 
+    char stringcmd[1024*2]; 
     sprintf(stringcmd,  
        "<sdf version ='1.5'>\
           <model name ='%s'>\
