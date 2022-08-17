@@ -15,8 +15,8 @@
  *
 */
 
-#include "gazebo/physics/physics.hh"
-#include "gazebo/transport/transport.hh"
+#include <gazebo/physics/physics.hh>
+#include <gazebo/transport/transport.hh>
 #include "Motion.hh"
 #include "QuadrupedMotion.hh"
 
@@ -65,9 +65,9 @@ int  doslike_getch(void)
 using namespace gazebo;
 GZ_REGISTER_MODEL_PLUGIN(QuadrupedMotion)
 
-const char*joint_name[]={"J_FL_B20","J_FR_B20","J_RR_B20","J_RL_B20"
-                           ,"J_FL_021", "J_FR_021", "J_RR_021", "J_RL_021"
-                           ,"J_FL_122", "J_FR_122", "J_RR_122", "J_RL_122"};
+const char*joint_name[]={"J_FL_B20", "J_FR_B20", "J_RR_B20", "J_RL_B20"
+                        ,"J_FL_021", "J_FR_021", "J_RR_021", "J_RL_021"
+                        ,"J_FL_122", "J_FR_122", "J_RR_122", "J_RL_122"};
 
 #define G_JOINTS (int)(sizeof(joint_name)/sizeof(char*))
 
@@ -127,11 +127,11 @@ ATI WLKRR;
 ATI WLKFR;
 ATI WLKRL;
 ATI_CELL  MDLGOF_M[] =  {{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25}// Motion Data by Each Motor
-            ,{ 30,  25},{ 30, 50},{  0, 50},{-30,  25},{-30, 25},{  0, 25}
-            ,{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25} };
+                        ,{ 30,  25},{ 30, 50},{  0, 50},{-30,  25},{-30, 25},{  0, 25}
+                        ,{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25} };
 ATI_CELL  MDLGOB_M[] =  {{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25}
-            ,{-30,  25},{-30, 50},{  0, 50},{ 30,  25},{ 30, 25},{  0, 25}
-            ,{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25} };
+                        ,{-30,  25},{-30, 50},{  0, 50},{ 30,  25},{ 30, 25},{  0, 25}
+                        ,{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25} };
 int WLKFL_I[] = {0,1,2,3,4,5};// Motion Index
 // ATIs, {&ATI1, &ATI2..}, {Speed1, Speed2..}, MasterSpeed, {Start Step1, Start Step2..}, {Wait1, Wait2..}
 ATI*    WALK_ATI[]= {&WLKFL,&WLKRR,&WLKFR,&WLKRL};
@@ -161,11 +161,11 @@ void  Set_Backward_Motion(void)
 }
 
 ATI_CELL  MDLTRNF_M[] = {{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25}// Motion Data by Each Motor
-            ,{ 30,  25},{ 30, 50},{  0, 50},{-30,  25},{-30, 25},{  0, 25}
-            ,{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25} };
+                        ,{ 30,  25},{ 30, 50},{  0, 50},{-30,  25},{-30, 25},{  0, 25}
+                        ,{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25} };
 ATI_CELL  MDLTRNB_M[] = {{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25}
-            ,{-30,  25},{-30, 50},{  0, 50},{ 30,  25},{ 30, 25},{  0, 25}
-            ,{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25} };
+                        ,{-30,  25},{-30, 50},{  0, 50},{ 30,  25},{ 30, 25},{  0, 25}
+                        ,{ 40,  25},{-30, 50},{-30, 50},{-30,  25},{ 40, 25},{ 40, 25} };
 
 void  Set_TurnRight_Motion(void)
 {
@@ -238,6 +238,14 @@ void QuadrupedMotion::Load(physics::ModelPtr _model,
 #if(GAZEBO_MAJOR_VERSION >= 8)
   this->node->Init(this->model->GetWorld()->Name());
 #endif
+
+  // Settings for interval timers in the OnUpdate function.
+  gzIT[gzIT_Motion].Init(this->model);
+  gzIT[gzIT_Motion].setIntervalRate(100);  // Hz
+  gzIT[gzIT_Motor].Init(this->model);
+  gzIT[gzIT_Motor].setIntervalRate(500);  // Hz
+
+  // For Gazebo Topic and OnUpdate.
   this->velSub = this->node->Subscribe(std::string("~/") +
       this->model->GetName()+"/vel_cmd", &QuadrupedMotion::OnVelMsg, this);
   for(int J=0; J < G_JOINTS; J++)
@@ -443,6 +451,7 @@ void QuadrupedMotion::Move_A_Joint(int _motor)
   //  Set torque fitting power and direction calculated by each angle.
   //  Seting calculated P as torque is very effective to stop shaking legs!!
   this->Joint[_motor]->SetForce(0, P);
+  this->Joint[_motor]->SetDamping(0, 0.01);
   // Set PID parameters
   this->model->GetJointController()->SetPositionPID(
     this->Joint[_motor]->GetScopedName(), common::PID(0.4, 1, 0.005));
@@ -454,20 +463,15 @@ void QuadrupedMotion::Move_A_Joint(int _motor)
 /////////////////////////////////////////////////
 void QuadrupedMotion::OnUpdate()
 {
-  /* double d1, d2;
-  common::Time currTime = this->model->GetWorld()->GetSimTime();
-  common::Time stepTime = currTime - this->prevUpdateTime;
-  */
-  static int dec = 10;
-  if(dec < 0)
+  if(gzIT[gzIT_Motion].overIntervalPeriod())
   {
-    dec = 10;
-//  check_key_command(&mdblp);
+//    check_key_command(&mdblp);
     MotionPlayer(mdblp);
   }
-  else
-    dec--;
-  for(int _motor = 0; _motor < G_JOINTS; _motor++)
-    Move_A_Joint(_motor);
-  this->model->GetJointController()->Update();
+  if(gzIT[gzIT_Motor].overIntervalPeriod())
+  {
+    for(int _motor = 0; _motor < G_JOINTS; _motor++)
+      Move_A_Joint(_motor);
+//    this->model->GetJointController()->Update();
+  }
 }

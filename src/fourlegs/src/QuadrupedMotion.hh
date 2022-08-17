@@ -17,13 +17,21 @@
 #ifndef _GAZEBO_QUADRUPED_PLUGIN_HH_
 #define _GAZEBO_QUADRUPED_PLUGIN_HH_
 
-#include "gazebo/common/Plugin.hh"
-#include "gazebo/physics/physics.hh"
-#include "gazebo/transport/TransportTypes.hh"
-#include "gazebo/gazebo.hh"
-#include "gazebo/util/system.hh"
+#include <gazebo/common/Plugin.hh>
+#include <gazebo/physics/physics.hh>
+#include <gazebo/transport/TransportTypes.hh>
+#include <gazebo/gazebo.hh>
+#include <gazebo/util/system.hh>
+#include "gzIntervalTimer.hh"
 
 #define MAX_MOTORS 100
+
+enum gzIT_number
+{
+  gzIT_Motion = 0,
+  gzIT_Motor,
+  MaxInvervalTimers
+};
 
 namespace gazebo
 {
@@ -50,6 +58,9 @@ namespace gazebo
     private: common::Time prevUpdateTime;
 
     private: physics::LinkPtr link, leftWheelLink, rightWheelLink;
+    
+    // For controling OnUpdate Speed
+    private: gzIntervalTimer gzIT[MaxInvervalTimers];
   };
 }
 #endif
