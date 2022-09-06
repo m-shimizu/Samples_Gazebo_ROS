@@ -240,10 +240,10 @@ void QuadrupedMotion::Load(physics::ModelPtr _model,
 #endif
 
   // Settings for interval timers in the OnUpdate function.
-  gzIT[gzIT_Motion].Init(this->model);
-  gzIT[gzIT_Motion].setIntervalRate(100);  // Hz
-  gzIT[gzIT_Motor].Init(this->model);
-  gzIT[gzIT_Motor].setIntervalRate(500);  // Hz
+  gzIT[gzIT_Motion].Init(this->model, 100); // Interval Frequency [Hz]
+//  gzIT[gzIT_Motion].setIntervalRate(100);  // Hz
+  gzIT[gzIT_Motor].Init(this->model, 500); // Interval Frequency [Hz]
+//  gzIT[gzIT_Motor].setIntervalRate(500);  // Hz
 
   // For Gazebo Topic and OnUpdate.
   this->velSub = this->node->Subscribe(std::string("~/") +
@@ -255,6 +255,7 @@ void QuadrupedMotion::Load(physics::ModelPtr _model,
       &QuadrupedMotion::OnKeyPress, this);
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
           boost::bind(&QuadrupedMotion::OnUpdate, this));
+  gzmsg << "+++ " << this->model->GetName() << " is ready\n";
 }
 
 void Disp_Usage(void)

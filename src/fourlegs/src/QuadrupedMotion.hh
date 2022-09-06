@@ -30,7 +30,7 @@ enum gzIT_number
 {
   gzIT_Motion = 0,
   gzIT_Motor,
-  MaxInvervalTimers
+  gzIT_MaxTimers
 };
 
 namespace gazebo
@@ -60,7 +60,7 @@ namespace gazebo
     private: physics::LinkPtr link, leftWheelLink, rightWheelLink;
     
     // For controling OnUpdate Speed
-    private: gzIntervalTimer gzIT[MaxInvervalTimers];
+    private: gzIntervalTimer gzIT[gzIT_MaxTimers];
   };
 }
 #endif
