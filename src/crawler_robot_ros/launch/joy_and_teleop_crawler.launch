@@ -8,9 +8,7 @@
   <arg name="gc_jyp62"    default="false"/>
   <group ns="$(arg robot_name)">
     <!-- start joy_node -->
-    <node pkg="joy" type="joy_node" name="joy_node">
-      <param name="_dev" value="$(arg dev)" />
-    </node> 
+    <node pkg="joy" type="joy_node" name="joy_node" args="_dev:=$(arg dev)"/>
     <!-- start teleop_crawler -->
     <node pkg="crawler_robot_ros" type="teleop_crawler" name="teleop_crawler"
           output="screen" >
