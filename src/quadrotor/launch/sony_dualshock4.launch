@@ -8,7 +8,7 @@
   <arg name="control_mode" default="velocity"/>
 
   <group ns="$(arg robot)">
-  <node name="joy" pkg="joy" type="joy_node" output="screen" args="_dev:=$(arg joy_dev)"/>
+  <node name="joy" pkg="joy" type="joy_node" output="screen" args="_dev:=$(arg joy_dev)">
     <param name="autorepeat_rate" value="10" />
     <param name="coalesce_interval" value="0.01" />
   </node>
