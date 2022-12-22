@@ -60,6 +60,7 @@ catkin_python_setup()
 #)
 
 include_directories(include
+  ../gzPluginUtils/include
   ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${GAZEBO_INCLUDE_DIRS}

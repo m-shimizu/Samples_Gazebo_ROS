@@ -1,3 +1,5 @@
+// The original file is in https://github.com/m-shimizu/Samples_Gazebo_ROS/tree/ROS-Noetic_Gazebo11/src/gzPluginUtils/include
+
 #ifndef _GAZEBO_INTERVAL_TIMER_HH_
 #define _GAZEBO_INTERVAL_TIMER_HH_
 
@@ -72,29 +74,35 @@ namespace gazebo
 #endif
 
 #ifdef _____SAMPLE_TO_USE______
-  
-enum gzIT_number
+
+#include "gzIntervalTimer.hh"                    // <<<<<<<<<<<<<<<<< ADD THIS
+
+enum gzIT_number                                 // <<<<<<<<<<<<<<<<< ADD THIS
 {
-  gzIT_Motion = 0,
-  gzIT_Motor,
+  gzIT_TIMER1 = 0,
+  gzIT_TIMER2,
   gzIT_MaxTimers
 };
 
 namespace gazebo
 {
-  class GAZEBO_VISIBLE QuadrupedMotion : public ModelPlugin
+  class GAZEBO_VISIBLE XLegRobot : public ModelPlugin
   {
-    public: QuadrupedMotion();
-    public: virtual void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf);
-    public: virtual void Init();
-    private: void OnUpdate();
-    // For controling OnUpdate Speed
-    private: gzIntervalTimer gzIT[gzIT_MaxTimers];
+  public: 
+    QuadrupedMotion();
+    virtual void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf);
+    virtual void Init();
+    void         OnUpdate();
+  private:
+    physics::ModelPtr    model;
+    sdf::ElementPtr      sdf;
+    transport::NodePtr   node;
+    event::ConnectionPtr updateConnection;
+    gzIntervalTimer      gzIT[gzIT_MaxTimers];         // <<<<<<<<<<< ADD THIS
   };
 }
 
-void QuadrupedMotion::Load(physics::ModelPtr _model,
-                           sdf::ElementPtr _sdf)
+void XLegRobot::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
   this->model = _model;
   this->node = transport::NodePtr(new transport::Node());
@@ -106,27 +114,24 @@ void QuadrupedMotion::Load(physics::ModelPtr _model,
 #endif
 
   // Settings for interval timers in the OnUpdate function.
-  gzIT[gzIT_Motion].Init(this->model);
-  gzIT[gzIT_Motion].setintervalFreq(100);  // Hz
-  gzIT[gzIT_Motor].Init(this->model);
-  gzIT[gzIT_Motor].setintervalFreq(500);  // Hz
+  gzIT[gzIT_TIMER1].Init(this->model);           // <<<<<<<<<<<<<<<<< ADD THIS
+  gzIT[gzIT_TIMER1].setintervalFreq(100);  // Hz // <<<<<<<<<<<<<<<<< ADD THIS
+  gzIT[gzIT_TIMER2].Init(this->model);           // <<<<<<<<<<<<<<<<< ADD THIS
+  gzIT[gzIT_TIMER2].setintervalFreq(500);  // Hz // <<<<<<<<<<<<<<<<< ADD THIS
 
   this->updateConnection = event::Events::ConnectWorldUpdateBegin(
           boost::bind(&QuadrupedMotion::OnUpdate, this));
 }
 
-void QuadrupedMotion::OnUpdate()
+void XLegRobot::OnUpdate()
 {
-  if(gzIT[gzIT_Motion].overIntervalPeriod())
+  if(gzIT[gzIT_TIMER1].overIntervalPeriod())     // <<<<<<<<<<<<<<<<< ADD THIS
   {
-//    check_key_command(&mdblp);
-    MotionPlayer(mdblp);
+    foo1();  // foo1 can be called in 100Hz
   }
-  if(gzIT[gzIT_Motor].overIntervalPeriod())
+  if(gzIT[gzIT_TIMER1].overIntervalPeriod())     // <<<<<<<<<<<<<<<<< ADD THIS
   {
-    for(int _motor = 0; _motor < G_JOINTS; _motor++)
-      Move_A_Joint(_motor);
-//    this->model->GetJointController()->Update();
+    foo2();  // foo2 can be called in 500Hz
   }
 }
 #endif

@@ -22,6 +22,7 @@ find_package(Boost REQUIRED COMPONENTS thread)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 include_directories(include
+  ../gzPluginUtils/include
   ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${GAZEBO_INCLUDE_DIRS}

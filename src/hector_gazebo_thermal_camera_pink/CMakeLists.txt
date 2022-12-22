@@ -22,8 +22,16 @@ if (PKG_CONFIG_FOUND)
   pkg_check_modules(OGRE OGRE)
   pkg_check_modules(OGRE-Paging OGRE-Paging)
 endif()
-include_directories(${OGRE_INCLUDE_DIRS} ${OGRE-Paging_INCLUDE_DIRS})
-link_directories(${OGRE_LIBRARY_DIRS} ${OGRE-Paging_LIBRARY_DIRS})
+include_directories(
+  ../gzPluginUtils/include 
+  ${OGRE_INCLUDE_DIRS} 
+  ${OGRE-Paging_INCLUDE_DIRS}
+)
+
+link_directories(
+  ${OGRE_LIBRARY_DIRS} 
+  ${OGRE-Paging_LIBRARY_DIRS}
+)
 
 ## Find Boost
 find_package(Boost REQUIRED COMPONENTS thread)
