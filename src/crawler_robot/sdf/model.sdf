@@ -1754,6 +1754,7 @@
 <!--
 -->
     <plugin name="crawler_flipper" filename="libcrawler_flipper.so">
+      <Joy_Dev>/dev/input/js0</Joy_Dev>
       <right_front_arm>right_front_arm_joint</right_front_arm>
       <right_rear_arm>right_rear_arm_joint</right_rear_arm>
       <left_front_arm>left_front_arm_joint</left_front_arm>
