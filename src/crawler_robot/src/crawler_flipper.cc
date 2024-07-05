@@ -90,6 +90,9 @@ class MobileBasePlugin : public ModelPlugin
 
   /// Flipper target angle 
   double Target_FLP_FR, Target_FLP_FL, Target_FLP_RR, Target_FLP_RL;
+  
+  /// Error
+  int err;
 
   public:
   MobileBasePlugin(void)
@@ -124,7 +127,7 @@ class MobileBasePlugin : public ModelPlugin
                   boost::bind(&MobileBasePlugin::OnUpdate, this));
     }
     
-    int err = 0;  
+    err = 0;  
     err += gzJS.Init("Joy_Dev", _sdf);        // <<<<<<<<<<<<<<<<< ADD THIS
     
     gzIT[gzIT_Joy].Init(this->model);
@@ -425,6 +428,8 @@ public:
             +32767                 +32767                    +32767
     */
     // Get the joystick current status.
+    if(gzJS.has_err())
+      return;
     gzJS.check_joystick();              // <<<<<<<<<<<<<<<<< ADD THIS and follows
     // Display the joystick current status for debugging.
 //    if(gzJS.updated())
