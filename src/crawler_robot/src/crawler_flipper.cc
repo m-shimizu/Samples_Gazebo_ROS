@@ -36,6 +36,47 @@ namespace gazebo
 {
 class MobileBasePlugin : public ModelPlugin
 {
+/* 
+  struct Axis
+  {
+    Axis(const std::string& _name)
+      : axis(0), factor(0.0), offset(0.0), name(_name)
+    {}
+    int axis;
+    double factor;
+    double offset;
+    std::string name;
+  };
+
+  struct Velocity
+  {
+    Velocity()
+      : speed("Speed"), turn("Turn")
+    {}
+    Axis speed, turn;
+  } velocity;
+*/
+  struct Flipper
+  {
+    Flipper(const std::string& _name) 
+     : w(5.0), targetAngle(0.0), defaultAngle(M_PI/4.0), 
+       upButton(0), downButton(0), name(_name) 
+    {}
+    int    upButton, downButton, last_upB, last_downB;
+    double w;
+    double targetAngle;
+    double defaultAngle;
+    std::string name;
+  };
+
+  struct Flippers 
+  {
+    Flippers()
+      : fr("fr"), fl("fl"), rr("rr"), rl("rl")
+    {}
+    Flipper fr, fl, rr, rl;
+  } flippers;
+ 
   gzIntervalTimer          gzIT[gzIT_MaxTimers];
   gzJoystick               gzJS; 
   transport::NodePtr node;
@@ -89,7 +130,12 @@ class MobileBasePlugin : public ModelPlugin
   double wheelRadius;
 
   /// Flipper target angle 
-  double Target_FLP_FR, Target_FLP_FL, Target_FLP_RR, Target_FLP_RL;
+  #define Target_FLP_FR flippers.fr.targetAngle
+  #define Target_FLP_FL flippers.fl.targetAngle
+  #define Target_FLP_RR flippers.rr.targetAngle
+  #define Target_FLP_RL flippers.rl.targetAngle
+  /// Error
+  int err;
 
   public:
   MobileBasePlugin(void)
@@ -124,40 +170,40 @@ class MobileBasePlugin : public ModelPlugin
                   boost::bind(&MobileBasePlugin::OnUpdate, this));
     }
     
-    int err = 0;  
+    err = 0;  
     err += gzJS.Init("Joy_Dev", _sdf);        // <<<<<<<<<<<<<<<<< ADD THIS
     
     gzIT[gzIT_Joy].Init(this->model);
     gzIT[gzIT_Joy].setintervalFreq(100);  // Hz
 
-    // Read parameters for structure flipper.fr
-    flipper.fr.upButton = 8;     // Printed as 9
-    flipper.fr.downButton = 9;   // Printed as 10
-    flipper.fr.w = 2.0 * M_PI / 20.0;
-    flipper.fr.defaultAngle = M_PI / 4.0;
-    flipper.fr.currentAngle = flipper.fr.defaultAngle;
-    flipper.fr.last_upB = flipper.fr.last_downB = 0;
-    // Read parameters for structure flipper.fr
-    flipper.fl.upButton = 6;     // Printed as 7
-    flipper.fl.downButton = 7;   // Printed as 8
-    flipper.fl.w = 2.0 * M_PI / 20.0;
-    flipper.fl.defaultAngle = M_PI / 4.0;
-    flipper.fl.currentAngle = flipper.fl.defaultAngle;
-    flipper.fl.last_upB = flipper.fl.last_downB = 0;
-    // Read parameters for structure flipper.fr
-    flipper.rr.upButton = 5;     // Printed as 6
-    flipper.rr.downButton = 2;   // Printed as 3
-    flipper.rr.w = 2.0 * M_PI / 20.0;
-    flipper.rr.defaultAngle = M_PI / 4.0;
-    flipper.rr.currentAngle = flipper.rr.defaultAngle;
-    flipper.rr.last_upB = flipper.rr.last_downB = 0;
-    // Read parameters for structure flipper.fr
-    flipper.rl.upButton = 4;     // Printed as 5
-    flipper.rl.downButton = 1;   // Printed as 2
-    flipper.rl.w = 2.0 * M_PI / 20.0;
-    flipper.rl.defaultAngle = M_PI / 4.0;
-    flipper.rl.currentAngle = flipper.rl.defaultAngle;
-    flipper.rl.last_upB = flipper.rl.last_downB = 0;
+    // Read parameters for structure flippers.fr
+    flippers.fr.upButton = 8;     // Printed as 9
+    flippers.fr.downButton = 9;   // Printed as 10
+    flippers.fr.w = 2.0 * M_PI / 20.0;
+    flippers.fr.defaultAngle = M_PI / 4.0;
+    flippers.fr.targetAngle  = flippers.fr.defaultAngle;
+    flippers.fr.last_upB = flippers.fr.last_downB = 0;
+    // Read parameters for structure flippers.fr
+    flippers.fl.upButton = 6;     // Printed as 7
+    flippers.fl.downButton = 7;   // Printed as 8
+    flippers.fl.w = 2.0 * M_PI / 20.0;
+    flippers.fl.defaultAngle = M_PI / 4.0;
+    flippers.fl.targetAngle  = flippers.fl.defaultAngle;
+    flippers.fl.last_upB = flippers.fl.last_downB = 0;
+    // Read parameters for structure flippers.fr
+    flippers.rr.upButton = 5;     // Printed as 6
+    flippers.rr.downButton = 2;   // Printed as 3
+    flippers.rr.w = 2.0 * M_PI / 20.0;
+    flippers.rr.defaultAngle = M_PI / 4.0;
+    flippers.rr.targetAngle  = flippers.rr.defaultAngle;
+    flippers.rr.last_upB = flippers.rr.last_downB = 0;
+    // Read parameters for structure flippers.fr
+    flippers.rl.upButton = 4;     // Printed as 5
+    flippers.rl.downButton = 1;   // Printed as 2
+    flippers.rl.w = 2.0 * M_PI / 20.0;
+    flippers.rl.defaultAngle = M_PI / 4.0;
+    flippers.rl.targetAngle  = flippers.rl.defaultAngle;
+    flippers.rl.last_upB = flippers.rl.last_downB = 0;
     
     Usage();
   }
@@ -337,47 +383,7 @@ class MobileBasePlugin : public ModelPlugin
 #endif
     set_velocity(vel_lin - vel_rot, vel_lin + vel_rot);
   }
- 
-  struct Axis
-  {
-    Axis(const std::string& _name)
-      : axis(0), factor(0.0), offset(0.0), name(_name)
-    {}
-    int axis;
-    double factor;
-    double offset;
-    std::string name;
-  };
 
-  struct Velocity
-  {
-    Velocity()
-      : speed("Speed"), turn("Turn")
-    {}
-    Axis speed, turn;
-  } velocity;
-
-  struct Flipper
-  {
-    Flipper(const std::string& _name) 
-     : w(5.0), currentAngle(0.0), defaultAngle(M_PI/4.0), 
-       upButton(0), downButton(0), name(_name) 
-    {}
-    int    upButton, downButton, last_upB, last_downB;
-    double w;
-    double currentAngle;
-    double defaultAngle;
-    std::string name;
-  };
-
-  struct Flippers 
-  {
-    Flippers()
-      : fr("fr"), fl("fl"), rr("rr"), rl("rl")
-    {}
-    Flipper fr, fl, rr, rl;
-  } flipper;
- 
 public:
   void Usage(void)
   {
@@ -387,13 +393,13 @@ public:
     printf("--------------------------------------------------------\n");
     printf(" Flipper Moving : (followings are number of button)\n");
     printf("    Front Right : up=%d , down=%d\n"
-                             , flipper.fr.upButton+1, flipper.fr.downButton+1);
+                             , flippers.fr.upButton+1, flippers.fr.downButton+1);
     printf("    Front Left  : up=%d , down=%d\n"
-                             , flipper.fl.upButton+1, flipper.fl.downButton+1);
+                             , flippers.fl.upButton+1, flippers.fl.downButton+1);
     printf("    Rear  Right : up=%d , down=%d\n"
-                             , flipper.rr.upButton+1, flipper.rr.downButton+1);
+                             , flippers.rr.upButton+1, flippers.rr.downButton+1);
     printf("    Rear  Left  : up=%d , down=%d\n"
-                             , flipper.rl.upButton+1, flipper.rl.downButton+1);
+                             , flippers.rl.upButton+1, flippers.rl.downButton+1);
     printf("\n");
     printf("========================================================\n");    
   }
@@ -415,6 +421,49 @@ public:
   #define FlpAngStp 0.1
  // jrx,y が右スティック jlx,y が左スティック Button は 1~16 が 0~15 に対応
 
+  void each_flipper_joy(Flipper& flp)
+  {
+    if(gzJS.button[flp.upButton].changed() || gzJS.button[flp.downButton].changed())
+    {
+      if(gzJS.button[flp.upButton].changed() && gzJS.button[flp.downButton].changed())
+      {
+//         printf("Make the %s flipper arm home position.\n", flp.name.c_str()); 
+         flp.targetAngle = flp.defaultAngle;
+         gzJS.button[flp.upButton].reset_change_status();
+         gzJS.button[flp.downButton].reset_change_status();
+      }
+      else
+      {
+        if(gzJS.button[flp.upButton].changed())
+        {
+          if(gzJS.button[flp.upButton].pushed())
+          {
+//            printf("Button %d was pushed.\n", flp.upButton+1); 
+            flp.targetAngle += FlpAngStp;
+          }
+          else if(gzJS.button[flp.upButton].released())
+          {
+//            printf("Button %d was released.\n", flp.upButton+1);
+          }
+          gzJS.button[flp.upButton].reset_change_status();
+        }
+        if(gzJS.button[flp.downButton].changed())
+        {
+          if(gzJS.button[flp.downButton].pushed())
+          {
+//            printf("Button %d was pushed.\n", flp.downButton+1);
+            flp.targetAngle -= FlpAngStp;
+          }
+          else if(gzJS.button[flp.downButton].released())
+          {
+//            printf("Button %d was released.\n", flp.downButton+1); 
+          }
+          gzJS.button[flp.downButton].reset_change_status();
+        }
+      }
+    }
+  }
+
   void check_joystick(void)
   {
     /* [BUFFALO BSGP1601]
@@ -425,6 +474,8 @@ public:
             +32767                 +32767                    +32767
     */
     // Get the joystick current status.
+    if(gzJS.has_err())
+      return;
     gzJS.check_joystick();              // <<<<<<<<<<<<<<<<< ADD THIS and follows
     // Display the joystick current status for debugging.
 //    if(gzJS.updated())
@@ -440,148 +491,16 @@ public:
     //ここでモーションを設定する．
     
   //right_front_fripper_motion
-    if(gzJS.button[flipper.fr.upButton].changed() || gzJS.button[flipper.fr.downButton].changed())
-    {
-      if(gzJS.button[flipper.fr.upButton].changed() && gzJS.button[flipper.fr.downButton].changed())
-      {
-//         printf("Make the RIGHT FRONT flipper arm home position.\n"); 
-         Target_FLP_FR = flipper.fr.defaultAngle;
-      }
-      if(gzJS.button[flipper.fr.upButton].changed())
-      {
-        if(gzJS.button[flipper.fr.upButton].pushed())
-        {
-//          printf("Button 9 was pushed.\n"); 
-          Target_FLP_FR = Target_FLP_FR + FlpAngStp;
-        }
-        else if(gzJS.button[flipper.fr.upButton].released())
-        {
-//          printf("Button 9 was released.\n");
-        }
-        gzJS.button[flipper.fr.upButton].reset_change_status();
-      }
-      if(gzJS.button[flipper.fr.downButton].changed())
-      {
-        if(gzJS.button[flipper.fr.downButton].pushed())
-        {
-//          printf("Button 10 was pushed.\n");
-          Target_FLP_FR = Target_FLP_FR - FlpAngStp;
-        }
-        else if(gzJS.button[flipper.fr.downButton].released())
-        {
-//          printf("Button 10 was released.\n"); 
-        }
-        gzJS.button[flipper.fr.downButton].reset_change_status();
-      }
-    }
+    each_flipper_joy(flippers.fr);
     
   //left_front_fripper_motion
-    if(gzJS.button[flipper.fl.upButton].changed() || gzJS.button[flipper.fl.downButton].changed())
-    {
-      if(gzJS.button[flipper.fl.upButton].changed() && gzJS.button[flipper.fl.downButton].changed())
-      {
-//        printf("Make the LEFT FRONT flipper arm home position.\n"); 
-        Target_FLP_FL = flipper.fl.defaultAngle;
-      }
-      if(gzJS.button[flipper.fl.upButton].changed())
-      {
-        if(gzJS.button[flipper.fl.upButton].pushed())
-        {
-//          printf("Button 7 was pushed.\n"); 
-          Target_FLP_FL = Target_FLP_FL + FlpAngStp;
-        }
-        else if(gzJS.button[flipper.fl.upButton].released())
-        {
-//          printf("Button 7 was released.\n");
-        }
-        gzJS.button[flipper.fl.upButton].reset_change_status();
-      }
-      if(gzJS.button[flipper.fl.downButton].changed())
-      {
-        if(gzJS.button[flipper.fl.downButton].pushed())
-        {
-//          printf("Button 8 was pushed.\n");
-          Target_FLP_FL = Target_FLP_FL - FlpAngStp;
-        }
-        else if(gzJS.button[flipper.fl.downButton].released())
-        {
-//          printf("Button 8 was released.\n"); 
-        }
-        gzJS.button[flipper.fl.downButton].reset_change_status();
-      }
-    }
+    each_flipper_joy(flippers.fl);
     
   //right_rear_fripper_motion
-    if(gzJS.button[flipper.rr.upButton].changed() || gzJS.button[flipper.rr.downButton].changed())
-    {
-      if(gzJS.button[flipper.rr.upButton].changed() && gzJS.button[flipper.rr.downButton].changed())
-      {
-//         printf("Make the RIGHT REAR flipper arm home position.\n"); 
-         Target_FLP_RR = flipper.rr.defaultAngle;
-      }
-      if(gzJS.button[flipper.rr.upButton].changed())
-      {
-        if(gzJS.button[flipper.rr.upButton].pushed())
-        {
-//          printf("Button 6 was pushed.\n"); 
-          Target_FLP_RR = Target_FLP_RR + FlpAngStp;
-        }
-        else if(gzJS.button[flipper.rr.upButton].released())
-        {
-//          printf("Button 6 was released.\n");
-        }
-        gzJS.button[flipper.rr.upButton].reset_change_status();
-      }
-      if(gzJS.button[flipper.rr.downButton].changed())
-      {
-        if(gzJS.button[flipper.rr.downButton].pushed())
-        {
-//          printf("Button 3 was pushed.\n");
-          Target_FLP_RR = Target_FLP_RR - FlpAngStp;
-        }
-        else if(gzJS.button[flipper.rr.downButton].released())
-        {
-//          printf("Button 3 was released.\n"); 
-        }
-        gzJS.button[flipper.rr.downButton].reset_change_status();
-      }
-    }
+    each_flipper_joy(flippers.rr);
     
   //left_rear_fripper_motion
-    if(gzJS.button[flipper.rl.upButton].changed() || gzJS.button[flipper.rl.downButton].changed())
-    {
-      if(gzJS.button[flipper.rl.upButton].changed() && gzJS.button[flipper.rl.downButton].changed())
-      {
-//         printf("Make the LEFT REAR flipper arm home position.\n"); 
-         Target_FLP_RL = flipper.rl.defaultAngle;
-      }
-      if(gzJS.button[flipper.rl.upButton].changed())
-      {
-        if(gzJS.button[flipper.rl.upButton].pushed())
-        {
-//          printf("Button 5 was pushed.\n"); 
-          Target_FLP_RL = Target_FLP_RL + FlpAngStp;
-        }
-        else if(gzJS.button[flipper.rl.upButton].released())
-        {
-//          printf("Button 5 was released.\n");
-        }
-        gzJS.button[flipper.rl.upButton].reset_change_status();
-      }
-      if(gzJS.button[flipper.rl.downButton].changed())
-      {
-        if(gzJS.button[flipper.rl.downButton].pushed())
-        {
-//          printf("Button 2 was pushed.\n");
-          Target_FLP_RL = Target_FLP_RL - FlpAngStp;
-        }
-        else if(gzJS.button[flipper.rl.downButton].released())
-        {
-//          printf("Button 2 was released.\n"); 
-        }
-        gzJS.button[flipper.rl.downButton].reset_change_status();
-      }
-    }
+    each_flipper_joy(flippers.rl);
     
   //robot moving control
     set_joy_vel(joyLY, joyLX);
