@@ -198,6 +198,10 @@ namespace gazebo
                                                        , buf_axis.append("  ");
       gzmsg << "Button: " << buf_bttn << "\n        Axis: " << buf_axis << "\n";
     }
+    int has_err(void)
+    {
+      return err;
+    }
   private: 
     std::string       dev_joy;
     int               fd_joy;
