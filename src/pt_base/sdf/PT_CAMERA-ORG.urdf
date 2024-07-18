@@ -1,0 +1,120 @@
+<?xml version="1.0" ?>
+<robot name="PT_CAMERA">
+  <link name="PT_Base_Lower">
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="3.15e-06" ixy="0" ixz="0" iyy="3.15e-06" iyz="0" izz="6.13e-06"/>
+      <origin rpy="0 -0 0" xyz="0 0 0"/>
+    </inertial>
+    <origin rpy="0 -0 0" xyz="0 0 -0.015"/>
+    <kinematic>0</kinematic>
+    <enable_wind>0</enable_wind>
+    <visual>
+      <origin rpy="0 -0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.035"/>
+      </geometry>
+      <material name="Gazebo/Grey">
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/Grey</name>
+        </script>
+        <shader type="pixel">
+          <normal_map>__default__</normal_map>
+        </shader>
+      </material>
+      <transparency>0</transparency>
+      <cast_shadows>1</cast_shadows>
+    </visual>
+  </link>
+  <link name="PT_Base_Upper">
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="5.146e-05" ixy="0" ixz="0" iyy="5.146e-05" iyz="0" izz="6.125e-05"/>
+      <origin rpy="0 -0 0" xyz="0 0 0"/>
+    </inertial>
+    <origin rpy="0 -0 0" xyz="0 0 0.015"/>
+    <kinematic>0</kinematic>
+    <enable_wind>0</enable_wind>
+    <visual>
+      <origin rpy="0 -0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/shimizulab/t121085-BANNO/models/PT_CAMERA/PT_Base_Upper.dae"/>
+      </geometry>
+      <material name="Gazebo/Black">
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/Black</name>
+        </script>
+        <shader type="pixel">
+          <normal_map>__default__</normal_map>
+        </shader>
+      </material>
+      <transparency>0</transparency>
+      <cast_shadows>1</cast_shadows>
+    </visual>
+  </link>
+  <joint name="JOINT_PAN" type="revolute">
+    <parent link="PT_Base_Lower"/>
+    <child link="PT_Base_Upper"/>
+    <origin rpy="0 -0 0" xyz="0 0 0"/>
+    <axis xyz="-0 -0 -1"/>
+    <limit effort="-1" lower="-3.14" upper="3.14" velocity="-1"/>
+    <dynamics damping="0" spring_reference="0" spring_stiffness="0"/>
+  </joint>
+  <link name="camera_link">
+    <audio_sink/>
+    <origin rpy="0 0 0" xyz="0 0 0.04"/>
+    <inertial>
+      <mass value="0.06"/>
+      <inertia ixx="2.5e-05" ixy="0" ixz="0" iyy="4.45e-05" iyz="0" izz="4.45e-05"/>
+      <origin rpy="0 -0 0" xyz="0 0 0"/>
+    </inertial>
+    <enable_wind>0</enable_wind>
+    <kinematic>0</kinematic>
+    <visual>
+      <origin rpy="0 -0 0" xyz="-0.01 0 0"/>
+      <geometry>
+        <box size="0.07 0.05 0.05"/>
+      </geometry>
+      <material name="Gazebo/Grey">
+        <shader type="pixel">
+          <normal_map>__default__</normal_map>
+        </shader>
+      </material>
+      <transparency>0</transparency>
+      <cast_shadows>1</cast_shadows>
+    </visual>
+    <visual>
+      <origin rpy="0 1.57 0" xyz="0.04 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.025"/>
+      </geometry>
+      <material name="Gazebo/FlatBlack">
+        <shader type="pixel">
+          <normal_map>__default__</normal_map>
+        </shader>
+      </material>
+      <transparency>0</transparency>
+      <cast_shadows>1</cast_shadows>
+    </visual>
+  </link>
+  <joint name="JOINT_TILT" type="revolute">
+    <parent link="PT_Base_Upper"/>
+    <child link="camera_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="-0 -1 0"/>
+    <limit effort="-1" lower="-0.7" upper="2.27" velocity="-1"/>
+    <dynamics damping="0" spring_reference="0" spring_stiffness="0"/>
+  </joint>
+  <allow_auto_disable>1</allow_auto_disable>
+  <material name="Gazebo/Grey">
+    <color rgba=".3 .3 .3 1.0"/>
+  </material>
+  <material name="Gazebo/Black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="Gazebo/FlatBlack">
+    <color rgba="0.1 0.1 0.1 1.0"/>
+  </material>
+</robot>

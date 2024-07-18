@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='test_pt_base'>
+    
+    <include>
+      <uri>model://pt_base</uri>
+      <name>pt_base</name>
+      <pose>0 0 0.3 0 0 0</pose> 
+    </include>
+  
+    <joint name='PT_CAMERA_FIX' type='fixed'>
+      <parent>world</parent>
+      <child>pt_base::PT_Base_Lower</child>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>   
+
+    <static>0</static>
+    <allow_auto_disable>1</allow_auto_disable>
+
+  </model>
+</sdf>
