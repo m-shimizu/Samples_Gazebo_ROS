@@ -1,0 +1,44 @@
+<!-- DETAILS in https://wiki.ros.org/joy/Tutorials/WritingTeleopNode -->
+
+<launch>
+  <arg name="paused"     default="false"/>
+  <arg name="gui"        default="true"/>
+  <arg name="audio"      default="false"/>
+  <arg name="use_teleop" default="false"/>
+  <arg name="use_joy"    default="true"/>
+  <arg name="joy_dev"    default="/dev/input/js0"/>
+  <arg name="verbose"    default="false"/>
+  <arg name="world"      default="test_pt_base.world"/>
+  <arg name="robot_name" default="robot"/>
+  <arg name="modelSdf"   default="test_pt_base_model.sdf"/>
+
+  <param name="use_sim_time" value="true"/>    
+
+  <!-- Axes -->
+  <param name="axis_linear" value="1" type="int"/>
+  <param name="axis_angular" value="0" type="int"/>
+  <param name="scale_linear" value="2" type="double"/>
+  <param name="scale_angular" value="2" type="double"/>
+
+  <!-- Launch Gazebo -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" 
+         output="screen" args="$(dirname)/../worlds/$(arg world)"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" 
+         output="screen" if="$(arg gui)"/>
+
+  <!-- Make robot_description and run robot_state_publisher --> 
+  <include file="$(dirname)/../launch/make_robot_description_and_call_state_publisher_pt_base.launch">
+    <arg name="robot_name"  value="$(arg robot_name)"/>
+    <arg name="xcoordinate" value="0.0"/>
+    <arg name="ycoordinate" value="0.0"/>
+    <arg name="zcoordinate" value="0.0"/>
+    <arg name="modelSdf"    value="$(arg modelSdf)"/>
+  </include> 
+  
+  <!-- joy node -->
+  <node respawn="true" pkg="joy" type="joy_node" name="joy" >
+    <param name="dev" type="string" value="$(arg joy_dev)" />
+    <param name="deadzone" value="0.12" />
+  </node>
+
+</launch>
