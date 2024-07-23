@@ -1,0 +1,50 @@
+dev: "/dev/input/js0"
+device_name: "/dev/input/event18"
+loop_rate: 0.1
+max_torque: 1.0
+min_torque: 0.2
+brake_torque_rate: 0.2
+brake_position: 0.1
+auto_centering_max_torque: 0.3
+auto_centering_max_position: 0.2
+eps: 0.01
+auto_centering: true
+mappings:
+  axes:
+    - 3.14 * ( axes[0] + 0 ) * buttons[12] - 3.14 * ( axes[0] + 0 ) * buttons[17]
+    - 2.0 * ( axes[2] + 1 ) * buttons[12] - 2.0 * ( axes[2] + 1 ) * buttons[17]
+    - axes[2]
+    - axes[3]
+    - axes[4]
+    - axes[5]
+    - 2.0 * axes[0]
+    - 0.5 * ( axes[1] + 1 )
+    - 0.5 * ( axes[3] + 1 )
+    - 0.5 * ( axes[2] + 1 ) * buttons[12] - 0.5 * ( axes[2] + 1 ) * buttons[17]
+  buttons:
+    - buttons[12] + buttons[17]
+    - buttons[1]
+    - buttons[2]
+    - buttons[3]
+    - buttons[4]
+    - buttons[5]
+    - buttons[6]
+    - buttons[7]
+    - buttons[8]
+    - buttons[9]
+    - buttons[10]
+    - buttons[11]
+    - buttons[12]
+    - buttons[13]
+    - buttons[14]
+    - buttons[15]
+    - buttons[16]
+    - buttons[17]
+    - buttons[18]
+    - buttons[19]
+    - buttons[20]
+    - buttons[21]
+    - buttons[22]
+    - buttons[23]
+    - buttons[24]
+

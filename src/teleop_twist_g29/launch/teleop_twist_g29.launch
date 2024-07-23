@@ -1,0 +1,20 @@
+<launch>
+  <arg name="robot_name" default="robot"/>
+  <rosparam command="load" file="$(find teleop_twist_g29)/config/g29.yaml"/>
+  <node name="ros_g29_force_feedback_node" pkg="ros_g29_force_feedback" type="ros_g29_force_feedback_node" output="screen">
+    <rosparam command="load" file="$(find teleop_twist_g29)/config/g29.yaml"/>
+  </node>
+  <node name="joy_node" pkg="joy" type="joy_node">
+    <remap from="joy" to="joy_orig"/>
+    <rosparam command="load" file="$(find teleop_twist_g29)/config/g29.yaml"/>
+  </node>
+  <node name="joy_remap" pkg="joy" type="joy_remap.py">
+    <remap from="joy_in" to="joy_orig"/>
+    <remap from="joy_out" to="joy"/>
+    <rosparam command="load" file="$(find teleop_twist_g29)/config/g29.yaml"/>
+  </node>
+  <node name="twist_joy_node" pkg="teleop_twist_joy" type="teleop_node">
+    <remap from="/cmd_vel" to="/$(arg robot_name)/cmd_vel"/>
+    <rosparam command="load" file="$(find teleop_twist_g29)/config/g29.yaml"/>
+  </node>
+</launch>
