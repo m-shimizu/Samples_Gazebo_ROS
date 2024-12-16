@@ -242,6 +242,25 @@ namespace gazebo
       // Success!
       return 0;
     }
+    int RegisterLink(physics::LinkPtr &_link, const std::string &_xmlTag)
+    {
+      int               err = 0;
+      std::string       nameLink;
+      physics::LinkPtr  buf;
+      if(need_sdf() || need_model())
+        return 1;
+      if((err = this->GetString(nameLink, _xmlTag)))
+        return err;
+      if(!(buf = this->model->GetLink(nameLink)))
+      {
+        gzerr << "Unable to find the link:" << nameLink
+              <<  " in model:" << this->model->GetName() << ".\n";
+        return 1;
+      }
+      _link = buf;
+      // Success!
+      return 0;
+    }
   private:
     physics::ModelPtr model;
     sdf::ElementPtr   sdf;
