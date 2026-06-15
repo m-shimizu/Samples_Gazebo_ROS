@@ -223,11 +223,11 @@
     </link>
     <!--  ----------------------------  -->
     <joint type="revolute" name="J_FR_021">
-      <pose>0 0 0 0 0 0</pose>
-      <child>FR0</child>
-      <parent>FR1</parent>
+      <pose>0 0.03 0 0 0 0</pose>
+      <child>FR1</child>
+      <parent>FR0</parent>
       <axis>
-        <xyz>0 0 -1</xyz>
+        <xyz>0 0 1</xyz>
       </axis>
     </joint>
     <!--  ----------------------------  -->
@@ -413,11 +413,11 @@
     </link>
     <!--  ----------------------------  -->
     <joint type="revolute" name="J_FL_021">
-      <pose>0 0 0 0 0 0</pose>
-      <child>FL0</child>
-      <parent>FL1</parent>
+      <pose>0 -0.03 0 0 0 0</pose>
+      <child>FL1</child>
+      <parent>FL0</parent>
       <axis>
-        <xyz>0 0 1</xyz>
+        <xyz>0 0 -1</xyz>
       </axis>
     </joint>
     <!--  ----------------------------  -->
@@ -603,11 +603,11 @@
     </link>
     <!--  ----------------------------  -->
     <joint type="revolute" name="J_RR_021">
-      <pose>0 0 0 0 0 0</pose>
-      <child>RR0</child>
-      <parent>RR1</parent>
+      <pose>0 0.03 0 0 0 0</pose>
+      <child>RR1</child>
+      <parent>RR0</parent>
       <axis>
-        <xyz>0 0 1</xyz>
+        <xyz>0 0 -1</xyz>
       </axis>
     </joint>
     <!--  ----------------------------  -->
@@ -793,11 +793,11 @@
     </link>
     <!--  ----------------------------  -->
     <joint type="revolute" name="J_RL_021">
-      <pose>0 0 0 0 0 0</pose>
-      <child>RL0</child>
-      <parent>RL1</parent>
+      <pose>0 -0.03 0 0 0 0</pose>
+      <child>RL1</child>
+      <parent>RL0</parent>
       <axis>
-        <xyz>0 0 -1</xyz>
+        <xyz>0 0 1</xyz>
       </axis>
     </joint>
     <!--  ----------------------------  -->
